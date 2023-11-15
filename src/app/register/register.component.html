@@ -1,0 +1,86 @@
+<div class="container">
+
+    <div class="row justify-content-center  m-4">
+        <div class="col-xl-10 col-lg-12 col-md-9"> 
+            <div class="row my-5 shadow-lg bg-white border-left-radius border-right-radius">
+                <div class="col-lg-6 p-0 border-left-radius bg-login-image text-center  d-sm-block d-none"><img src="/assets/wallpaper/3bb_logo.jpg" style="width: 350px; padding-top: 100px;"></div>
+                <div class="col-lg-6">
+                    <form [formGroup]="registerForm" (ngSubmit)="onSubmit()" class="user" novalidate>
+                        <div class="p-5">
+                            <div class="text-center">
+                                <img src="/assets/wallpaper/3bb_logo.jpg" style="width: 100%;" class="pb-3 d-sm-none">
+                                <h1 class="h4 text-gray-900 mb-4">ลงทะเบียนขอใช้งานระบบ</h1>
+                            </div>
+                            
+                                <div class="form-group">
+                                    <input type="email" 
+                                        class="form-control form-control-user" 
+                                        placeholder="อีเมล์" 
+                                        formControlName="users_usersname"
+                                        [class.is-invalid]="(registerForm.get('users_usersname')?.invalid && (registerForm.get('users_usersname')?.dirty || registerForm.get('users_usersname')?.touched))"
+                                    >
+                                    <div *ngIf="(registerForm.get('users_usersname')?.invalid && (registerForm.get('users_usersname')?.dirty || registerForm.get('users_usersname')?.touched))">
+                                        <small class="message-error m-3">ข้อมูลไม่ถูกต้อง</small>
+                                    </div>                                    
+                                </div>
+
+                                <div class="form-group">
+                                    <input type="password"
+                                        class="form-control form-control-user" 
+                                        placeholder="รหัสผ่าน" 
+                                        formControlName="users_password"
+                                        [class.is-invalid]="(registerForm.get('users_password')?.invalid && (registerForm.get('users_password')?.dirty || registerForm.get('users_password')?.touched))"
+                                    >
+                                    <div *ngIf="(registerForm.get('users_password')?.invalid && (registerForm.get('users_password')?.dirty || registerForm.get('users_password')?.touched))">
+                                        <small class="message-error m-3">กรุณากรอกรหัสผ่าน</small>
+                                    </div>                                      
+                                </div>
+
+                                <div class="form-group">
+                                    <input type="password" 
+                                        class="form-control form-control-user" 
+                                        placeholder="ยืนยันรหัสผ่าน" 
+                                        formControlName="users_password_confirm" 
+                                        [class.is-invalid]="(registerForm.get('users_password_confirm')?.touched && registerForm.errors?.['passwordMatchError'])"
+                                        [class.ng-invalid]="(registerForm.get('users_password_confirm')?.touched && registerForm.errors?.['passwordMatchError'])"
+                                    >
+                                    <div *ngIf="(registerForm.get('users_password_confirm')?.touched && registerForm.errors?.['passwordMatchError'])">
+                                        <small class="message-error m-3">Password กับ Confirm Password ไม่ตรงกัน</small>
+                                    </div>                       
+                                </div>
+
+                                <div class="form-group">
+                                    <input type="text" 
+                                        class="form-control form-control-user" 
+                                        placeholder="ชื่อ" 
+                                        formControlName="users_detail_firstname"
+                                        [class.is-invalid]="(registerForm.get('users_detail_firstname')?.invalid && (registerForm.get('users_detail_firstname')?.dirty || registerForm.get('users_detail_firstname')?.touched))"
+                                    >
+                                    <div *ngIf="(registerForm.get('users_detail_firstname')?.invalid && (registerForm.get('users_detail_firstname')?.dirty || registerForm.get('users_detail_firstname')?.touched))">
+                                        <small class="message-error m-3">กรุณากรอกชื่อ</small>
+                                    </div>                                        
+                                </div>  
+
+                                <div class="form-group">
+                                    <input type="text" 
+                                    class="form-control form-control-user" 
+                                    placeholder="นามสกุล" 
+                                    formControlName="users_detail_lastname"
+                                >
+                                </div>                         
+                                <button type="submit" class="btn btn-primary btn-user btn-block mb-2" [disabled]="registerForm.invalid"> ลงทะเบียนขอใช้งานระบบ </button>
+                                <div class="col-lg-6 mx-auto pt-2">
+                                    <asl-google-signin-button type='standard' size='medium' text="signup_with" shape="pill"></asl-google-signin-button>
+                                </div>
+                            <hr>
+                            <div class="text-center">
+                                <!-- <a class="" [routerLink]="['/']">เข้าสู่ระบบ!</a> -->
+                                <a href="/">เข้าสู่ระบบ!</a>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

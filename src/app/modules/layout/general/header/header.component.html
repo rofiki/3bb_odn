@@ -1,0 +1,59 @@
+
+<nav class="navbar navbar-expand-lg navbar-light bg-light shadow-sm border-bottom fixed-top" aria-label="Offcanvas navbar large">
+    <div class="container-fluid">
+      <!-- <a class="navbar-brand" href="#"><img src="/assets/logo-contractor.png" alt="..." height="36"> งานรับเหมาพาดสายสื่อสาร</a> -->
+      <a class="navbar-brand" href="javascript:void(0)">
+        <!-- <img src="/assets/fildan_firhan.png" alt="..." height="36">  -->
+        งานรับเหมาพาดสายสื่อสาร</a>
+      
+      <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar2" aria-controls="offcanvasNavbar2">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="offcanvas offcanvas-end text-bg-light" tabindex="-1" id="offcanvasNavbar2" aria-labelledby="offcanvasNavbar2Label">
+        <div class="offcanvas-header">
+          <h5 class="offcanvas-title" id="offcanvasNavbar2Label">เมนู</h5>
+          <button type="button" class="btn-close btn-close-dark" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+        </div>
+        <div class="offcanvas-body">
+          
+          <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
+            <li class="nav-item">
+              <a class="btn btn-primary btn-sm" [routerLink]="['/add']"><i class="fa-solid fa-plus"></i> เพิ่มงาน</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" [routerLink]="['/status']" routerLinkActive="active">สถานะงาน</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" [routerLink]="['/cost']" routerLinkActive="active">ค่าใช้จ่าย</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" [routerLink]="['/receipt']" routerLinkActive="active">ใบเสร็จรับเงิน</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" [routerLink]="['/payment']" routerLinkActive="active">รับเงิน</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" [routerLink]="['/setting']" routerLinkActive="active">ตั้งค่า/รายงาน</a>
+            </li>
+          </ul>
+          <div class="btn-group" dropdown>
+            <span id="button-basic" dropdownToggle  class=" dropdown-toggle" style="cursor: pointer;"
+                    aria-controls="dropdown-basic">
+                    <img src="https://github.com/mdo.png" alt="mdo" width="32" height="32" class="rounded-circle">
+            </span>
+            <ul id="dropdown-basic" *dropdownMenu class="dropdown-menu dropdown-menu-right"
+                role="menu" aria-labelledby="button-basic">
+              <li role="menuitem"><a class="dropdown-item" href="javascript:void(0)">111</a></li>
+              <li role="menuitem"><a class="dropdown-item" href="javascript:void(0)">222</a></li>
+              <li role="menuitem"><a class="dropdown-item" href="javascript:void(0)">333</a></li>
+              <li class="divider dropdown-divider"></li>
+              <li role="menuitem"><a class="dropdown-item" href="javascript:void(0)">ออกจากระบบ</a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  

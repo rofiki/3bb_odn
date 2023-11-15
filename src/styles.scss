@@ -1,0 +1,85 @@
+/* Importing Bootstrap SCSS file. */
+@import "./node_modules/bootstrap/scss/bootstrap";
+
+/* Importing Datepicker SCSS file. */
+@import "node_modules/ngx-bootstrap/datepicker/bs-datepicker";
+
+
+body {
+    margin: 0;
+    font-size: 14px;
+    font-family: "Prompt", sans-serif;
+    // background-image: url('https://img.freepik.com/free-vector/blue-curve-background_53876-113112.jpg?w=1380&t=st=1695658942~exp=1695659542~hmac=2ceb4e23fbed8a59a0f1341cc002e608e982194e641ca3af643e4a11b6cd3c7a');
+    // background-size: cover;
+//     Background: Radial-Gradient(
+//       Ellipse At Center,
+//       #Fffeea 0%,
+//       #Fffeea 35%,
+//       #B7e8eb 100%
+//   );
+// min-height: 75rem;
+// padding-top: 4.5rem;
+padding-top: 46px;
+  }
+  
+  .main-body {
+    margin-top: 80px;
+  }
+  .margin-footer {
+    margin-top: 80px;
+  }
+  
+  input.ng-touched.ng-invalid {
+    border: 2px solid #dc3545;
+    color: #ae2e3a;
+  }
+  
+  input.ng-touched.ng-valid {
+    border: 2px solid #198754;
+    color: #198754;
+  }
+  
+  a:link {
+    text-decoration: none;
+  }
+  
+  .card-header{
+    background-color: #f5f5f5;
+  }
+  
+  // loading
+  .loading-spinner{
+    width:30px;
+    height:30px;
+    border:2px solid indigo;
+    border-radius:50%;
+    border-top-color:#0001;
+    display:inline-block;
+    animation:loadingspinner .7s linear infinite;
+  }
+  @keyframes loadingspinner{
+    0%{
+      transform:rotate(0deg)
+    }
+    100%{
+      transform:rotate(360deg)
+    }
+  }
+  
+  .message-error {
+      font-size: 12px;
+      color:#dc3545;
+  }
+  
+  .message-success {
+      font-size: 12px;
+      color: #198754;
+  }
+
+  // .ng-invalid {
+
+  // }
+  input.ng-touched.ng-invalid {
+    border: 2px solid #dc3545;
+    color: #dc3545;
+}

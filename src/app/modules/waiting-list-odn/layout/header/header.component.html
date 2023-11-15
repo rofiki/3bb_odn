@@ -1,0 +1,40 @@
+<nav class="navbar navbar-expand-sm fixed-top shadow-sm border" style="background-color: #fafafa;">
+    <div class="container-fluid">
+      <a class="navbar-brand"><strong>Waitting List ODN Expansion</strong></a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarCollapse">
+        <ul class="navbar-nav me-auto mb-2 mb-md-0">
+          <li class="nav-item">
+            <a class="nav-link active" aria-current="page" href="javascript:void(0)" [routerLink]="['/' + loginUser.email + '/odn/home']" routerLinkActive="active" >Home</a>
+          </li>
+          <li class="nav-item dropdown">
+            <a class="nav-link  dropdown-toggle" href="javascript:void(0)" data-bs-toggle="dropdown" routerLinkActive="active">เพิ่มข้อมูล</a>
+            <ul class="dropdown-menu">
+              <li><small><a class="dropdown-item" href="javascript:void(0)" [routerLink]="['/' + loginUser.email + '/odn/new']" routerLinkActive="active">Request งานขยาย</a></small></li>
+              <li *ngIf="(loginUser.role == 'admin')"><small><a class="dropdown-item" href="javascript:void(0)" [routerLink]="['/' + loginUser.email + '/odn/plan',3000]" routerLinkActive="active">Plan งานขยาย</a></small></li>
+              <li *ngIf="(loginUser.role == 'admin')"><small><a class="dropdown-item" href="javascript:void(0)" [routerLink]="['/' + loginUser.email + '/odn/progress',3000]" routerLinkActive="active">Progress</a></small></li>
+            </ul>
+          </li>
+          <li class="nav-item dropdown">
+            <a class="nav-link  dropdown-toggle" href="javascript:void(0)" data-bs-toggle="dropdown" routerLinkActive="active">รายงาน</a>
+            <ul class="dropdown-menu">
+              <li><small><a class="dropdown-item" href="javascript:void(0)" routerLinkActive="active">รายงาน 1</a></small></li>
+              <li><small><a class="dropdown-item" href="javascript:void(0)" routerLinkActive="active">รายงาน 2</a></small></li>
+              <li><small><a class="dropdown-item" href="javascript:void(0)" routerLinkActive="active">รายงาน 3</a></small></li>
+            </ul>
+          </li>    
+          <li class="nav-item" *ngIf="(loginUser.role == 'admin')">
+            <a class="nav-link active" aria-current="page" [routerLink]="['/' + loginUser.email + '/odn/setting']" routerLinkActive="active">ตั้งค่า</a>
+          </li>    
+        </ul>
+        <ul class="navbar-nav">
+          <li class="nav-item">
+            <a class="nav-link active" aria-current="page"  [routerLink]="['/']"><i class="fa-solid fa-power-off"></i> ออกจากระบบ</a>
+          </li>
+        </ul>
+
+      </div>
+    </div>
+  </nav>
