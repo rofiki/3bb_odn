@@ -13,6 +13,7 @@ import { EditPlanComponent } from './edit-plan/edit-plan.component';
 import { EditProgressComponent } from './edit-progress/edit-progress.component';
 import { DetailOdnComponent } from './detail-odn/detail-odn.component';
 import { SettingComponent } from './setting/setting.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 
 @NgModule({
@@ -32,6 +33,8 @@ import { SettingComponent } from './setting/setting.component';
     HeaderComponent,
     FooterComponent,
     Bootstrap5Module,
+    ReactiveFormsModule,
+    FormsModule,
   ]
 })
 export class WaitingListOdnModule { }

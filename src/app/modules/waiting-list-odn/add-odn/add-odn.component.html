@@ -8,11 +8,77 @@
     <div class="p-3 bg-body-tertiary">
         <!-- // -->
         <h5><strong>เพิ่มข้อมูล / Request งานขยาย</strong></h5>
-        <div class="row">
-            <div class="col-md-12">
+        <form [formGroup]="aform" (ngSubmit)="onSubmit()" class="user" novalidate>
+        <div class="row p-3">
+            
+                <!-- <form> -->
+                <div class="col-md-6">
 
-            </div>
+                    <div class="row mb-3">
+                        <label for="colFormLabelSm" class="col-sm-4 col-form-label col-form-label-sm text-end">เลขที่ ODN</label>
+                        <div class="col-sm-6">
+                        <input type="text" class="form-control form-control-sm" id="colFormLabelSm" placeholder="col-form-label-sm">
+                        </div>
+                    </div>
+                    <div class="row mb-3">
+                        <label for="colFormLabelSm" class="col-sm-4 col-form-label col-form-label-sm text-end">AIS/3BB</label>
+                        <div class="col-sm-6">
+                        <input type="text" class="form-control form-control-sm" id="colFormLabelSm" placeholder="col-form-label-sm">
+                        </div>
+                    </div>
+                    <div class="row mb-3">
+                        <label for="colFormLabelSm" class="col-sm-4 col-form-label col-form-label-sm text-end">วันที่บันทึก</label>
+                        <div class="col-sm-6">
+                        <input type="text" class="form-control form-control-sm" id="colFormLabelSm" placeholder="col-form-label-sm">
+                        </div>
+                    </div>
+                    <div class="row mb-3">
+                        <label for="colFormLabelSm" class="col-sm-4 col-form-label col-form-label-sm text-end">ผู้บันทึก</label>
+                        <div class="col-sm-6">
+                        <input type="text" class="form-control form-control-sm" id="colFormLabelSm" placeholder="col-form-label-sm">
+                        </div>
+                    </div>
+                    <div class="row mb-3">
+                        <label for="colFormLabelSm" class="col-sm-4 col-form-label col-form-label-sm text-end">สถานที่</label>
+                        <div class="col-sm-6">
+                        <input type="text" class="form-control form-control-sm" id="colFormLabelSm" placeholder="col-form-label-sm">
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+
+                    <div class="row mb-3">
+                        <label for="colFormLabelSm" class="col-sm-2 col-form-label col-form-label-sm text-end">จังหวัด</label>
+                        <div class="col-sm-6">
+                        <input type="text" class="form-control form-control-sm" id="colFormLabelSm" placeholder="col-form-label-sm">
+                        </div>
+                    </div>
+                    <div class="row mb-3">
+                        <label for="colFormLabelSm" class="col-sm-2 col-form-label col-form-label-sm text-end">พิกัดจุดขยาย</label>
+                        <div class="col-sm-6">
+                        <input type="text" class="form-control form-control-sm" id="colFormLabelSm" placeholder="col-form-label-sm">
+                        </div>
+                    </div>
+                    <div class="row mb-3">
+                        <label for="colFormLabelSm" class="col-sm-2 col-form-label col-form-label-sm text-end">ขายได้</label>
+                        <div class="col-sm-6">
+                        <input type="text" class="form-control form-control-sm" id="colFormLabelSm" placeholder="col-form-label-sm">
+                        </div>
+                    </div>
+                    <div class="row mb-3">
+                        <label for="colFormLabelSm" class="col-sm-2 col-form-label col-form-label-sm text-end">โอกาศขาย</label>
+                        <div class="col-sm-6">
+                        <input type="text" class="form-control form-control-sm" id="colFormLabelSm" placeholder="col-form-label-sm">
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-12 text-center p-1">
+                    <button type="button" class="btn btn-md btn-primary m-1">บันทึก</button>
+                    <button type="button" class="btn btn-md btn-danger m-1">ยกเลิก</button>
+                </div>
+           
         </div>
+         </form>
         <!-- end // -->
     </div>
 </main>

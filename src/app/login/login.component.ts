@@ -51,6 +51,7 @@ export class LoginComponent implements OnInit {
 
   public loginUser: any = null;
   public isLogin: boolean = (localStorage.getItem('islogin') == '1') ? true : false;
+  public loading:boolean = false;
 
   public loginForm!: FormGroup;
 
@@ -160,6 +161,14 @@ export class LoginComponent implements OnInit {
 
   public async onSubmit() {
 
+    this.loading = true;
+      // Swal.fire({
+      //   html: "<i class='fa-solid fa-spinner fa-spin fa-2xl'></i>",
+      //   // timer: 2000,
+      //   showConfirmButton: false,
+      //   heightAuto:true
+      // });
+
     let swalOption = this.swalOption;
     let params = this.loginForm.value;
 
@@ -167,6 +176,7 @@ export class LoginComponent implements OnInit {
     const md5_timestamp = cryptoJS.MD5(Date.now().toString()).toString();
 
     this.ip.getIPAddress().subscribe(ip => {
+
       this.ipAddress = ip;
       params.tokenLog = this.ipAddress.ip;
       params.login_datetime = md5_timestamp;
@@ -177,12 +187,19 @@ export class LoginComponent implements OnInit {
 
       this.authService.loginWithForm(params).subscribe(res => {
         console.log('res', res);
+
+        if(res.loading == false){
+          //ปิด loding
+          console.log('res.loading',res.loading);
+        }
+
         if (!res.status) {
           Swal.fire(swalOption.Warning('', res.message)).then((result) => {
             if (result.isConfirmed) {
               this.loginForm.reset();
             }
           });
+          console.log('login false');
         }else{
 
           localStorage.setItem('token', res.token);
@@ -210,60 +227,8 @@ export class LoginComponent implements OnInit {
         }
       });
 
-
-
-
-      // let params = {
-      //   login_email: resByEmail.data.email,
-      //   users_detail_id: resByEmail.data.infoId,
-      //   tokenLog: md5_timestamp,
-      //   login_datetime: date,
-      //   // logout_datetime:'',
-      //   // login_pcname:'',
-      //   login_ip: this.ipAddress.ip,
-      //   isLogin: 1,
-      // }
-
     });
 
-
-
-    // Swal.fire(swalOption.Confirm('โปรดยืนยันการลงทะเบียนขอใช้งานระบบ')).then((result) => {
-    //   if (result.isConfirmed) {
-
-    //     // ตรวจสอบ email มีในระบบรึยัง
-    //     this.authService.findByEmail(params.users_usersname).pipe(takeUntil(this.componentDestroyed$))
-    //       .subscribe(resByEmail => {
-
-    //         if (resByEmail.data) {
-
-    //           Swal.fire(swalOption.Warning("Email: " + params.users_usersname, "อีเมล์นี้ มีอยู่ในระบบแล้ว!")).then((result) => {
-    //             if (result.isConfirmed) {
-    //               this.isProcess = false;
-    //             }
-    //           })
-
-    //         } else {
-
-    //           this.authService.create(params)
-    //           .pipe(takeUntil(this.componentDestroyed$))
-    //           .subscribe(res => {
-
-    //             // บันทึกสำเร็จ
-    //             if (res.status) {
-    //               Swal.fire(swalOption.Success('ลงทะเบียนเรียบร้อย!', "Email: " + res.email, 'หน้าล๊อกอิน')).then((result) => {
-    //                 if (result.isConfirmed) {
-    //                   window.location.href = '/login';
-    //                 }
-    //               })
-    //             }
-    //           });
-
-    //         }
-
-    //       }); // End findByEmail
-    //   }
-    // }); // end โปรดยืนยันการลงทะเบียนขอใช้งานระบบ
   }
 
   logout() {
@@ -275,6 +240,7 @@ export class LoginComponent implements OnInit {
         localStorage.removeItem("islogin");
         localStorage.removeItem("log");
         window.location.reload();
+
       }
     })
 
