@@ -55,8 +55,8 @@ export class LoginComponent implements OnInit {
   public loginForm!: FormGroup;
 
   ngOnInit(): void {
-    const token:any = localStorage.getItem('token');
-    if(token){
+    const token: any = localStorage.getItem('token');
+    if (token) {
       this.loginUser = jwtDecode(token);
     }
 
@@ -87,7 +87,7 @@ export class LoginComponent implements OnInit {
           if (result.isConfirmed) {
             window.location.reload();
           }
-        })        
+        })
       } else {
         chkIsActive = this.authService.checkIsActive(resByEmail.data.isActive); // ตรวจสอบสถานะ
       }
@@ -99,7 +99,7 @@ export class LoginComponent implements OnInit {
         const md5_timestamp = cryptoJS.MD5(Date.now().toString()).toString();
 
         // ดึง รายละเอียด user
-        this.authService.createToken({email:resByEmail.data.email}).subscribe(t => {
+        this.authService.createToken({ email: resByEmail.data.email }).subscribe(t => {
           localStorage.setItem('token', t.token);
           localStorage.setItem('islogin', '1');
           localStorage.setItem('log', md5_timestamp);
@@ -119,7 +119,7 @@ export class LoginComponent implements OnInit {
               isLogin: 1,
             }
 
-            await this.loginService.create(params).subscribe(e =>{ 
+            await this.loginService.create(params).subscribe(e => {
               const Toast = Swal.mixin({
                 toast: true,
                 position: 'top-end',
@@ -131,7 +131,7 @@ export class LoginComponent implements OnInit {
                   toast.addEventListener('mouseleave', Swal.resumeTimer);
                 }
               })
-              Toast.fire({icon: 'success', title: resByEmail.data.email + ' ล๊อกอิน สำเร็จ' });
+              Toast.fire({ icon: 'success', title: resByEmail.data.email + ' ล๊อกอิน สำเร็จ' });
               this._ngZone.run(() => {
                 window.location.href = resByEmail.data.email + '/odn';
                 // this.router.navigate(['/callback']);
@@ -166,16 +166,51 @@ export class LoginComponent implements OnInit {
     const date = new Date();
     const md5_timestamp = cryptoJS.MD5(Date.now().toString()).toString();
 
-    this.ip.getIPAddress().subscribe( ip => {
+    this.ip.getIPAddress().subscribe(ip => {
       this.ipAddress = ip;
       params.tokenLog = this.ipAddress.ip;
-      params.login_datetime = this.ipAddress.ip;
-      params.logout_datetime = this.ipAddress.ip;
-      params.login_pcname = this.ipAddress.ip;
+      params.login_datetime = md5_timestamp;
+      params.logout_datetime = '';
+      params.login_pcname = '';
       params.login_ip = this.ipAddress.ip;
-      params.isLogin = this.ipAddress.ip;
+      params.isLogin = 1;
 
-      console.log(params);
+      this.authService.loginWithForm(params).subscribe(res => {
+        console.log('res', res);
+        if (!res.status) {
+          Swal.fire(swalOption.Warning('', res.message)).then((result) => {
+            if (result.isConfirmed) {
+              this.loginForm.reset();
+            }
+          });
+        }else{
+
+          localStorage.setItem('token', res.token);
+          localStorage.setItem('islogin', '1');
+          localStorage.setItem('log', md5_timestamp);
+
+          const Toast = Swal.mixin({
+            toast: true,
+            position: 'top-end',
+            showConfirmButton: false,
+            timer: 3000,
+            timerProgressBar: true,
+            didOpen: (toast) => {
+              toast.addEventListener('mouseenter', Swal.stopTimer);
+              toast.addEventListener('mouseleave', Swal.resumeTimer);
+            }
+          })
+          Toast.fire({ icon: 'success', title: ' ล๊อกอิน สำเร็จ' });
+          this._ngZone.run(() => {
+            window.location.href = res.email + '/odn';
+            // this.router.navigate(['/callback']);
+            console.log('login สำเร็จ');
+          })          
+
+        }
+      });
+
+
 
 
       // let params = {
@@ -191,7 +226,7 @@ export class LoginComponent implements OnInit {
 
     });
 
-    
+
 
     // Swal.fire(swalOption.Confirm('โปรดยืนยันการลงทะเบียนขอใช้งานระบบ')).then((result) => {
     //   if (result.isConfirmed) {

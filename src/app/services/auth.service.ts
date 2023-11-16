@@ -58,7 +58,8 @@ export class AuthService {
   }
 
   public loginWithForm(params: {}): Observable<any> {
-    return this.http.post(this.apiUrl, params);
+    //http://localhost:8000/api/users/login
+    return this.http.post(this.apiUrl + '/login', params);
   }
 
 }
