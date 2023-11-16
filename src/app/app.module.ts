@@ -56,7 +56,7 @@ import { FortestComponent } from './fortest/fortest.component';
           {
             id: GoogleLoginProvider.PROVIDER_ID,
             provider: new GoogleLoginProvider(
-              '300194914985-9ep1pfbvd6ibtmh2nu03f834kgi92frn.apps.googleusercontent.com'
+              '543150703112-e5h3i4ajn0d189o8t0dhmtqa7r8jci0l.apps.googleusercontent.com'
             )
           },
         ],

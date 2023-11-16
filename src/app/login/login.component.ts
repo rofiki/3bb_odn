@@ -56,7 +56,9 @@ export class LoginComponent implements OnInit {
 
   ngOnInit(): void {
     const token:any = localStorage.getItem('token');
-    this.loginUser = jwtDecode(token);
+    if(token){
+      this.loginUser = jwtDecode(token);
+    }
 
     if (!this.isLogin) {
       this.google.library({ callback: this.loginWithGoogle.bind(this) });
@@ -131,7 +133,7 @@ export class LoginComponent implements OnInit {
               })
               Toast.fire({icon: 'success', title: resByEmail.data.email + ' ล๊อกอิน สำเร็จ' });
               this._ngZone.run(() => {
-                window.location.href = resByEmail.data.email;
+                window.location.href = resByEmail.data.email + '/odn';
                 // this.router.navigate(['/callback']);
                 console.log('login สำเร็จ');
               })
