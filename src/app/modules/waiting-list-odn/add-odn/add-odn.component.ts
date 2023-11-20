@@ -3,7 +3,7 @@ import { FormBuilder, FormGroup, Validators, ValidationErrors, ValidatorFn, Abst
 import { Router } from '@angular/router';
 
 import { jwtDecode } from 'jwt-decode';
-import { Subject } from 'rxjs';
+import { Subject, takeUntil } from 'rxjs';
 import { AuthService } from 'src/app/services/auth.service';
 import { AppService } from 'src/app/services/base/app.service';
 import { LoginService } from 'src/app/services/login.service';
@@ -44,11 +44,15 @@ export class AddOdnComponent implements OnInit {
     this.loginUser = jwtDecode(token);
 
     this.aform = this.fb.group({
-      users_usersname: this.fb.control('', [Validators.required, Validators.email]),
-      users_password: this.fb.control('', [Validators.required]),
-      users_detail_firstname: this.fb.control('', [Validators.required]),
-      users_detail_lastname: this.fb.control(null),
-      users_password_confirm: this.fb.control(null, [Validators.required,])
+      odn_code: this.fb.control(null, [Validators.required,]),
+      org_id: this.fb.control('', [Validators.required]),
+      odn_added_date: this.fb.control('', [Validators.required]),
+      odn_request_user_id: this.fb.control('', [Validators.required]),
+      odn_place: this.fb.control(null, [Validators.required,]),
+      province_id: this.fb.control(null, [Validators.required,]),
+      odn_location: this.fb.control(null, [Validators.required,]),
+      odn_sale_num: this.fb.control(null, [Validators.required,]),
+      odn_sale_chance: this.fb.control(null, [Validators.required]),
     });
   }
 
@@ -65,8 +69,49 @@ export class AddOdnComponent implements OnInit {
 
   }
 
-  onSubmit(){
+  public async onSubmit() {
 
+    let swalOption = this.swalOption;
+    let params = this.aform.value;
+
+    Swal.fire(swalOption.Confirm('')).then((result) => {
+      if (result.isConfirmed) {
+
+        console.log(params);
+
+        // // ตรวจสอบ email มีในระบบรึยัง
+        // this.service.findByEmail(params.users_usersname).pipe(takeUntil(this.componentDestroyed$))
+        //   .subscribe(resByEmail => {
+
+        //     if (resByEmail.data) {
+
+        //       Swal.fire(swalOption.Warning("Email: " + params.users_usersname, "อีเมล์นี้ มีอยู่ในระบบแล้ว!")).then((result) => {
+        //         if (result.isConfirmed) {
+        //           this.isProcess = false;
+        //         }
+        //       })
+
+        //     } else {
+
+        //       this.service.create(params)
+        //       .pipe(takeUntil(this.componentDestroyed$))
+        //       .subscribe(res => {
+
+        //         // บันทึกสำเร็จ
+        //         if (res.status) {
+        //           Swal.fire(swalOption.Success('ลงทะเบียนเรียบร้อย!', "Email: " + res.email, 'หน้าล๊อกอิน')).then((result) => {
+        //             if (result.isConfirmed) {
+        //               window.location.href = '/login';
+        //             }
+        //           })
+        //         }
+        //       });
+
+        //     }
+
+        //   }); // End findByEmail
+      }
+    }); // end โปรดยืนยันการลงทะเบียนขอใช้งานระบบ
   }
 
 }

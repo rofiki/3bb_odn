@@ -56,50 +56,28 @@
                               </tr>                               
                     
                           </thead>
-                          <tbody>
-                            <tr class="text-center table-text-small">
-                                <td>2566/001</td>
-                                <td>3BB</td>
-                                <td>5/11/2023</td>
-                                <td>ทดสอบ</td>
-                                <td>บ้านช่องเขา</td>
-                                <td>นราธิวาส</td>
-                                <td>6.000001,101.000001</td>
-                                <td>10</td>
-                                <td>15</td>
-                                <td>15</td>
-                                <td>15</td>
-                                <td>15</td>
-                                <td>15</td>
-                                <td>15</td>
-                                <td>15</td>
-                                <td>15</td>
-                                <td>15</td>
-                                <td>15</td>
-                                <td>15</td>
-                                <td>15</td>
-                            </tr>
-                            <tr class="text-center table-text-small">
-                                <td>2566/001</td>
-                                <td>3BB</td>
-                                <td>5/11/2023</td>
-                                <td>ทดสอบ</td>
-                                <td>บ้านช่องเขา</td>
-                                <td>นราธิวาส</td>
-                                <td>6.000001,101.000001</td>
-                                <td>10</td>
-                                <td>15</td>
-                                <td>15</td>
-                                <td>15</td>
-                                <td>15</td>
-                                <td>15</td>
-                                <td>15</td>
-                                <td>15</td>
-                                <td>15</td>
-                                <td>15</td>
-                                <td>15</td>
-                                <td>15</td>
-                                <td>15</td>
+                          <tbody  *ngIf="itemRef && itemRef.data">
+                            <tr class="text-center table-text-small tr-edit" (click)="edit()" *ngFor="let element of itemRef.data">
+                                <td>{{element.odn_code}}</td>
+                                <td>{{element.org_text}}</td>
+                                <td>{{element.odn_added_date}}</td>
+                                <td>{{element.odn_request_user_id}}</td>
+                                <td>{{element.odn_place}}</td>
+                                <td>{{element.province_name}}</td>
+                                <td>{{element.odn_location}}</td>
+                                <td>{{element.odn_sale_num}}</td>
+                                <td>{{element.odn_sale_chance}}</td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
                             </tr>
                           </tbody>
                       </table>

@@ -23,25 +23,53 @@
                     <div class="row mb-3">
                         <label for="colFormLabelSm" class="col-sm-4 col-form-label col-form-label-sm text-end">AIS/3BB</label>
                         <div class="col-sm-6">
-                        <input type="text" class="form-control form-control-sm" id="colFormLabelSm" placeholder="col-form-label-sm">
+                            <input type="text" class="form-control form-control-sm" placeholder="org_id"
+                                formControlName="org_id"
+                                [class.is-invalid]="(aform.get('org_id')?.invalid && (aform.get('org_id')?.dirty || aform.get('org_id')?.touched))"
+                                [class.is-valid]="(aform.get('org_id')?.valid && (aform.get('org_id')?.dirty || aform.get('org_id')?.touched))"
+                            >
+                            <div *ngIf="aform.get('org_id')?.invalid && (aform.get('org_id')?.dirty || aform.get('org_id')?.touched)">
+                                <small class="message-error m-2" *ngIf="aform.get('org_id')?.hasError('required')">ห้ามว่าง</small>
+                            </div>                         
                         </div>
                     </div>
                     <div class="row mb-3">
                         <label for="colFormLabelSm" class="col-sm-4 col-form-label col-form-label-sm text-end">วันที่บันทึก</label>
                         <div class="col-sm-6">
-                        <input type="text" class="form-control form-control-sm" id="colFormLabelSm" placeholder="col-form-label-sm">
+                            <input type="text" class="form-control form-control-sm" placeholder="odn_added_date"
+                                formControlName="odn_added_date"
+                                [class.is-invalid]="(aform.get('odn_added_date')?.invalid && (aform.get('odn_added_date')?.dirty || aform.get('odn_added_date')?.touched))"
+                                [class.is-valid]="(aform.get('odn_added_date')?.valid && (aform.get('odn_added_date')?.dirty || aform.get('odn_added_date')?.touched))"
+                            >
+                            <div *ngIf="aform.get('odn_added_date')?.invalid && (aform.get('odn_added_date')?.dirty || aform.get('odn_added_date')?.touched)">
+                                <small class="message-error m-2" *ngIf="aform.get('odn_added_date')?.hasError('required')">ห้ามว่าง</small>
+                            </div>                         
                         </div>
                     </div>
                     <div class="row mb-3">
                         <label for="colFormLabelSm" class="col-sm-4 col-form-label col-form-label-sm text-end">ผู้บันทึก</label>
                         <div class="col-sm-6">
-                        <input type="text" class="form-control form-control-sm" id="colFormLabelSm" placeholder="col-form-label-sm">
+                            <input type="text" class="form-control form-control-sm" placeholder="odn_request_user_id"
+                                formControlName="odn_request_user_id"
+                                [class.is-invalid]="(aform.get('odn_request_user_id')?.invalid && (aform.get('odn_request_user_id')?.dirty || aform.get('odn_request_user_id')?.touched))"
+                                [class.is-valid]="(aform.get('odn_request_user_id')?.valid && (aform.get('odn_request_user_id')?.dirty || aform.get('odn_request_user_id')?.touched))"
+                            >
+                            <div *ngIf="aform.get('odn_request_user_id')?.invalid && (aform.get('odn_request_user_id')?.dirty || aform.get('odn_request_user_id')?.touched)">
+                                <small class="message-error m-2" *ngIf="aform.get('odn_request_user_id')?.hasError('required')">ห้ามว่าง</small>
+                            </div>                         
                         </div>
                     </div>
                     <div class="row mb-3">
                         <label for="colFormLabelSm" class="col-sm-4 col-form-label col-form-label-sm text-end">สถานที่</label>
                         <div class="col-sm-6">
-                        <input type="text" class="form-control form-control-sm" id="colFormLabelSm" placeholder="col-form-label-sm">
+                            <input type="text" class="form-control form-control-sm" placeholder="odn_place"
+                                formControlName="odn_place"
+                                [class.is-invalid]="(aform.get('odn_place')?.invalid && (aform.get('odn_place')?.dirty || aform.get('odn_place')?.touched))"
+                                [class.is-valid]="(aform.get('odn_place')?.valid && (aform.get('odn_place')?.dirty || aform.get('odn_place')?.touched))"
+                            >
+                            <div *ngIf="aform.get('odn_place')?.invalid && (aform.get('odn_place')?.dirty || aform.get('odn_place')?.touched)">
+                                <small class="message-error m-2" *ngIf="aform.get('odn_place')?.hasError('required')">ห้ามว่าง</small>
+                            </div>                         
                         </div>
                     </div>
                 </div>
@@ -50,25 +78,53 @@
                     <div class="row mb-3">
                         <label for="colFormLabelSm" class="col-sm-2 col-form-label col-form-label-sm text-end">จังหวัด</label>
                         <div class="col-sm-6">
-                        <input type="text" class="form-control form-control-sm" id="colFormLabelSm" placeholder="col-form-label-sm">
+                            <input type="text" class="form-control form-control-sm" placeholder="province_id"
+                                formControlName="province_id"
+                                [class.is-invalid]="(aform.get('province_id')?.invalid && (aform.get('province_id')?.dirty || aform.get('province_id')?.touched))"
+                                [class.is-valid]="(aform.get('province_id')?.valid && (aform.get('province_id')?.dirty || aform.get('province_id')?.touched))"
+                            >
+                            <div *ngIf="aform.get('province_id')?.invalid && (aform.get('province_id')?.dirty || aform.get('province_id')?.touched)">
+                                <small class="message-error m-2" *ngIf="aform.get('province_id')?.hasError('required')">ห้ามว่าง</small>
+                            </div>                         
                         </div>
                     </div>
                     <div class="row mb-3">
                         <label for="colFormLabelSm" class="col-sm-2 col-form-label col-form-label-sm text-end">พิกัดจุดขยาย</label>
                         <div class="col-sm-6">
-                        <input type="text" class="form-control form-control-sm" id="colFormLabelSm" placeholder="col-form-label-sm">
+                            <input type="text" class="form-control form-control-sm" placeholder="odn_location"
+                                formControlName="odn_location"
+                                [class.is-invalid]="(aform.get('odn_location')?.invalid && (aform.get('odn_location')?.dirty || aform.get('odn_location')?.touched))"
+                                [class.is-valid]="(aform.get('odn_location')?.valid && (aform.get('odn_location')?.dirty || aform.get('odn_location')?.touched))"
+                            >
+                            <div *ngIf="aform.get('odn_location')?.invalid && (aform.get('odn_location')?.dirty || aform.get('odn_location')?.touched)">
+                                <small class="message-error m-2" *ngIf="aform.get('odn_location')?.hasError('required')">ห้ามว่าง</small>
+                            </div>                         
                         </div>
                     </div>
                     <div class="row mb-3">
                         <label for="colFormLabelSm" class="col-sm-2 col-form-label col-form-label-sm text-end">ขายได้</label>
                         <div class="col-sm-6">
-                        <input type="text" class="form-control form-control-sm" id="colFormLabelSm" placeholder="col-form-label-sm">
+                            <input type="text" class="form-control form-control-sm" placeholder="odn_sale_num"
+                                formControlName="odn_sale_num"
+                                [class.is-invalid]="(aform.get('odn_sale_num')?.invalid && (aform.get('odn_sale_num')?.dirty || aform.get('odn_sale_num')?.touched))"
+                                [class.is-valid]="(aform.get('odn_sale_num')?.valid && (aform.get('odn_sale_num')?.dirty || aform.get('odn_sale_num')?.touched))"
+                            >
+                            <div *ngIf="aform.get('odn_sale_num')?.invalid && (aform.get('odn_sale_num')?.dirty || aform.get('odn_sale_num')?.touched)">
+                                <small class="message-error m-2" *ngIf="aform.get('odn_sale_num')?.hasError('required')">ห้ามว่าง</small>
+                            </div>                         
                         </div>
                     </div>
                     <div class="row mb-3">
                         <label for="colFormLabelSm" class="col-sm-2 col-form-label col-form-label-sm text-end">โอกาศขาย</label>
                         <div class="col-sm-6">
-                        <input type="text" class="form-control form-control-sm" id="colFormLabelSm" placeholder="col-form-label-sm">
+                            <input type="text" class="form-control form-control-sm" placeholder="odn_sale_chance"
+                                formControlName="odn_sale_chance"
+                                [class.is-invalid]="(aform.get('odn_sale_chance')?.invalid && (aform.get('odn_sale_chance')?.dirty || aform.get('odn_sale_chance')?.touched))"
+                                [class.is-valid]="(aform.get('odn_sale_chance')?.valid && (aform.get('odn_sale_chance')?.dirty || aform.get('odn_sale_chance')?.touched))"
+                            >
+                            <div *ngIf="aform.get('odn_sale_chance')?.invalid && (aform.get('odn_sale_chance')?.dirty || aform.get('odn_sale_chance')?.touched)">
+                                <small class="message-error m-2" *ngIf="aform.get('odn_sale_chance')?.hasError('required')">ห้ามว่าง</small>
+                            </div>                         
                         </div>
                     </div>
                 </div>
