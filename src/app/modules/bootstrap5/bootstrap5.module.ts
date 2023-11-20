@@ -11,6 +11,8 @@ import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 import { defineLocale } from 'ngx-bootstrap/chronos';
 import { thLocale } from 'ngx-bootstrap/locale';
 import { ToastrModule } from 'ngx-toastr';
+import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 defineLocale('th', thLocale);
 
@@ -24,6 +26,8 @@ defineLocale('th', thLocale);
     BsDropdownModule.forRoot(),
     ButtonsModule.forRoot(),
     ToastrModule.forRoot(),
+    BsDatepickerModule.forRoot(),
+    // BrowserAnimationsModule,
     
   ],
   exports: [

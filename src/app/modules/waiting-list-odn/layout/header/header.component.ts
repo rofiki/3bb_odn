@@ -23,9 +23,9 @@ export class HeaderComponent implements OnInit {
     this.loginUser = jwtDecode(token);
   }
 
-  // ngAfterViewInit() {
-  //   const bodyStyle = this.elementRef.nativeElement.ownerDocument.body.style;
-  //   bodyStyle.background = 'url(/assets/wallpaper/wallpaper_or1.jpg)';
-  // }
+  ngAfterViewInit() {
+    const bodyStyle = this.elementRef.nativeElement.ownerDocument.body.style;
+    bodyStyle.background = 'url(/assets/wallpaper/wallpaper_or1.jpg)';
+  }
 
 }

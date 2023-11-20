@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { CommonModule, DatePipe } from '@angular/common';
 
 import { WaitingListOdnRoutingModule } from './waiting-list-odn-routing.module';
 import { HomeComponent } from './home/home.component';
@@ -14,6 +14,9 @@ import { EditProgressComponent } from './edit-progress/edit-progress.component';
 import { DetailOdnComponent } from './detail-odn/detail-odn.component';
 import { SettingComponent } from './setting/setting.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
+import { NgxMaskDirective, NgxMaskPipe, provideNgxMask } from 'ngx-mask';
+
 
 
 @NgModule({
@@ -35,6 +38,9 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     Bootstrap5Module,
     ReactiveFormsModule,
     FormsModule,
-  ]
+    BsDatepickerModule.forRoot(),
+    NgxMaskDirective, NgxMaskPipe
+  ],
+  providers: [provideNgxMask(),DatePipe] 
 })
 export class WaitingListOdnModule { }

@@ -1,17 +1,25 @@
 import { Component, NgZone, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, ValidationErrors, ValidatorFn, AbstractControl } from '@angular/forms';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
+import { DatePipe } from '@angular/common';
 
 import { jwtDecode } from 'jwt-decode';
 import { Subject, takeUntil } from 'rxjs';
 import { AuthService } from 'src/app/services/auth.service';
 import { AppService } from 'src/app/services/base/app.service';
 import { LoginService } from 'src/app/services/login.service';
+import { OrgService } from 'src/app/services/odn/org.service';
+import { ProvinceService } from 'src/app/services/odn/province.service';
+import { UsersService } from 'src/app/services/odn/users.service';
 
 
 // sweetalert2
 import Swal from 'sweetalert2'
 import { SwalOption } from 'src/app/shared/sweetalert2.option.directive';
+
+import { BsLocaleService } from 'ngx-bootstrap/datepicker';
+import { OdnService } from 'src/app/services/odn/odn.service';
+
 
 @Component({
   selector: 'app-add-odn',
@@ -24,11 +32,18 @@ export class AddOdnComponent implements OnInit {
     private authService: AuthService,
     private appService: AppService,
     private loginService: LoginService,
+    private orgService: OrgService,
+    private provinceService: ProvinceService,
+    private usersService: UsersService,
+    private service: OdnService,
+
     private _ngZone: NgZone,
     private router: Router,
     private fb: FormBuilder,
-  )
-  {}
+    private localeService: BsLocaleService,
+    private datePipe: DatePipe,
+    private activatedRoute: ActivatedRoute
+  ) { }
 
   public componentDestroyed$: Subject<boolean> = new Subject()
   public isProcess: boolean = false;
@@ -38,28 +53,46 @@ export class AddOdnComponent implements OnInit {
   public loginUser: any = null;
   public token: any = localStorage.getItem('token');
 
-  ngOnInit(): void {
-    this.isLogin(); // ตรวจสอบ login
-    const token:any = localStorage.getItem('token');
-    this.loginUser = jwtDecode(token);
+  public orgRef: any
+  public provinceRef: any;
+  public userRef: any;
+  public odnUserRef: any
 
+  ngOnInit(): void {
+
+    this.localeService.use('th');
+
+    this.isLogin(); // ตรวจสอบ login
+    this.getOrg();
+    this.getProvince();
+    this.getOdnUsers();
+    this.genCode();
+    const token: any = localStorage.getItem('token');
+    this.loginUser = jwtDecode(token);
+    
     this.aform = this.fb.group({
-      odn_code: this.fb.control(null, [Validators.required,]),
+      odn_code: this.fb.control('', []),
       org_id: this.fb.control('', [Validators.required]),
       odn_added_date: this.fb.control('', [Validators.required]),
       odn_request_user_id: this.fb.control('', [Validators.required]),
-      odn_place: this.fb.control(null, [Validators.required,]),
-      province_id: this.fb.control(null, [Validators.required,]),
-      odn_location: this.fb.control(null, [Validators.required,]),
-      odn_sale_num: this.fb.control(null, [Validators.required,]),
-      odn_sale_chance: this.fb.control(null, [Validators.required]),
+      odn_place: this.fb.control('', [Validators.required,]),
+      province_id: this.fb.control('', [Validators.required,]),
+      odn_location: this.fb.control('', [Validators.required,]),
+      odn_sale_num: this.fb.control('', [Validators.required, Validators.pattern("^[0-9]*$")]),
+      odn_sale_chance: this.fb.control('', [Validators.required, Validators.pattern("^[0-9]*$")]),
+    });
+
+    
+
+    this.aform.patchValue({
+      odn_added_date: new Date(),
     });
   }
 
-  isLogin(){
+  isLogin() {
     const token = localStorage.getItem('token');
-    if(!token){
-      Swal.fire(this.swalOption.Warning('', 'กรุณาล๊อกอิน !!','ล๊อกอิน')).then((result) => {
+    if (!token) {
+      Swal.fire(this.swalOption.Warning('', 'กรุณาล๊อกอิน !!', 'ล๊อกอิน')).then((result) => {
         if (result.isConfirmed) {
           this.isProcess = false;
           this.router.navigate(['/login']);
@@ -69,49 +102,83 @@ export class AddOdnComponent implements OnInit {
 
   }
 
+  getOrg() {
+    this.orgService.findAll().pipe(takeUntil(this.componentDestroyed$)).subscribe(org => {
+
+      this.orgRef = org;
+    });
+  }
+
+  getProvince() {
+    this.provinceService.findAll().pipe(takeUntil(this.componentDestroyed$)).subscribe(province => {
+      this.provinceRef = province;
+    });
+  }
+
+  getOdnUsers() {
+    this.usersService.findAll().pipe(takeUntil(this.componentDestroyed$)).subscribe(odnUser => {
+      this.odnUserRef = odnUser;
+    });
+  }
+
+
   public async onSubmit() {
 
     let swalOption = this.swalOption;
     let params = this.aform.value;
 
+    params.odn_added_date = this.datePipe.transform(params.odn_added_date, 'yyyy-MM-dd hh:mm:ss');
+
+    let location = params.odn_location;
+    let lat1 = location.substr(0, 1);
+    let lat2 = location.substr(1, 6);
+    let long1 = location.substr(7, 3);
+    let long2 = location.substr(10, 6);
+    params.lat = lat1 + '.' + lat2;
+    params.long = long1 + '.' + long2;
+    params.odn_location = params.lat + ', ' + params.long;
+
+
     Swal.fire(swalOption.Confirm('')).then((result) => {
       if (result.isConfirmed) {
 
-        console.log(params);
+        this.service.create(params).pipe(takeUntil(this.componentDestroyed$)).subscribe(r => {
+          // console.log('r', r);
+          if (r.status) {
+            Swal.fire({
+              icon: "success",
+              title: r.message,
+              showConfirmButton: false,
+              timer: 1000,
+              timerProgressBar: true,
+            }).then(result => {
+              if (result.isDismissed) {
+                this.router.navigate(['../home'], { relativeTo: this.activatedRoute });
+              }
+            });
 
-        // // ตรวจสอบ email มีในระบบรึยัง
-        // this.service.findByEmail(params.users_usersname).pipe(takeUntil(this.componentDestroyed$))
-        //   .subscribe(resByEmail => {
+          }
+        });
 
-        //     if (resByEmail.data) {
-
-        //       Swal.fire(swalOption.Warning("Email: " + params.users_usersname, "อีเมล์นี้ มีอยู่ในระบบแล้ว!")).then((result) => {
-        //         if (result.isConfirmed) {
-        //           this.isProcess = false;
-        //         }
-        //       })
-
-        //     } else {
-
-        //       this.service.create(params)
-        //       .pipe(takeUntil(this.componentDestroyed$))
-        //       .subscribe(res => {
-
-        //         // บันทึกสำเร็จ
-        //         if (res.status) {
-        //           Swal.fire(swalOption.Success('ลงทะเบียนเรียบร้อย!', "Email: " + res.email, 'หน้าล๊อกอิน')).then((result) => {
-        //             if (result.isConfirmed) {
-        //               window.location.href = '/login';
-        //             }
-        //           })
-        //         }
-        //       });
-
-        //     }
-
-        //   }); // End findByEmail
       }
     }); // end โปรดยืนยันการลงทะเบียนขอใช้งานระบบ
+  }
+
+  public genCode(){
+    this.service.genCode().pipe(takeUntil(this.componentDestroyed$)).subscribe(g => { 
+      this.aform.patchValue({
+        odn_code: g.new_odncode
+      });
+    });
+  }
+
+  reloadForm() {
+    this.ngOnInit();
+  }
+
+  ngOnDestroy(): void {
+    this.componentDestroyed$.next(true)
+    this.componentDestroyed$.complete()
   }
 
 }

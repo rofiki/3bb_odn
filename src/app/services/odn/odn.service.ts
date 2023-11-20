@@ -12,15 +12,24 @@ export class OdnService {
 
   constructor(private http: HttpClient, private dbService: DbService) {}
 
-  private apiUrl: string = this.dbService.getServiceURL() + '/odn';
+  private apiUrl: string = this.dbService.getServiceURL() + '/odn/odn';
 
   findAll(params:any): Observable<any> {
     return this.http.get<any>(this.apiUrl + '/' + params);
   }
 
-  genOdnCode()
-  {
-    
+  findById(id:number): Observable<any> {
+    return this.http.get<any>(this.apiUrl + '/' + id);
+  }
+
+  public create(params: {}): Observable<any> {
+    // console.log('param = ', params);
+
+    return this.http.post(this.apiUrl + '/', params);
+  }
+
+  genCode(): Observable<any> {
+    return this.http.get<any>(this.dbService.getServiceURL() + '/genodncode' );
   }
 
 }

@@ -30,7 +30,7 @@ export class HomeComponent implements OnInit {
   getData(){
     let params = '';
     this.service.findAll(params).subscribe( g => {
-      console.log('g',g)
+      // console.log('g',g)
       this.itemRef = g;
     });
   }
