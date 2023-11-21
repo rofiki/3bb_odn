@@ -4,7 +4,7 @@
     <div class="text text-secondary text-small"><small><i class="fa-regular fa-user"></i> {{loginUser.email}} <i class="fa-regular fa-circle-check"></i> {{loginUser.role}}</small></div>
 </div>
 
-<main class="container-fluid">
+<main class="container"><!-- container-fluid -->
     <div class="p-3 bg-body-tertiary border">
         <!-- // -->
         <h5><strong>เพิ่มข้อมูล / Request งานขยาย</strong></h5>
@@ -96,7 +96,7 @@
                 <div class="col-md-6">
 
                     <div class="row mb-3">
-                        <label for="colFormLabelSm" class="col-sm-2 col-form-label col-form-label-sm text-end">จังหวัด</label>
+                        <label for="colFormLabelSm" class="col-sm-3 col-form-label col-form-label-sm text-end">จังหวัด</label>
                         <div class="col-sm-6">
                             <select *ngIf="provinceRef && provinceRef.data" class="form-control form-control-sm" formControlName="province_id"
                             [class.is-invalid]="(aform.get('province_id')?.invalid && (aform.get('province_id')?.dirty || aform.get('province_id')?.touched))"
@@ -115,7 +115,7 @@
                         </div>
                     </div>
                     <div class="row mb-3">
-                        <label for="colFormLabelSm" class="col-sm-2 col-form-label col-form-label-sm text-end">พิกัดจุดขยาย</label>
+                        <label for="colFormLabelSm" class="col-sm-3 col-form-label col-form-label-sm text-end">พิกัดจุดขยาย</label>
                         <div class="col-sm-6">
                             <input type="text" class="form-control form-control-sm" placeholder="0.000000, 000.000000" mask="0.000000, 000.000000" shownMaskExpression="'_.______, ___.______'"
                                 formControlName="odn_location"
@@ -128,7 +128,7 @@
                         </div>
                     </div>
                     <div class="row mb-3">
-                        <label for="colFormLabelSm" class="col-sm-2 col-form-label col-form-label-sm text-end">ขายได้</label>
+                        <label for="colFormLabelSm" class="col-sm-3 col-form-label col-form-label-sm text-end">ขายได้</label>
                         <div class="col-sm-6">
                             <input type="text" class="form-control form-control-sm" placeholder="ขายได้"
                                 formControlName="odn_sale_num"
@@ -142,7 +142,7 @@
                         </div>
                     </div>
                     <div class="row mb-3">
-                        <label for="colFormLabelSm" class="col-sm-2 col-form-label col-form-label-sm text-end">โอกาสขาย</label>
+                        <label for="colFormLabelSm" class="col-sm-3 col-form-label col-form-label-sm text-end">โอกาสขาย</label>
                         <div class="col-sm-6">
                             <input type="text" class="form-control form-control-sm" placeholder="โอกาสขาย"
                                 formControlName="odn_sale_chance"
@@ -158,7 +158,7 @@
                 </div>
                 <div class="col-md-12 text-center p-1">
                     <button type="submit" class="btn btn-md btn-primary m-1" [disabled]="aform.invalid">บันทึก</button>
-                    <button type="button" class="btn btn-md btn-danger m-1" (click)="reloadForm()">ยกเลิก</button>
+                    <button type="button" class="btn btn-md btn-danger m-1" [routerLink]="['/' + loginUser.email + '/odn/home']">ยกเลิก</button>
                 </div>
            
                 </div>

@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 
 import { Observable } from 'rxjs';
 import { DbService } from '../base/db.service';
+import { AppService } from 'src/app/services/base/app.service';
 
 
 @Injectable({
@@ -10,12 +11,16 @@ import { DbService } from '../base/db.service';
 })
 export class OdnService {
 
-  constructor(private http: HttpClient, private dbService: DbService) {}
+  constructor(
+    private http: HttpClient, 
+    private dbService: DbService, 
+    private appService : AppService
+  ) {}
 
   private apiUrl: string = this.dbService.getServiceURL() + '/odn/odn';
 
-  findAll(params:any): Observable<any> {
-    return this.http.get<any>(this.apiUrl + '/' + params);
+  findAll(params : { search? : string, start : number, limit : number }): Observable<any> {
+    return this.http.get<any>(this.apiUrl + '/' + this.appService.getQueryString(params));
   }
 
   findById(id:number): Observable<any> {

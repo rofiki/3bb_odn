@@ -20,7 +20,7 @@
                                 <th colspan="9">Progress</th>
                             </tr>                                                      
                             <tr class="text-center">
-                              <th scope="col" rowspan="2">เลขที่ ODN</th>
+                              <th scope="col" rowspan="2">เลขที่บันทึก</th>
                               <th scope="col" rowspan="2">AIS/3BB</th>
 
                               <th scope="col" rowspan="2">วันที่บันทึก</th>
@@ -58,7 +58,7 @@
                     
                           </thead>
                           <!-- <div *ngIf="(isProcess == true) then showData"></div> -->
-                          <div *ngIf="isProcess; then showData else loading"></div>
+                          <div *ngIf="showTable; then showData else loading"></div>
                             <ng-template #loading>
                                 <tbody>
                                     <tr>
@@ -93,6 +93,29 @@
                           </tbody>
                         </ng-template>
                       </table>
+                      <div *ngIf="itemRef?.data.length > 0" >
+                        <div class='small d-inline-block ps-1  title-font'>
+                            {{ itemRef?.pageStart + 1 }} - {{ itemRef?.pageStart + itemRef?.data.length }} of {{ itemRef.count }}
+                        </div>
+    
+                        <div class="d-inline-block ps-1">
+                            <ul class="pagination pagination-sm">
+                                <li class="page-item {{ itemRef?.pageStart == 0 ? 'disabled' : '' }}" >
+                                    <a class="page-link"  href="javascript:void(0)" 
+                                        (click)="pageEventChange(itemRef?.pageStart - itemRef?.pageLimit, itemRef?.pageLimit, itemRef?.search)" >                            
+                                        <i class="fa-solid fa-angle-left"></i>
+                                    </a>
+                                </li>
+                                <li class="page-item {{ itemRef?.pageStart + itemRef?.pageLimit >= itemRef.count ? 'disabled' : '' }}">
+                                    <a class="page-link" 
+                                        href="javascript:void(0)" 
+                                        (click)="pageEventChange(itemRef?.pageStart + itemRef?.pageLimit, itemRef?.pageLimit, itemRef?.search)" >
+                                        <i class="fa-solid fa-angle-right"></i>
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>							
+                    </div>   
                 </div>
 
             </div>

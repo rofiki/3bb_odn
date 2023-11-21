@@ -7,7 +7,6 @@ import { jwtDecode } from 'jwt-decode';
 import { Subject, takeUntil } from 'rxjs';
 import { AuthService } from 'src/app/services/auth.service';
 import { AppService } from 'src/app/services/base/app.service';
-import { LoginService } from 'src/app/services/login.service';
 import { OrgService } from 'src/app/services/odn/org.service';
 import { ProvinceService } from 'src/app/services/odn/province.service';
 import { UsersService } from 'src/app/services/odn/users.service';
@@ -31,13 +30,11 @@ export class AddOdnComponent implements OnInit {
   constructor(
     private authService: AuthService,
     private appService: AppService,
-    private loginService: LoginService,
     private orgService: OrgService,
     private provinceService: ProvinceService,
     private usersService: UsersService,
     private service: OdnService,
 
-    private _ngZone: NgZone,
     private router: Router,
     private fb: FormBuilder,
     private localeService: BsLocaleService,
@@ -52,7 +49,6 @@ export class AddOdnComponent implements OnInit {
    public isProcess: boolean = false;
 
   public loginUser: any = null;
-  public token: any = localStorage.getItem('token');
 
   public orgRef: any
   public provinceRef: any;
@@ -67,6 +63,9 @@ export class AddOdnComponent implements OnInit {
 
   ngOnInit(): void {
 
+    const token: any = localStorage.getItem('token');
+    this.loginUser = jwtDecode(token);
+
     this.getOrgLoading = false;
     this.getOdnUsersLoading = false;
     this.getOdnUsersLoading = false;
@@ -79,8 +78,6 @@ export class AddOdnComponent implements OnInit {
     this.getProvince();
     this.getOdnUsers();
     this.genCode();
-    const token: any = localStorage.getItem('token');
-    this.loginUser = jwtDecode(token);
     
     this.aform = this.fb.group({
       odn_code: this.fb.control('', []),
@@ -94,11 +91,10 @@ export class AddOdnComponent implements OnInit {
       odn_sale_chance: this.fb.control('', [Validators.required, Validators.pattern("^[0-9]*$")]),
     });
 
-    
-
     this.aform.patchValue({
       odn_added_date: new Date(),
     });
+
   }
 
   isLogin() {
@@ -185,10 +181,6 @@ export class AddOdnComponent implements OnInit {
       });
       this.getGenCode = true;
     });
-  }
-
-  reloadForm() {
-    this.ngOnInit();
   }
 
   ngOnDestroy(): void {
