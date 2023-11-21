@@ -46,9 +46,9 @@ export class AddOdnComponent implements OnInit {
   ) { }
 
   public componentDestroyed$: Subject<boolean> = new Subject()
-  public isProcess: boolean = false;
   public swalOption = new SwalOption;
   public aform!: FormGroup;
+   public isProcess: boolean = false;
 
   public loginUser: any = null;
   public token: any = localStorage.getItem('token');
@@ -58,7 +58,18 @@ export class AddOdnComponent implements OnInit {
   public userRef: any;
   public odnUserRef: any
 
+  // loding
+  public getOrgLoading:boolean = false;
+  public getProvinceLoading:boolean = false;
+  public getOdnUsersLoading:boolean = false;
+  public getGenCode:boolean = false;
+
   ngOnInit(): void {
+
+    this.getOrgLoading = false;
+    this.getOdnUsersLoading = false;
+    this.getOdnUsersLoading = false;
+    this.getGenCode = false;
 
     this.localeService.use('th');
 
@@ -104,20 +115,22 @@ export class AddOdnComponent implements OnInit {
 
   getOrg() {
     this.orgService.findAll().pipe(takeUntil(this.componentDestroyed$)).subscribe(org => {
-
       this.orgRef = org;
+      this.getOrgLoading = true;
     });
   }
 
   getProvince() {
     this.provinceService.findAll().pipe(takeUntil(this.componentDestroyed$)).subscribe(province => {
       this.provinceRef = province;
+      this.getProvinceLoading = true;
     });
   }
 
   getOdnUsers() {
     this.usersService.findAll().pipe(takeUntil(this.componentDestroyed$)).subscribe(odnUser => {
       this.odnUserRef = odnUser;
+      this.getOdnUsersLoading = true;
     });
   }
 
@@ -167,8 +180,9 @@ export class AddOdnComponent implements OnInit {
   public genCode(){
     this.service.genCode().pipe(takeUntil(this.componentDestroyed$)).subscribe(g => { 
       this.aform.patchValue({
-        odn_code: g.new_odncode
+        odn_code: g.new_odncode,
       });
+      this.getGenCode = true;
     });
   }
 

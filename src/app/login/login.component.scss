@@ -102,3 +102,19 @@ form.user .btn-user {
     border-top-right-radius: .50rem;
     border-bottom-right-radius: .50rem;
 }
+
+
+  input.ng-touched.ng-valid {
+    border: 2px solid #198754;
+    color: #198754;
+  }
+
+  input.ng-touched.ng-invalid {
+    border: 2px solid #dc3545;
+    color: #ae2e3a;
+  }
+
+  input.ng-touched.ng-invalid {
+    border: 2px solid #dc3545;
+    color: #dc3545;
+}

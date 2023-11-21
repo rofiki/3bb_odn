@@ -16,6 +16,7 @@ import { SettingComponent } from './setting/setting.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
 import { NgxMaskDirective, NgxMaskPipe, provideNgxMask } from 'ngx-mask';
+import { EditComponent } from './edit/edit.component';
 
 
 
@@ -28,6 +29,7 @@ import { NgxMaskDirective, NgxMaskPipe, provideNgxMask } from 'ngx-mask';
     EditProgressComponent,
     DetailOdnComponent,
     SettingComponent,
+    EditComponent,
   ],
   imports: [
     CommonModule,
