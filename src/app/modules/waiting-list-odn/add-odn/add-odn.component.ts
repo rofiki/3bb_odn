@@ -1,4 +1,4 @@
-import { Component, NgZone, OnInit } from '@angular/core';
+import { Component, NgZone, OnInit, TemplateRef } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, ValidationErrors, ValidatorFn, AbstractControl } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { DatePipe } from '@angular/common';
@@ -42,8 +42,9 @@ export class AddOdnComponent implements OnInit {
     private fb: FormBuilder,
     private localeService: BsLocaleService,
     private datePipe: DatePipe,
-    private activatedRoute: ActivatedRoute
+    private activatedRoute: ActivatedRoute,
   ) { }
+
 
   public componentDestroyed$: Subject<boolean> = new Subject()
   public swalOption = new SwalOption;

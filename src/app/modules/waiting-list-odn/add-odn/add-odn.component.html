@@ -8,11 +8,11 @@
     <div class="p-3 bg-body-tertiary border">
         <!-- // -->
         <h5><strong>เพิ่มข้อมูล / Request งานขยาย</strong></h5>
-        <form [formGroup]="aform" (ngSubmit)="onSubmit()" class="user" novalidate >
+        <form [formGroup]="aform" (ngSubmit)="onSubmit()" class="user" novalidate>
             <!-- <div *ngIf="isProcess; then showData else loading"></div> -->
             <div *ngIf="((getOrgLoading) && (getProvinceLoading) && (getOdnUsersLoading) && (getGenCode)) then showData else loading"></div>
             <ng-template #loading>
-                <div><i class="fa-solid fa-circle-notch fa-spin"></i> Loading...</div>
+                <div class="loading"><i class="fa-solid fa-circle-notch fa-spin"></i> Loading...</div>
             </ng-template>
             <ng-template #showData>
                 <div class="row p-3">
