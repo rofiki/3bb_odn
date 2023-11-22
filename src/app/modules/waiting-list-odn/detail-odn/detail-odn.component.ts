@@ -28,14 +28,11 @@ export class DetailOdnComponent implements OnInit {
       this.loginUser = jwtDecode(token);
 
       this.getData();
-  
     }
 
     public getData(){
       this.service.findById(this.id).subscribe(r => {
-        this.itemRef = r.data[0];
-        // console.log(r);
-        // console.log('itemRef',this.itemRef);
+        this.itemRef = r[0];
       });
     }
 }

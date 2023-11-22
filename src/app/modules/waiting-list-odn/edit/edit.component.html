@@ -1,1 +1,211 @@
-<p>edit works!</p>
+<app-header></app-header>
+
+<div class="nav-scroller" style="text-align: right;">
+    <div class="text text-secondary text-small"><small><i class="fa-regular fa-user"></i> {{loginUser.email}} <i class="fa-regular fa-circle-check"></i> {{loginUser.role}}</small></div>
+</div>
+
+<main class="container-fluid"  *ngIf="itemRef">
+    <div class="p-3 bg-body-tertiary border">
+        <!-- // -->
+        <div class="row">
+            <div class="col-md-6">
+                <h5><strong>แก้ไขข้อมูล: </strong> <small class="text-secondary h6" >{{itemRef.odn_code}}</small></h5>
+            </div>
+            <div class="col-md-6 text-end">
+                
+            </div>
+        </div>
+        
+        <div class="row">
+            <div class="col-md-12 ">
+                <div class="row">
+                </div>
+            </div>
+        </div>
+
+        <div class="container">
+
+            <h6 class="mt-3 border-bottom"><strong>Request งานขยาย</strong></h6>
+            <form [formGroup]="aform" (ngSubmit)="onSubmit()" novalidate>
+                <!-- <div *ngIf="isProcess; then showData else loading"></div> -->
+
+                <div *ngIf="((getOrgLoading) && (getProvinceLoading) && (getOdnUsersLoading)) then showData else loading"></div>
+                <ng-template #loading>
+                    <div class="loading"><i class="fa-solid fa-circle-notch fa-spin"></i> Loading...</div>
+                </ng-template>
+                <ng-template #showData>
+                    <div class="row p-3">
+                
+                    <!-- <form> -->
+                    <div class="col-md-6">
+            
+                        <div class="row mb-3">
+                            <label class="col-sm-4 col-form-label col-form-label-sm text-end">เลขที่ ODN</label>
+                            <label class="col-sm-6 col-form-label col-form-label-sm"><strong>{{itemRef.odn_code}}</strong></label>
+                         
+                        </div>
+                        <div class="row mb-3">
+                            <label for="colFormLabelSm" class="col-sm-4 col-form-label col-form-label-sm text-end">AIS/3BB</label>
+                            <div class="col-sm-6">
+            
+                                <select *ngIf="orgRef && orgRef.data" name="org_id" id="org_id" class="form-control form-control-sm" formControlName="org_id"
+                                [class.is-invalid]="(aform.get('org_id')?.invalid && (aform.get('org_id')?.dirty || aform.get('org_id')?.touched))"
+                                [class.is-valid]="(aform.get('org_id')?.valid && (aform.get('org_id')?.dirty || aform.get('org_id')?.touched))"
+                                [(ngModel)]="itemRef.org_id">
+                                    <option value="">- เลือก -</option>
+                                    <ng-container *ngFor="let element of orgRef.data">
+                                        <option value="{{ element.org_id }}"> {{ element.org_text }}</option>
+                                    </ng-container>
+                                </select>     
+            
+                                <div *ngIf="aform.get('org_id')?.invalid && (aform.get('org_id')?.dirty || aform.get('org_id')?.touched)">
+                                    <small class="message-error m-2" *ngIf="aform.get('org_id')?.hasError('required')">กรุณาเลือก AIS/3BB</small>
+                                </div>                         
+                            </div>
+                        </div>
+                        <div class="row mb-3">
+                            <label for="colFormLabelSm" class="col-sm-4 col-form-label col-form-label-sm text-end">วันที่บันทึก</label>
+                            <div class="col-sm-6">
+                                <input type="text" class="form-control form-control-sm" placeholder="วันที่บันทึก" bsDatepicker
+                                    formControlName="odn_added_date"
+                                    [class.is-invalid]="(aform.get('odn_added_date')?.invalid && (aform.get('odn_added_date')?.dirty || aform.get('odn_added_date')?.touched))"
+                                    [class.is-valid]="(aform.get('odn_added_date')?.valid && (aform.get('odn_added_date')?.dirty || aform.get('odn_added_date')?.touched))"
+                                >
+                                <div *ngIf="aform.get('odn_added_date')?.invalid && (aform.get('odn_added_date')?.dirty || aform.get('odn_added_date')?.touched)">
+                                    <small class="message-error m-2" *ngIf="aform.get('odn_added_date')?.hasError('required')">ห้ามว่าง</small>
+                                </div>                         
+                            </div>
+                        </div>
+                        <div class="row mb-3">
+                            <label for="colFormLabelSm" class="col-sm-4 col-form-label col-form-label-sm text-end">ผู้บันทึก</label>
+                            <div class="col-sm-6">
+                                
+                                <select *ngIf="odnUserRef && odnUserRef.data" class="form-control form-control-sm" formControlName="odn_request_user_id"
+                                [class.is-invalid]="(aform.get('odn_request_user_id')?.invalid && (aform.get('odn_request_user_id')?.dirty || aform.get('odn_request_user_id')?.touched))"
+                                [class.is-valid]="(aform.get('odn_request_user_id')?.valid && (aform.get('odn_request_user_id')?.dirty || aform.get('odn_request_user_id')?.touched))"
+                                [(ngModel)]="itemRef.odn_request_user_id"
+                                >
+                                    <ng-container *ngFor="let element of odnUserRef.data">
+                                        <option value="{{element.users_id}}"> {{ element.users_detail_firstname }} {{ element.users_detail_lastname }}</option>
+                                    </ng-container>
+            
+                                </select>    
+            
+                                <div *ngIf="aform.get('odn_request_user_id')?.invalid && (aform.get('odn_request_user_id')?.dirty || aform.get('odn_request_user_id')?.touched)">
+                                    <small class="message-error m-2" *ngIf="aform.get('odn_request_user_id')?.hasError('odn_request_user_id')">กรุณาเลือกผู้บันทึก</small>
+                                </div> 
+            
+                            </div>
+                        </div>
+                        <div class="row mb-3">
+                            <label for="colFormLabelSm" class="col-sm-4 col-form-label col-form-label-sm text-end">สถานที่</label>
+                            <div class="col-sm-6">
+                                <input type="text" class="form-control form-control-sm" placeholder="สถานที่"
+                                    formControlName="odn_place"
+                                    [class.is-invalid]="(aform.get('odn_place')?.invalid && (aform.get('odn_place')?.dirty || aform.get('odn_place')?.touched))"
+                                    [class.is-valid]="(aform.get('odn_place')?.valid && (aform.get('odn_place')?.dirty || aform.get('odn_place')?.touched))"
+                                    [(ngModel)]="itemRef.odn_place"
+                                >
+                                <div *ngIf="aform.get('odn_place')?.invalid && (aform.get('odn_place')?.dirty || aform.get('odn_place')?.touched)">
+                                    <small class="message-error m-2" *ngIf="aform.get('odn_place')?.hasError('required')">ห้ามว่าง</small>
+                                </div>                         
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+            
+                        <div class="row mb-3">
+                            <label for="colFormLabelSm" class="col-sm-3 col-form-label col-form-label-sm text-end">จังหวัด</label>
+                            <div class="col-sm-6">
+                                <select *ngIf="provinceRef && provinceRef.data" class="form-control form-control-sm" formControlName="province_id"
+                                [class.is-invalid]="(aform.get('province_id')?.invalid && (aform.get('province_id')?.dirty || aform.get('province_id')?.touched))"
+                                [class.is-valid]="(aform.get('province_id')?.valid && (aform.get('province_id')?.dirty || aform.get('province_id')?.touched))"
+                                [(ngModel)]="itemRef.province_id"
+                                >
+                                    <option value="">- เลือก -</option>
+                                    <ng-container *ngFor="let element of provinceRef.data">
+                                        <option value="{{ element.province_id}}"> {{ element.province_name }}</option>
+                                    </ng-container>
+            
+                                </select>    
+            
+                                <div *ngIf="aform.get('province_id')?.invalid && (aform.get('province_id')?.dirty || aform.get('province_id')?.touched)">
+                                    <small class="message-error m-2" *ngIf="aform.get('province_id')?.hasError('required')">กรุณาเลือกจังหวัด</small>
+                                </div>                               
+                            </div>
+                        </div>
+                        <div class="row mb-3">
+                            <label for="colFormLabelSm" class="col-sm-3 col-form-label col-form-label-sm text-end">พิกัดจุดขยาย</label>
+                            <div class="col-sm-6">
+                                <input type="text" class="form-control form-control-sm" placeholder="0.000000, 000.000000" mask="0.000000, 000.000000" shownMaskExpression="'_.______, ___.______'"
+                                    formControlName="odn_location"
+                                    [class.is-invalid]="(aform.get('odn_location')?.invalid && (aform.get('odn_location')?.dirty || aform.get('odn_location')?.touched))"
+                                    [class.is-valid]="(aform.get('odn_location')?.valid && (aform.get('odn_location')?.dirty || aform.get('odn_location')?.touched))"
+                                    [(ngModel)]="itemRef.odn_location"
+                                >
+                                <div *ngIf="aform.get('odn_location')?.invalid && (aform.get('odn_location')?.dirty || aform.get('odn_location')?.touched)">
+                                    <small class="message-error m-2" *ngIf="aform.get('odn_location')?.hasError('required')">ห้ามว่าง</small>
+                                </div>                         
+                            </div>
+                        </div>
+                        <div class="row mb-3">
+                            <label for="colFormLabelSm" class="col-sm-3 col-form-label col-form-label-sm text-end">ขายได้</label>
+                            <div class="col-sm-6">
+                                <input type="text" class="form-control form-control-sm" placeholder="ขายได้"
+                                    formControlName="odn_sale_num"
+                                    [class.is-invalid]="(aform.get('odn_sale_num')?.invalid && (aform.get('odn_sale_num')?.dirty || aform.get('odn_sale_num')?.touched))"
+                                    [class.is-valid]="(aform.get('odn_sale_num')?.valid && (aform.get('odn_sale_num')?.dirty || aform.get('odn_sale_num')?.touched))"
+                                    [(ngModel)]="itemRef.odn_sale_num"
+                                >
+                                <div *ngIf="aform.get('odn_sale_num')?.invalid && (aform.get('odn_sale_num')?.dirty || aform.get('odn_sale_num')?.touched)">
+                                    <small class="message-error m-2" *ngIf="aform.get('odn_sale_num')?.hasError('required')">ห้ามว่าง</small>
+                                    <small class="message-error m-2" *ngIf="aform.get('odn_sale_num')?.hasError('pattern')">ป้อนตัวเลขเท่านั้น</small>
+                                </div>                         
+                            </div>
+                        </div>
+                        <div class="row mb-3">
+                            <label for="colFormLabelSm" class="col-sm-3 col-form-label col-form-label-sm text-end">โอกาสขาย</label>
+                            <div class="col-sm-6">
+                                <input type="text" class="form-control form-control-sm" placeholder="โอกาสขาย"
+                                    formControlName="odn_sale_chance"
+                                    [class.is-invalid]="(aform.get('odn_sale_chance')?.invalid && (aform.get('odn_sale_chance')?.dirty || aform.get('odn_sale_chance')?.touched))"
+                                    [class.is-valid]="(aform.get('odn_sale_chance')?.valid && (aform.get('odn_sale_chance')?.dirty || aform.get('odn_sale_chance')?.touched))"
+                                    [(ngModel)]="itemRef.odn_sale_chance"
+                                >
+                                <div *ngIf="aform.get('odn_sale_chance')?.invalid && (aform.get('odn_sale_chance')?.dirty || aform.get('odn_sale_chance')?.touched)">
+                                    <small class="message-error m-2" *ngIf="aform.get('odn_sale_chance')?.hasError('required')">ห้ามว่าง</small>
+                                    <small class="message-error m-2" *ngIf="aform.get('odn_sale_chance')?.hasError('pattern')">ป้อนตัวเลขเท่านั้น</small>
+                                </div>                         
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-12 text-center p-1">
+                        <button type="submit" class="btn btn-md btn-primary m-1" [disabled]="aform.invalid">บันทึก</button>
+                        <button type="button" class="btn btn-md btn-danger m-1" [routerLink]="['/' + loginUser.email + '/odn/detail',itemRef.odn_id]">ยกเลิก</button>
+                    </div>
+               
+                    </div>
+                </ng-template>
+            </form>
+
+
+            <h6 class="mt-4 border-bottom"><strong>Plan งานขยาย</strong></h6>
+            <app-update-plan></app-update-plan>
+
+            <h6 class="mt-4 border-bottom"><strong>บันทึกขออนุมัติ ODN</strong></h6>
+            <app-update-request-odn></app-update-request-odn>
+
+            <h6 class="mt-4 border-bottom"><strong>Verify</strong></h6>
+            <app-update-verify></app-update-verify>
+
+            <h6 class="mt-3 border-bottom"><strong>Approve</strong></h6>
+            <app-update-approve></app-update-approve>
+            
+            <h6 class="mt-3 border-bottom"><strong>ดำเนินการสร้าง/สร้างเสร็จ</strong></h6>
+            <app-update-build></app-update-build>         
+        </div>
+        <!-- end // -->
+    </div>
+</main>
+
+<app-footer></app-footer>

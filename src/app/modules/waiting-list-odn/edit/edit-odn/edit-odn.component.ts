@@ -1,9 +1,9 @@
 import { Component, NgZone, OnInit, TemplateRef } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, ValidationErrors, ValidatorFn, AbstractControl } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
+import { firstValueFrom, lastValueFrom, Observable, Subscription } from 'rxjs';
 import { DatePipe } from '@angular/common';
 
-import { jwtDecode } from 'jwt-decode';
 import { Subject, takeUntil } from 'rxjs';
 import { AuthService } from 'src/app/services/auth.service';
 import { AppService } from 'src/app/services/base/app.service';
@@ -19,13 +19,14 @@ import { SwalOption } from 'src/app/shared/sweetalert2.option.directive';
 import { BsLocaleService } from 'ngx-bootstrap/datepicker';
 import { OdnService } from 'src/app/services/odn/odn.service';
 
+import { jwtDecode } from 'jwt-decode';
 
 @Component({
-  selector: 'app-add-odn',
-  templateUrl: './add-odn.component.html',
-  styleUrls: ['./add-odn.component.scss']
+  selector: 'app-edit-odn',
+  templateUrl: './edit-odn.component.html',
+  styleUrls: ['./edit-odn.component.scss'],
 })
-export class AddOdnComponent implements OnInit {
+export class EditOdnComponent implements OnInit {
 
   public loginUser: any = null;
 
@@ -41,7 +42,7 @@ export class AddOdnComponent implements OnInit {
     private fb: FormBuilder,
     private localeService: BsLocaleService,
     private datePipe: DatePipe,
-    private activatedRoute: ActivatedRoute,
+    private route: ActivatedRoute,
   ) { }
 
   public componentDestroyed$: Subject<boolean> = new Subject()
@@ -53,22 +54,22 @@ export class AddOdnComponent implements OnInit {
   public provinceRef: any;
   public userRef: any;
   public odnUserRef: any
+  public itemRef: any;
 
   // loding
   public getOrgLoading: boolean = false;
   public getProvinceLoading: boolean = false;
   public getOdnUsersLoading: boolean = false;
-  public getGenCode: boolean = false;
 
-  ngOnInit(): void {
+  public id: any = this.route.snapshot.paramMap.get('id');
 
+  async ngOnInit() {
     const token: any = localStorage.getItem('token');
     this.loginUser = jwtDecode(token);
 
     this.getOrgLoading = false;
     this.getOdnUsersLoading = false;
     this.getOdnUsersLoading = false;
-    this.getGenCode = false;
 
     this.localeService.use('th');
 
@@ -76,7 +77,9 @@ export class AddOdnComponent implements OnInit {
     this.getOrg();
     this.getProvince();
     this.getOdnUsers();
-    this.genCode();
+
+    this.itemRef = await lastValueFrom(this.service.findById(this.id));
+    console.log('itemRef', this.itemRef);
 
     this.aform = this.fb.group({
       odn_code: this.fb.control('', []),
@@ -90,9 +93,9 @@ export class AddOdnComponent implements OnInit {
       odn_sale_chance: this.fb.control('', [Validators.required, Validators.pattern("^[0-9]*$")]),
     });
 
-    this.aform.patchValue({
-      odn_added_date: new Date(),
-    });
+    // this.aform.patchValue({
+    //   odn_added_date: new Date(),
+    // });
 
   }
 
@@ -130,61 +133,8 @@ export class AddOdnComponent implements OnInit {
     });
   }
 
-
   public async onSubmit() {
 
-    let swalOption = this.swalOption;
-    let params = this.aform.value;
-
-    params.odn_added_date = this.datePipe.transform(params.odn_added_date, 'yyyy-MM-dd hh:mm:ss');
-
-    let location = params.odn_location;
-    let lat1 = location.substr(0, 1);
-    let lat2 = location.substr(1, 6);
-    let long1 = location.substr(7, 3);
-    let long2 = location.substr(10, 6);
-    params.lat = lat1 + '.' + lat2;
-    params.long = long1 + '.' + long2;
-    params.odn_location = params.lat + ', ' + params.long;
-
-
-    Swal.fire(swalOption.Confirm('')).then((result) => {
-      if (result.isConfirmed) {
-
-        this.service.create(params).pipe(takeUntil(this.componentDestroyed$)).subscribe(r => {
-          // console.log('r', r);
-          if (r.status) {
-            Swal.fire({
-              icon: "success",
-              title: r.message,
-              showConfirmButton: false,
-              timer: 1000,
-              timerProgressBar: true,
-            }).then(result => {
-              if (result.isDismissed) {
-                this.router.navigate(['../home'], { relativeTo: this.activatedRoute });
-              }
-            });
-
-          }
-        });
-
-      }
-    }); // end โปรดยืนยันการลงทะเบียนขอใช้งานระบบ
-  }
-
-  public genCode() {
-    this.service.genCode().pipe(takeUntil(this.componentDestroyed$)).subscribe(g => {
-      this.aform.patchValue({
-        odn_code: g.new_odncode,
-      });
-      this.getGenCode = true;
-    });
-  }
-
-  ngOnDestroy(): void {
-    this.componentDestroyed$.next(true)
-    this.componentDestroyed$.complete()
   }
 
 }

@@ -33,6 +33,11 @@ export class OdnService {
     return this.http.post(this.apiUrl + '/', params);
   }
 
+  public update(params: {}): Observable<any> {
+    console.log('param = ', params);
+    return this.http.put(this.apiUrl + '/', params);
+  }
+
   genCode(): Observable<any> {
     return this.http.get<any>(this.dbService.getServiceURL() + '/genodncode' );
   }
