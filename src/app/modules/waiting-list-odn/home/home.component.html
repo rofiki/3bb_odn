@@ -71,7 +71,7 @@
                                 <tr class="text-center table-text-small tr-edit" *ngFor="let element of itemRef.data">
                                     <td (click)="edit(element.odn_id)">{{element.odn_code}}</td>
                                     <td (click)="edit(element.odn_id)">{{element.org_text}}</td>
-                                    <td (click)="edit(element.odn_id)">{{element.odn_added_date}}</td>
+                                    <td (click)="edit(element.odn_id)">{{element.odn_added_date | date:"dd/MM/yyyy"}}</td>
                                     <td (click)="edit(element.odn_id)">{{element.odn_request_user_id}}</td>
                                     <td (click)="edit(element.odn_id)">{{element.odn_place}}</td>
                                     <td (click)="edit(element.odn_id)">{{element.province_name}}</td>

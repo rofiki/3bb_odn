@@ -5,6 +5,7 @@ import { jwtDecode } from 'jwt-decode';
 import { OdnService } from 'src/app/services/odn/odn.service';
 
 import { firstValueFrom, lastValueFrom, Observable, Subscription } from 'rxjs';
+import { DatePipe } from '@angular/common';
 
 @Component({
   selector: 'app-home',
@@ -18,7 +19,8 @@ export class HomeComponent implements OnInit {
   constructor( 
     private service: OdnService,
     private router: Router,
-    private activatedRoute: ActivatedRoute
+    private activatedRoute: ActivatedRoute,
+    private datePipe: DatePipe
     ){}
 
   public isProcess:boolean = false;

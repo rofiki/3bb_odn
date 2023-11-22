@@ -14,16 +14,28 @@ import { firstValueFrom, lastValueFrom, Observable, Subscription } from 'rxjs';
 export class DetailOdnComponent implements OnInit {
 
   public loginUser: any = null;
+  public id:any = this.route.snapshot.paramMap.get('id');
+  public itemRef:any = null;
 
   constructor( 
     private service: OdnService,
     private router: Router,
-    private activatedRoute: ActivatedRoute
+    private route: ActivatedRoute
     ){}
 
     ngOnInit(): void {
       const token:any = localStorage.getItem('token');
       this.loginUser = jwtDecode(token);
+
+      this.getData();
   
+    }
+
+    public getData(){
+      this.service.findById(this.id).subscribe(r => {
+        this.itemRef = r.data[0];
+        // console.log(r);
+        // console.log('itemRef',this.itemRef);
+      });
     }
 }
