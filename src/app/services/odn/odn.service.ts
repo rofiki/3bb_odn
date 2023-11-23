@@ -48,6 +48,21 @@ export class OdnService {
     return this.http.put(this.apiUrl + '/updaterequest', params);
   }
 
+  public updateVerify(params: {}): Observable<any> {
+    // console.log('param = ', params);
+    return this.http.put(this.apiUrl + '/updateverify', params);
+  }
+
+  public updateApprove(params: {}): Observable<any> {
+    // console.log('param = ', params);
+    return this.http.put(this.apiUrl + '/updateapprove', params);
+  }
+
+  public updateBuild(params: {}): Observable<any> {
+    // console.log('param = ', params);
+    return this.http.put(this.apiUrl + '/updatebuild', params);
+  }
+
   genCode(): Observable<any> {
     return this.http.get<any>(this.dbService.getServiceURL() + '/genodncode' );
   }

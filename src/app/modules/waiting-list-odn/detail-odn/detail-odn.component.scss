@@ -120,12 +120,33 @@
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    background-color: #14a48c
+    background-color: #09843e
 }
 
 .timeline-steps .timeline-content-finish .inner-circle:before {
     content: "";
-    background-color: #14a48c;
+    background-color: #09843e;
+    display: inline-block;
+    height: 3rem;
+    width: 3rem;
+    min-width: 3rem;
+    border-radius: 6.25rem;
+    opacity: .5
+}
+
+.timeline-steps .timeline-content-close .inner-circle {
+    border-radius: 1.5rem;
+    height: 1rem;
+    width: 1rem;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background-color: rgb(255, 123, 0);
+}
+
+.timeline-steps .timeline-content-close .inner-circle:before {
+    content: "";
+    background-color: rgb(255, 123, 0);
     display: inline-block;
     height: 3rem;
     width: 3rem;

@@ -1,1 +1,88 @@
-<p>update-approve works!</p>
+<form [formGroup]="aform" (ngSubmit)="onSubmit()" novalidate *ngIf="aform">
+
+    <div *ngIf="((getOdnUsersLoading)) then showData else loading"></div>
+    <ng-template #loading>
+        <div class="loading"><i class="fa-solid fa-circle-notch fa-spin"></i> Loading...</div>
+    </ng-template>
+    <ng-template #showData>
+        <div class="row p-3">
+            <div class="col-md-6">
+                <div class="row mb-3">
+                    <label for="colFormLabelSm" class="col-sm-4 col-form-label col-form-label-sm text-end">อนุมัติ/ไม่อนุมัติ</label>
+                    <div class="col-sm-6">
+                        <select *ngIf="approveList" class="form-control form-control-sm" formControlName="odn_approve_approve"
+                        [class.is-invalid]="(aform.get('odn_approve_approve')?.invalid && (aform.get('odn_approve_approve')?.dirty || aform.get('odn_approve_approve')?.touched))"
+                        [class.is-valid]="(aform.get('odn_approve_approve')?.valid && (aform.get('odn_approve_approve')?.dirty || aform.get('odn_approve_approve')?.touched))"
+                        [(ngModel)]="itemRef.odn_approve_approve"
+                        >
+                            <ng-container *ngFor="let element of approveList">
+                                <option value="{{element.approveId}}"> {{ element.approveName }}</option>
+                            </ng-container>
+
+                        </select>    
+
+                        <div *ngIf="aform.get('odn_approve_approve')?.invalid && (aform.get('odn_approve_approve')?.dirty || aform.get('odn_approve_approve')?.touched)">
+                            <small class="message-error m-2" *ngIf="aform.get('odn_approve_approve')?.hasError('required')">กรุณาเลือก อนุมัติ/ไม่อนุมัติ</small>
+                        </div> 
+
+                    </div>
+                </div>
+
+                <div class="row mb-3">
+                    <label for="colFormLabelSm" class="col-sm-4 col-form-label col-form-label-sm text-end">วันที่ Approve</label>
+                    <div class="col-sm-6">
+                        <input type="text" class="form-control form-control-sm" placeholder="วันที่ Approve" bsDatepicker
+                            formControlName="odn_approve_date"
+                            [class.is-invalid]="(aform.get('odn_approve_date')?.invalid && (aform.get('odn_approve_date')?.dirty || aform.get('odn_approve_date')?.touched))"
+                            [class.is-valid]="(aform.get('odn_approve_date')?.valid && (aform.get('odn_approve_date')?.dirty || aform.get('odn_approve_date')?.touched))"
+                        >
+                        <div *ngIf="aform.get('odn_approve_date')?.invalid && (aform.get('odn_approve_date')?.dirty || aform.get('odn_approve_date')?.touched)">
+                            <small class="message-error m-2" *ngIf="aform.get('odn_approve_date')?.hasError('required')">ห้ามว่าง</small>
+                        </div>                         
+                    </div>
+                </div>
+                <div class="row mb-3">
+                    <label for="colFormLabelSm" class="col-sm-4 col-form-label col-form-label-sm text-end">Approve โดย</label>
+                    <div class="col-sm-6">
+                        <select *ngIf="odnUserRef && odnUserRef.data" class="form-control form-control-sm" formControlName="odn_approve_users_id"
+                        [class.is-invalid]="(aform.get('odn_approve_users_id')?.invalid && (aform.get('odn_approve_users_id')?.dirty || aform.get('odn_approve_users_id')?.touched))"
+                        [class.is-valid]="(aform.get('odn_approve_users_id')?.valid && (aform.get('odn_approve_users_id')?.dirty || aform.get('odn_approve_users_id')?.touched))"
+                        [(ngModel)]="itemRef.odn_approve_users_id"
+                        >
+                            <ng-container *ngFor="let element of odnUserRef.data">
+                                <option value="{{element.users_id}}"> {{ element.users_detail_firstname }} {{ element.users_detail_lastname }}</option>
+                            </ng-container>
+
+                        </select>    
+
+                        <div *ngIf="aform.get('odn_approve_users_id')?.invalid && (aform.get('odn_approve_users_id')?.dirty || aform.get('odn_approve_users_id')?.touched)">
+                            <small class="message-error m-2" *ngIf="aform.get('odn_approve_users_id')?.hasError('required')">กรุณาเลือกผู้บันทึก</small>
+                        </div> 
+
+                    </div>
+                </div>
+
+                <div class="row mb-3">
+                    <label for="colFormLabelSm" class="col-sm-4 col-form-label col-form-label-sm text-end">วันที่คาดว่าจะเสร็จ</label>
+                    <div class="col-sm-6">
+                        <input type="text" class="form-control form-control-sm" placeholder="วันที่คาดว่าจะเสร็จ" bsDatepicker
+                            formControlName="odn_approve_predict_date"
+                            [class.is-invalid]="(aform.get('odn_approve_predict_date')?.invalid && (aform.get('odn_approve_predict_date')?.dirty || aform.get('odn_approve_predict_date')?.touched))"
+                            [class.is-valid]="(aform.get('odn_approve_predict_date')?.valid && (aform.get('odn_approve_predict_date')?.dirty || aform.get('odn_approve_predict_date')?.touched))"
+                        >
+                        <div *ngIf="aform.get('odn_approve_predict_date')?.invalid && (aform.get('odn_approve_predict_date')?.dirty || aform.get('odn_approve_predict_date')?.touched)">
+                            <small class="message-error m-2" *ngIf="aform.get('odn_approve_predict_date')?.hasError('required')">ห้ามว่าง</small>
+                        </div>                         
+                    </div>
+                </div>
+
+                <div class="row mb-3">
+                    <label class="col-sm-4 col-form-label col-form-label-sm text-end"></label>
+                    <div class="col-sm-6">
+                        <button type="submit" class="btn btn-md btn-primary m-1" [disabled]="aform.invalid">Update Approve</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </ng-template>
+</form>

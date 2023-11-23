@@ -55,7 +55,9 @@ export class UpdatePlanComponent implements OnInit, OnDestroy {
 
   async ngOnInit() {
 
+    this.getOdnUsersLoading = false;
     this.isProcess = true;
+
     await this.getOdnUsers();
     this.service.findById(this.id).pipe().subscribe(item => {
       this.itemRef = item.data;
@@ -68,9 +70,12 @@ export class UpdatePlanComponent implements OnInit, OnDestroy {
       });
 
       this.localeService.use('th');
-      this.aform.patchValue({
-        odn_plan_date: new Date(this.itemRef.odn_plan_date),
-      });
+      if(this.itemRef.odn_plan_date){
+        this.aform.patchValue({
+          odn_plan_date: new Date(this.itemRef.odn_plan_date),
+        });
+      }
+
 
       this.isProcess = false;
     });
@@ -78,6 +83,7 @@ export class UpdatePlanComponent implements OnInit, OnDestroy {
   }
 
   async getOdnUsers() {
+    this.getOdnUsersLoading = false;
     this.usersService.findAll().pipe(takeUntil(this.componentDestroyed$)).subscribe(odnUser => {
       this.odnUserRef = odnUser;
       this.getOdnUsersLoading = true;
@@ -88,16 +94,13 @@ export class UpdatePlanComponent implements OnInit, OnDestroy {
 
     let swalOption = this.swalOption;
     let params = this.aform.value;
-    // console.log('1',params);
 
     params.odn_plan_date = this.datePipe.transform(params.odn_plan_date, 'yyyy-MM-dd hh:mm:ss');
     params.id = this.id;
 
     Swal.fire(swalOption.Confirm('Update Plan งานขยาย')).then((result) => {
       if (result.isConfirmed) {
-        // this.router.navigate(['../../detail',this.id], { relativeTo: this.route });
         this.service.updatePlan(params).pipe(takeUntil(this.componentDestroyed$)).subscribe(r => {
-          // console.log('r', r);
           if (r.status) {
             Swal.fire({
               icon: "success",
@@ -107,7 +110,7 @@ export class UpdatePlanComponent implements OnInit, OnDestroy {
               timerProgressBar: true,
             }).then(result => {
               if (result.isDismissed) {
-                this.router.navigate(['../../detail',this.id], { relativeTo: this.route });
+                // this.router.navigate(['../../detail',this.id], { relativeTo: this.route });
                 // this.ngOnInit();
               }
             });

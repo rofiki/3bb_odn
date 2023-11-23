@@ -1,1 +1,61 @@
-<p>update-build works!</p>
+<form [formGroup]="aform" (ngSubmit)="onSubmit()" novalidate *ngIf="aform">
+
+    <div *ngIf="((getOdnUsersLoading)) then showData else loading"></div>
+    <ng-template #loading>
+        <div class="loading"><i class="fa-solid fa-circle-notch fa-spin"></i> Loading...</div>
+    </ng-template>
+    <ng-template #showData>
+        <div class="row p-3">
+            <div class="col-md-6">
+
+                <div class="row mb-3">
+                    <label for="colFormLabelSm" class="col-sm-4 col-form-label col-form-label-sm text-end">วันที่เริ่มสร้าง</label>
+                    <div class="col-sm-6">
+                        <input type="text" class="form-control form-control-sm" placeholder="วันที่เริ่มสร้าง" bsDatepicker
+                            formControlName="odn_build_start_date"
+                            [class.is-invalid]="(aform.get('odn_build_start_date')?.invalid && (aform.get('odn_build_start_date')?.dirty || aform.get('odn_build_start_date')?.touched))"
+                            [class.is-valid]="(aform.get('odn_build_start_date')?.valid && (aform.get('odn_build_start_date')?.dirty || aform.get('odn_build_start_date')?.touched))"
+                        >
+                        <div *ngIf="aform.get('odn_build_start_date')?.invalid && (aform.get('odn_build_start_date')?.dirty || aform.get('odn_build_start_date')?.touched)">
+                            <small class="message-error m-2" *ngIf="aform.get('odn_build_start_date')?.hasError('required')">ห้ามว่าง</small>
+                        </div>                         
+                    </div>
+                </div>
+                <div class="row mb-3">
+                    <label for="colFormLabelSm" class="col-sm-4 col-form-label col-form-label-sm text-end">วันที่สร้างเสร็จ</label>
+                    <div class="col-sm-6">
+                        <input type="text" class="form-control form-control-sm" placeholder="วันที่สร้างเสร็จ" bsDatepicker
+                            formControlName="odn_build_finish_date"
+                            [class.is-invalid]="(aform.get('odn_build_finish_date')?.invalid && (aform.get('odn_build_finish_date')?.dirty || aform.get('odn_build_finish_date')?.touched))"
+                            [class.is-valid]="(aform.get('odn_build_finish_date')?.valid && (aform.get('odn_build_finish_date')?.dirty || aform.get('odn_build_finish_date')?.touched))"
+                        >
+                        <!-- <div *ngIf="aform.get('odn_approve_date')?.invalid && (aform.get('odn_approve_date')?.dirty || aform.get('odn_approve_date')?.touched)">
+                            <small class="message-error m-2" *ngIf="aform.get('odn_approve_date')?.hasError('required')">ห้ามว่าง</small>
+                        </div>                          -->
+                    </div>
+                </div>
+
+                <div class="row mb-3">
+                    <label for="colFormLabelSm" class="col-sm-4 col-form-label col-form-label-sm text-end">สร้างเสร็จ/แจ้งขาย</label>
+                    <div class="col-sm-6">
+                        <input type="text" class="form-control form-control-sm" placeholder="สร้างเสร็จ/แจ้งขาย" bsDatepicker
+                            formControlName="odn_build_close_job"
+                            [class.is-invalid]="(aform.get('odn_build_close_job')?.invalid && (aform.get('odn_build_close_job')?.dirty || aform.get('odn_build_close_job')?.touched))"
+                            [class.is-valid]="(aform.get('odn_build_close_job')?.valid && (aform.get('odn_build_close_job')?.dirty || aform.get('odn_build_close_job')?.touched))"
+                        >
+                        <!-- <div *ngIf="aform.get('odn_approve_date')?.invalid && (aform.get('odn_approve_date')?.dirty || aform.get('odn_approve_date')?.touched)">
+                            <small class="message-error m-2" *ngIf="aform.get('odn_approve_date')?.hasError('required')">ห้ามว่าง</small>
+                        </div>                          -->
+                    </div>
+                </div>
+
+                <div class="row mb-3">
+                    <label class="col-sm-4 col-form-label col-form-label-sm text-end"></label>
+                    <div class="col-sm-6">
+                        <button type="submit" class="btn btn-md btn-primary m-1" [disabled]="aform.invalid">Update ดำเนินการสร้าง</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </ng-template>
+</form>

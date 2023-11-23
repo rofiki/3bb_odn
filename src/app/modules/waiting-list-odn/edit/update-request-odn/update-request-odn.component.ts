@@ -56,10 +56,11 @@ export class UpdateRequestOdnComponent implements OnInit, OnDestroy {
   async ngOnInit() {
 
     this.isProcess = true;
+    this.getOdnUsersLoading = false;
+
     await this.getOdnUsers();
     this.service.findById(this.id).pipe().subscribe(item => {
       this.itemRef = item.data;
-      console.log('request', this.itemRef)
 
       this.aform = this.fb.group({
         odn_request_date: this.fb.control(null, [Validators.required]),
@@ -74,13 +75,13 @@ export class UpdateRequestOdnComponent implements OnInit, OnDestroy {
         });
       }
 
-
       this.isProcess = false;
     });
 
   }
 
   async getOdnUsers() {
+    this.getOdnUsersLoading = false;
     this.usersService.findAll().pipe(takeUntil(this.componentDestroyed$)).subscribe(odnUser => {
       this.odnUserRef = odnUser;
       this.getOdnUsersLoading = true;
@@ -91,7 +92,6 @@ export class UpdateRequestOdnComponent implements OnInit, OnDestroy {
 
     let swalOption = this.swalOption;
     let params = this.aform.value;
-    // console.log('1',params);
 
     params.odn_request_date = this.datePipe.transform(params.odn_request_date, 'yyyy-MM-dd hh:mm:ss');
     params.id = this.id;
@@ -99,8 +99,7 @@ export class UpdateRequestOdnComponent implements OnInit, OnDestroy {
     Swal.fire(swalOption.Confirm('Update บันทึกขออนุมัติ ODN')).then((result) => {
       if (result.isConfirmed) {
         this.service.updateRequest(params).pipe(takeUntil(this.componentDestroyed$)).subscribe(r => {
-          // console.log()
-          console.log('r', r);
+
           if (r.status) {
             Swal.fire({
               icon: "success",

@@ -14,7 +14,8 @@
 
             </div>
             <div class="col-md-6 text-end">
-                <a class="btn btn-warning btn-sm m-1" [routerLink]="['/' + loginUser.email + '/odn/edit',itemRef.odn_id]">แก้ไข</a>
+                <a class="btn btn-secondary btn-sm" [routerLink]="['/' + loginUser.email + '/odn/home']"><i class="fa-solid fa-arrow-left"></i> Back</a>
+                <a class="btn btn-warning btn-sm m-1" [routerLink]="['/' + loginUser.email + '/odn/edit',itemRef.odn_id]">Update ข้อมูล</a>
                 <a class="btn btn-danger btn-sm">ลบ</a>
             </div>
         </div>
@@ -62,25 +63,54 @@
 
                                 </div>
                             </div>
-                            <div class="timeline-step">
-                                <div class="timeline-content" data-toggle="popover" data-trigger="hover" data-placement="top" title="">
+                            <div class="timeline-step " [ngClass]="{'timeline-step-finish': (verifyCss) }">
+                                <div class="timeline-content" [ngClass]="{'timeline-content-finish': (verifyCss) }" data-toggle="popover" data-trigger="hover" data-placement="top" title="">
                                     <div class="inner-circle"></div>
-                                    <p class="mt-3 mb-1"><strong style="color:#c0c0c0">Verify</strong></p>
-                                    <p class="mb-0 mb-lg-0" ><small style="color:#c0c0c0">รอดำเนินการ</small></p>
+                                    <div *ngIf="(verifyCss)">
+                                        <p class="mt-3 mb-1 finish"><strong>Verify</strong></p>
+                                        <p class="mb-0 mb-lg-0 finish"><small>{{ itemRef.odn_verify_date | date:"dd/MM/yyyy" }}</small></p>
+                                    </div>
+                                    <div *ngIf="(!verifyCss)">
+                                        <p class="mt-3 mb-1 not-finish"><strong>Verify</strong></p>
+                                        <p class="mb-0 mb-lg-0 not-finish"><small>รอดำเนินการ</small></p>
+                                    </div>
+                                </div>
+
+                                 
+                            </div>
+                            <div class="timeline-step mb-0"  [ngClass]="{'timeline-step-finish': (approveCss) }" >
+                                <div class="timeline-content" [ngClass]="{'timeline-content-finish': (approveCss) }" data-toggle="popover" data-trigger="hover" data-placement="top" title="">
+                                    <div class="inner-circle"></div>
+                                    <div *ngIf="(approveCss)">
+                                        <p class="mt-3 mb-1 finish"><strong>Approve</strong></p>
+                                        <p class="mb-0 mb-lg-0 finish"><small>{{ itemRef.odn_approve_date | date:"dd/MM/yyyy" }}</small></p>
+                                    </div>
+                                    <div *ngIf="(!approveCss)">
+                                        <p class="mt-3 mb-1 not-finish"><strong>Approve</strong></p>
+                                        <p class="mb-0 mb-lg-0 not-finish"><small>รอดำเนินการ</small></p>
+                                    </div>
                                 </div>
                             </div>
-                            <div class="timeline-step mb-0">
-                                <div class="timeline-content" data-toggle="popover" data-trigger="hover" data-placement="top" title="">
+                            <div class="timeline-step mb-0" [ngClass]="{'timeline-step-finish': (buildFinishCss && !buildCloseCss) }" [ngClass]="{'timeline-step-close': (buildCloseCss) }" >
+                                <div class="timeline-content" [ngClass]="{'timeline-content-finish': (buildFinishCss && !buildCloseCss) }" [ngClass]="{'timeline-content-close': (buildCloseCss) }"  
+                                data-toggle="popover" data-trigger="hover" data-placement="top" title="">
                                     <div class="inner-circle"></div>
-                                    <p class="mt-3 mb-1"><strong style="color:#c0c0c0">Approve</strong></p>
-                                    <p class="mb-0 mb-lg-0" ><small style="color:#c0c0c0">รอดำเนินการ</small></p>
-                                </div>
-                            </div>
-                            <div class="timeline-step mb-0">
-                                <div class="timeline-content" data-toggle="popover" data-trigger="hover" data-placement="top" title="">
-                                    <div class="inner-circle"></div>
-                                    <p class="mt-3 mb-1"><strong style="color:#c0c0c0">ดำเนินการสร้าง/สร้างเสร็จ</strong></p>
-                                    <p class="mb-0 mb-lg-0" ><small style="color:#c0c0c0">รอดำเนินการ</small></p>
+                                    <div *ngIf="(buildStartCss)">
+                                        <p class="mt-3 mb-1 finish"><strong>ดำเนินการสร้าง/สร้างเสร็จ</strong></p>
+                                        <p class="mb-0 mb-lg-0 finish"><small><strong>เริ่ม: </strong>{{ itemRef.odn_build_start_date | date:"dd/MM/yyyy" }}</small></p>
+                                        <div>
+                                            <p class="mb-0 mb-lg-0 finish" *ngIf="(buildFinishCss)"><small><strong>เสร็จ: </strong>{{ itemRef.odn_build_start_date | date:"dd/MM/yyyy" }}</small></p>
+                                            <p class="mb-0 mb-lg-0 not-finish" *ngIf="(!buildFinishCss)"><small><strong>เสร็จ: </strong>กำลังดำเนินการ</small></p>
+                                        </div>
+                                        <div>
+                                            <p class="mb-0 mb-lg-0 finish" *ngIf="(buildCloseCss)"><small><strong>แจ้งขาย: </strong>{{ itemRef.odn_build_close_job | date:"dd/MM/yyyy" }}</small></p>
+                                        </div>                                        
+
+                                    </div>
+                                    <div *ngIf="(!buildStartCss)">
+                                        <p class="mt-3 mb-1 not-finish"><strong>ดำเนินการสร้าง/สร้างเสร็จ</strong></p>
+                                        <p class="mb-0 mb-lg-0 not-finish"><small>รอดำเนินการ</small></p>
+                                    </div>                                    
                                 </div>
                             </div>                             
                         </div>
@@ -175,11 +205,9 @@
                 <div class="col-md-6 ">
                     <div class="row">
                         <div class="col-md-4 text- border border-white p-1" style="background-color: #e2e2e2;"><strong>ตอบสนอง:</strong></div>
-                        <div class="col-md-6 p-1 border">{{itemRef.odn_plan_date}}</div>
+                        <div class="col-md-6 p-1 border">{{ itemRef.odn_plan_date | date:"dd/MM/yyyy" }}</div>
                     </div>
                 </div>
-            </div>
-            <div class="row ps-5">
                 <div class="col-md-6 ">
                     <div class="row">
                         <div class="col-md-4 text- border border-white p-1" style="background-color: #e2e2e2;"><strong>ผู้บันทึก:</strong></div>
@@ -193,13 +221,13 @@
                 <div class="col-md-6 ">
                     <div class="row">
                         <div class="col-md-4 text- border border-white p-1" style="background-color: #e2e2e2;"><strong>วันที่บันทึก ODN:</strong></div>
-                        <div class="col-md-6 p-1 border">xxx</div>
+                        <div class="col-md-6 p-1 border">{{ itemRef.odn_request_date | date:"dd/MM/yyyy" }}</div>
                     </div>
                 </div>
                 <div class="col-md-6 ">
                     <div class="row">
                         <div class="col-md-4 text- border border-white p-1" style="background-color: #e2e2e2;"><strong>บันทึกโดย:</strong></div>
-                        <div class="col-md-6 p-1 border">xxx</div>
+                        <div class="col-md-6 p-1 border">{{itemRef.request_recorder}}</div>
                     </div>
                 </div>
             </div>
@@ -207,7 +235,7 @@
                 <div class="col-md-6 ">
                     <div class="row">
                         <div class="col-md-4 text- border border-white p-1" style="background-color: #e2e2e2;"><strong>เลข ODN:</strong></div>
-                        <div class="col-md-6 p-1 border">xxx</div>
+                        <div class="col-md-6 p-1 border">{{itemRef.odn_code_from_3bbodn}}</div>
                     </div>
                 </div>
             </div>
@@ -217,13 +245,13 @@
                 <div class="col-md-6 ">
                     <div class="row">
                         <div class="col-md-4 text- border border-white p-1" style="background-color: #e2e2e2;"><strong>อนุมัติ/ไม่อนุมัติ:</strong></div>
-                        <div class="col-md-6 p-1 border">xxx</div>
+                        <div class="col-md-6 p-1 border">{{verifyApproveRef}}</div>
                     </div>
                 </div>
                 <div class="col-md-6 ">
                     <div class="row">
                         <div class="col-md-4 text- border border-white p-1" style="background-color: #e2e2e2;"><strong>Verify โดย:</strong></div>
-                        <div class="col-md-6 p-1 border">xxx</div>
+                        <div class="col-md-6 p-1 border">{{itemRef.verify_recorder}}</div>
                     </div>
                 </div>
             </div>
@@ -231,7 +259,7 @@
                 <div class="col-md-6 ">
                     <div class="row">
                         <div class="col-md-4 text- border border-white p-1" style="background-color: #e2e2e2;"><strong>วันที่ Verify:</strong></div>
-                        <div class="col-md-6 p-1 border">xxx</div>
+                        <div class="col-md-6 p-1 border">{{ itemRef.odn_verify_date | date:"dd/MM/yyyy" }}</div>
                     </div>
                 </div>
             </div>
@@ -241,13 +269,13 @@
                 <div class="col-md-6 ">
                     <div class="row">
                         <div class="col-md-4 text- border border-white p-1" style="background-color: #e2e2e2;"><strong>อนุมัติ/ไม่อนุมัติ:</strong></div>
-                        <div class="col-md-6 p-1 border">xxx</div>
+                        <div class="col-md-6 p-1 border">{{approveApproveRef}}</div>
                     </div>
                 </div>
                 <div class="col-md-6 ">
                     <div class="row">
                         <div class="col-md-4 text- border border-white p-1" style="background-color: #e2e2e2;"><strong>Approve โดย:</strong></div>
-                        <div class="col-md-6 p-1 border">xxx</div>
+                        <div class="col-md-6 p-1 border">{{itemRef.approve_recorder}}</div>
                     </div>
                 </div>
             </div>
@@ -255,13 +283,13 @@
                 <div class="col-md-6 ">
                     <div class="row">
                         <div class="col-md-4 text- border border-white p-1" style="background-color: #e2e2e2;"><strong>วันที่ Approve:</strong></div>
-                        <div class="col-md-6 p-1 border">xxx</div>
+                        <div class="col-md-6 p-1 border">{{ itemRef.odn_approve_date | date:"dd/MM/yyyy" }}</div>
                     </div>
                 </div>
                 <div class="col-md-6 ">
                     <div class="row">
                         <div class="col-md-4 text- border border-white p-1" style="background-color: #e2e2e2;"><strong>วันที่คาดว่าจะเสร็จ:</strong></div>
-                        <div class="col-md-6 p-1 border">xxx</div>
+                        <div class="col-md-6 p-1 border">{{ itemRef.odn_approve_predict_date | date:"dd/MM/yyyy" }}</div>
                     </div>
                 </div>
             </div>
@@ -271,13 +299,13 @@
                 <div class="col-md-6 ">
                     <div class="row">
                         <div class="col-md-4 text- border border-white p-1" style="background-color: #e2e2e2;"><strong>วันที่เริ่มสร้าง:</strong></div>
-                        <div class="col-md-6 p-1 border">xxx</div>
+                        <div class="col-md-6 p-1 border">{{ itemRef.odn_build_start_date | date:"dd/MM/yyyy" }}</div>
                     </div>
                 </div>
                 <div class="col-md-6 ">
                     <div class="row">
                         <div class="col-md-4 text- border border-white p-1" style="background-color: #e2e2e2;"><strong>วันที่สร้างเสร็จ:</strong></div>
-                        <div class="col-md-6 p-1 border">xxx</div>
+                        <div class="col-md-6 p-1 border">{{ itemRef.odn_build_finish_date | date:"dd/MM/yyyy" }}</div>
                     </div>
                 </div>
             </div>
@@ -285,13 +313,13 @@
                 <div class="col-md-6 ">
                     <div class="row">
                         <div class="col-md-4 text- border border-white p-1" style="background-color: #e2e2e2;"><strong>ใช้เวลาดำเนินการ (วัน):</strong></div>
-                        <div class="col-md-6 p-1 border">xxx</div>
+                        <div class="col-md-6 p-1 border">0</div>
                     </div>
                 </div>
                 <div class="col-md-6 ">
                     <div class="row">
                         <div class="col-md-4 text- border border-white p-1" style="background-color: #e2e2e2;"><strong>สร้างเสร็จ/แจ้งขาย:</strong></div>
-                        <div class="col-md-6 p-1 border">xxx</div>
+                        <div class="col-md-6 p-1 border">{{ itemRef.odn_build_close_job | date:"dd/MM/yyyy" }}</div>
                     </div>
                 </div>
             </div>           

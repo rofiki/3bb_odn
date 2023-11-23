@@ -13,8 +13,8 @@
             <a class="nav-link  dropdown-toggle" href="javascript:void(0)" data-bs-toggle="dropdown" routerLinkActive="active">เพิ่มข้อมูล</a>
             <ul class="dropdown-menu">
               <li><small><a class="dropdown-item" href="javascript:void(0)" [routerLink]="['/' + loginUser.email + '/odn/new']" routerLinkActive="active">Request งานขยาย</a></small></li>
-              <li *ngIf="(loginUser.role == 'admin')"><small><a class="dropdown-item" href="javascript:void(0)" [routerLink]="['/' + loginUser.email + '/odn/plan',3000]" routerLinkActive="active">Plan งานขยาย</a></small></li>
-              <li *ngIf="(loginUser.role == 'admin')"><small><a class="dropdown-item" href="javascript:void(0)" [routerLink]="['/' + loginUser.email + '/odn/progress',3000]" routerLinkActive="active">Progress</a></small></li>
+              <!-- <li *ngIf="(loginUser.role == 'admin')"><small><a class="dropdown-item" href="javascript:void(0)" [routerLink]="['/' + loginUser.email + '/odn/plan',3000]" routerLinkActive="active">Plan งานขยาย</a></small></li>
+              <li *ngIf="(loginUser.role == 'admin')"><small><a class="dropdown-item" href="javascript:void(0)" [routerLink]="['/' + loginUser.email + '/odn/progress',3000]" routerLinkActive="active">Progress</a></small></li> -->
             </ul>
           </li>
           <li class="nav-item dropdown">

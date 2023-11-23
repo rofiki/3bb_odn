@@ -12,7 +12,7 @@
                 <h5><strong>แก้ไขข้อมูล: </strong> <small class="text-secondary h6" >{{itemRef.odn_code}}</small></h5>
             </div>
             <div class="col-md-6 text-end">
-                
+                <a class="btn btn-secondary btn-sm" [routerLink]="['/' + loginUser.email + '/odn/detail',itemRef.odn_id]"><i class="fa-solid fa-arrow-left"></i> Back</a>
             </div>
         </div>
         
