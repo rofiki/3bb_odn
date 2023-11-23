@@ -19,7 +19,7 @@ export class HomeComponent implements OnInit {
   constructor( 
     private service: OdnService,
     private router: Router,
-    private activatedRoute: ActivatedRoute,
+    private route: ActivatedRoute,
     private datePipe: DatePipe
     ){}
 
@@ -40,8 +40,7 @@ export class HomeComponent implements OnInit {
   }
 
   edit(id:number){
-    console.log('edit');
-    this.router.navigate(['../detail',id], { relativeTo: this.activatedRoute });
+    this.router.navigate(['../detail',id], { relativeTo: this.route });
   }
 
   async getData(){

@@ -25,45 +25,62 @@
                     <div class="col">
                         <div class="timeline-steps aos-init aos-animate" data-aos="fade-up">
                             <div class="timeline-step-finish">
-                                <div class="timeline-content-finish" data-toggle="popover" data-trigger="hover" data-placement="top" title="" data-content="And here's some amazing content. It's very engaging. Right?" data-original-title="2003">
+                                
+                                <div class="timeline-content-finish"  data-toggle="popover" data-trigger="hover" data-placement="top">
                                     <div class="inner-circle"></div>
-                                    <p class="mt-3 mb-1"><strong style="color:#107f6d">Request งานขยาย</strong></p>
-                                    <p class="text-muted mb-0 mb-lg-0" ><small style="color:#107f6d">{{ itemRef.odn_added_date | date:"dd/MM/yyyy" }}</small></p>
+                                    <p class="mt-3 mb-1 finish"><strong>Request งานขยาย</strong></p>
+                                    <p class="mb-0 mb-lg-0 finish" ><small>{{ itemRef.odn_added_date | date:"dd/MM/yyyy" }}</small></p>
+                                </div>
+                            </div>
+                            <!-- <img [ngClass]="{'timeline-content-finish': (planCss) }" > -->
+                            <div class="timeline-step" [ngClass]="{'timeline-step-finish': (planCss) }">
+                                <div class="timeline-content" [ngClass]="{'timeline-content-finish': (planCss) }" data-toggle="popover" data-trigger="hover" data-placement="top" title="">
+                                    <div class="inner-circle"></div>
+                                    <div *ngIf="(planCss)">
+                                        <p class="mt-3 mb-1 finish"><strong>Plan งานขยาย</strong></p>
+                                        <p class="mb-0 mb-lg-0 finish"><small>{{ itemRef.odn_plan_date | date:"dd/MM/yyyy" }}</small></p>
+                                    </div>
+                                    <div *ngIf="(!planCss)">
+                                        <p class="mt-3 mb-1 not-finish"><strong>Plan งานขยาย</strong></p>
+                                        <p class="mb-0 mb-lg-0 not-finish"><small>รอดำเนินการ</small></p>
+                                    </div> 
+                                    
+                                </div>
+                            </div>
+                            <div class="timeline-step" [ngClass]="{'timeline-step-finish': (requestCss) }" >
+                                <div class="timeline-content" [ngClass]="{'timeline-content-finish': (requestCss) }" data-toggle="popover" data-trigger="hover" data-placement="top" title="">
+                                    <div class="inner-circle"></div>
+
+                                    <div *ngIf="(requestCss)">
+                                        <p class="mt-3 mb-1 finish"><strong>บันทึกขออนุมัติ ODN</strong></p>
+                                        <p class="mb-0 mb-lg-0 finish"><small>{{ itemRef.odn_plan_date | date:"dd/MM/yyyy" }}</small></p>
+                                    </div>
+                                    <div *ngIf="(!requestCss)">
+                                        <p class="mt-3 mb-1 not-finish"><strong>บันทึกขออนุมัติ ODN</strong></p>
+                                        <p class="mb-0 mb-lg-0 not-finish"><small>รอดำเนินการ</small></p>
+                                    </div>                                     
+
                                 </div>
                             </div>
                             <div class="timeline-step">
-                                <div class="timeline-content" data-toggle="popover" data-trigger="hover" data-placement="top" title="" data-content="And here's some amazing content. It's very engaging. Right?" data-original-title="2004">
-                                    <div class="inner-circle"></div>
-                                    <p class="mt-3 mb-1"><strong style="color:#c0c0c0">Plan งานขยาย</strong></p>
-                                    <p class="text-muted mb-0 mb-lg-0" ><small style="color:#c0c0c0">รอดำเนินการ</small></p>
-                                </div>
-                            </div>
-                            <div class="timeline-step">
-                                <div class="timeline-content" data-toggle="popover" data-trigger="hover" data-placement="top" title="" data-content="And here's some amazing content. It's very engaging. Right?" data-original-title="2005">
-                                    <div class="inner-circle"></div>
-                                    <p class="mt-3 mb-1"><strong style="color:#c0c0c0">บันทึกขออนุมัติ ODN</strong></p>
-                                    <p class="text-muted mb-0 mb-lg-0" ><small style="color:#c0c0c0">รอดำเนินการ</small></p>
-                                </div>
-                            </div>
-                            <div class="timeline-step">
-                                <div class="timeline-content" data-toggle="popover" data-trigger="hover" data-placement="top" title="" data-content="And here's some amazing content. It's very engaging. Right?" data-original-title="2010">
+                                <div class="timeline-content" data-toggle="popover" data-trigger="hover" data-placement="top" title="">
                                     <div class="inner-circle"></div>
                                     <p class="mt-3 mb-1"><strong style="color:#c0c0c0">Verify</strong></p>
-                                    <p class="text-muted mb-0 mb-lg-0" ><small style="color:#c0c0c0">รอดำเนินการ</small></p>
+                                    <p class="mb-0 mb-lg-0" ><small style="color:#c0c0c0">รอดำเนินการ</small></p>
                                 </div>
                             </div>
                             <div class="timeline-step mb-0">
-                                <div class="timeline-content" data-toggle="popover" data-trigger="hover" data-placement="top" title="" data-content="And here's some amazing content. It's very engaging. Right?" data-original-title="2020">
+                                <div class="timeline-content" data-toggle="popover" data-trigger="hover" data-placement="top" title="">
                                     <div class="inner-circle"></div>
                                     <p class="mt-3 mb-1"><strong style="color:#c0c0c0">Approve</strong></p>
-                                    <p class="text-muted mb-0 mb-lg-0" ><small style="color:#c0c0c0">รอดำเนินการ</small></p>
+                                    <p class="mb-0 mb-lg-0" ><small style="color:#c0c0c0">รอดำเนินการ</small></p>
                                 </div>
                             </div>
                             <div class="timeline-step mb-0">
-                                <div class="timeline-content" data-toggle="popover" data-trigger="hover" data-placement="top" title="" data-content="And here's some amazing content. It's very engaging. Right?" data-original-title="2020">
+                                <div class="timeline-content" data-toggle="popover" data-trigger="hover" data-placement="top" title="">
                                     <div class="inner-circle"></div>
                                     <p class="mt-3 mb-1"><strong style="color:#c0c0c0">ดำเนินการสร้าง/สร้างเสร็จ</strong></p>
-                                    <p class="text-muted mb-0 mb-lg-0" ><small style="color:#c0c0c0">รอดำเนินการ</small></p>
+                                    <p class="mb-0 mb-lg-0" ><small style="color:#c0c0c0">รอดำเนินการ</small></p>
                                 </div>
                             </div>                             
                         </div>
@@ -73,200 +90,208 @@
         </div>
 
         <div class="container">
-            <h6 class="mt-3 border-bottom"><strong>Request งานขยาย</strong></h6>
-            <div class="row ps-4">
+            <h6 class="mt-4 border-bottom"><strong><i class="fa-regular fa-file"></i> Request งานขยาย</strong></h6>
+            <div class="row ps-5">
                 <div class="col-md-6 ">
                     <div class="row">
-                        <div class="col-md-4 text- border border-white p-2" style="background-color: #e2e2e2;"><strong>เลขที่บันทึก:</strong></div>
-                        <div class="col-md-6 p-2 border">{{itemRef.odn_code}}</div>
+                        <div class="col-md-4 text- border border-white p-1" style="background-color: #e2e2e2;"><strong>เลขที่บันทึก:</strong></div>
+                        <div class="col-md-6 p-1 border">{{itemRef.odn_code}}</div>
                     </div>
                 </div>
                 <div class="col-md-6 ">
                     <div class="row">
-                        <div class="col-md-4 text- border border-white p-2" style="background-color: #e2e2e2;"><strong>AIS/3BB:</strong></div>
-                        <div class="col-md-6 p-2 border">{{itemRef.org_text}}</div>
-                    </div>
-                </div>
-            </div>
-            <div class="row ps-4">
-                <div class="col-md-6 ">
-                    <div class="row">
-                        <div class="col-md-4 text- border border-white p-2"  style="background-color: #e2e2e2;"><strong>วันที่บันทึก:</strong></div>
-                        <div class="col-md-6 p-2 border">{{ itemRef.odn_added_date | date:"dd/MM/yyyy" }}</div>
-                    </div>
-                </div>
-                <div class="col-md-6 ">
-                    <div class="row">
-                        <div class="col-md-4 text- border border-white p-2"  style="background-color: #e2e2e2;"><strong>ผู้บันทึก:</strong></div>
-                        <div class="col-md-6 p-2 border">{{itemRef.recorder}}</div>
+                        <div class="col-md-4 text- border border-white p-1" style="background-color: #e2e2e2;"><strong>AIS/3BB:</strong></div>
+                        <div class="col-md-6 p-1 border">{{itemRef.org_text}}</div>
                     </div>
                 </div>
             </div>
-            <div class="row ps-4">
+            <div class="row ps-5">
                 <div class="col-md-6 ">
                     <div class="row">
-                        <div class="col-md-4 text- border border-white p-2"  style="background-color: #e2e2e2;"><strong>สถานที่:</strong></div>
-                        <div class="col-md-6 p-2 border">{{itemRef.odn_place}}</div>
+                        <div class="col-md-4 text- border border-white p-1"  style="background-color: #e2e2e2;"><strong>วันที่บันทึก:</strong></div>
+                        <div class="col-md-6 p-1 border">{{ itemRef.odn_added_date | date:"dd/MM/yyyy" }}</div>
                     </div>
                 </div>
                 <div class="col-md-6 ">
                     <div class="row">
-                        <div class="col-md-4 text- border border-white p-2"  style="background-color: #e2e2e2;"><strong>จังหวัด:</strong></div>
-                        <div class="col-md-6 p-2 border">{{itemRef.province_name}}</div>
-                    </div>
-                </div>
-            </div>
-            <div class="row ps-4">
-                <div class="col-md-6 ">
-                    <div class="row">
-                        <div class="col-md-4 text- border border-white p-2"  style="background-color: #e2e2e2;"><strong>พิกัดจุดขยาย:</strong></div>
-                        <div class="col-md-6 p-2 border">{{itemRef.odn_location}}</div>
-                    </div>
-                </div>
-                <div class="col-md-6 ">
-                    <div class="row">
-                        <div class="col-md-4 text- border border-white p-2"  style="background-color: #e2e2e2;"><strong>ขายได้:</strong></div>
-                        <div class="col-md-6 p-2 border">{{itemRef.odn_sale_num}}</div>
+                        <div class="col-md-4 text- border border-white p-1"  style="background-color: #e2e2e2;"><strong>ผู้บันทึก:</strong></div>
+                        <div class="col-md-6 p-1 border">{{itemRef.recorder}}</div>
                     </div>
                 </div>
             </div>
-            <div class="row ps-4">
+            <div class="row ps-5">
                 <div class="col-md-6 ">
                     <div class="row">
-                        <div class="col-md-4 text- border border-white p-2"  style="background-color: #e2e2e2;"><strong>โอกาสขาย:</strong></div>
-                        <div class="col-md-6 p-2 border">{{itemRef.odn_sale_chance}}</div>
+                        <div class="col-md-4 text- border border-white p-1"  style="background-color: #e2e2e2;"><strong>สถานที่:</strong></div>
+                        <div class="col-md-6 p-1 border">{{itemRef.odn_place}}</div>
+                    </div>
+                </div>
+                <div class="col-md-6 ">
+                    <div class="row">
+                        <div class="col-md-4 text- border border-white p-1"  style="background-color: #e2e2e2;"><strong>จังหวัด:</strong></div>
+                        <div class="col-md-6 p-1 border">{{itemRef.province_name}}</div>
                     </div>
                 </div>
             </div>
-
-            <h6 class="mt-4 border-bottom"><strong>Plan งานขยาย</strong></h6>
-            <div class="row ps-4">
+            <div class="row ps-5">
                 <div class="col-md-6 ">
                     <div class="row">
-                        <div class="col-md-4 text- border border-white p-2" style="background-color: #e2e2e2;"><strong>Plan ระยะ OFC (เมตร):</strong></div>
-                        <div class="col-md-6 p-2 border">xxx</div>
+                        <div class="col-md-4 text- border border-white p-1"  style="background-color: #e2e2e2;"><strong>พิกัดจุดขยาย:</strong></div>
+                        <div class="col-md-6 p-1 border">{{itemRef.odn_location}}</div>
                     </div>
                 </div>
                 <div class="col-md-6 ">
                     <div class="row">
-                        <div class="col-md-4 text- border border-white p-2" style="background-color: #e2e2e2;"><strong>ระยะคืนทุน:</strong></div>
-                        <div class="col-md-6 p-2 border">xxx</div>
+                        <div class="col-md-4 text- border border-white p-1"  style="background-color: #e2e2e2;"><strong>ขายได้:</strong></div>
+                        <div class="col-md-6 p-1 border">{{itemRef.odn_sale_num}}</div>
                     </div>
                 </div>
             </div>
-            <div class="row ps-4">
+            <div class="row ps-5">
                 <div class="col-md-6 ">
                     <div class="row">
-                        <div class="col-md-4 text- border border-white p-2" style="background-color: #e2e2e2;"><strong>ตอบสนอง:</strong></div>
-                        <div class="col-md-6 p-2 border">วันที่: xxx 00 วัน</div>
+                        <div class="col-md-4 text- border border-white p-1"  style="background-color: #e2e2e2;"><strong>โอกาสขาย:</strong></div>
+                        <div class="col-md-6 p-1 border">{{itemRef.odn_sale_chance}}</div>
                     </div>
                 </div>
             </div>
 
-            <h6 class="mt-4 border-bottom"><strong>บันทึกขออนุมัติ ODN</strong></h6>
-            <div class="row ps-4">
+            <h6 class="mt-4 border-bottom"><strong><i class="fa-regular fa-file"></i> Plan งานขยาย</strong></h6>
+            <div class="row ps-5">
                 <div class="col-md-6 ">
                     <div class="row">
-                        <div class="col-md-4 text- border border-white p-2" style="background-color: #e2e2e2;"><strong>วันที่บันทึก ODN:</strong></div>
-                        <div class="col-md-6 p-2 border">xxx</div>
+                        <div class="col-md-4 text- border border-white p-1" style="background-color: #e2e2e2;"><strong>Plan ระยะ OFC (เมตร):</strong></div>
+                        <div class="col-md-6 p-1 border">{{itemRef.odn_plan_ofc_length}} เมตร</div>
                     </div>
                 </div>
                 <div class="col-md-6 ">
                     <div class="row">
-                        <div class="col-md-4 text- border border-white p-2" style="background-color: #e2e2e2;"><strong>บันทึกโดย:</strong></div>
-                        <div class="col-md-6 p-2 border">xxx</div>
-                    </div>
-                </div>
-            </div>
-            <div class="row ps-4">
-                <div class="col-md-6 ">
-                    <div class="row">
-                        <div class="col-md-4 text- border border-white p-2" style="background-color: #e2e2e2;"><strong>เลข ODN:</strong></div>
-                        <div class="col-md-6 p-2 border">xxx</div>
+                        <div class="col-md-4 text- border border-white p-1" style="background-color: #e2e2e2;"><strong>ระยะคืนทุน:</strong></div>
+                        <div class="col-md-6 p-1 border">{{itemRef.odn_plan_payback_period}} เดือน</div>
                     </div>
                 </div>
             </div>
-
-            <h6 class="mt-4 border-bottom"><strong>Verify</strong></h6>
-            <div class="row ps-4">
+            <div class="row ps-5">
                 <div class="col-md-6 ">
                     <div class="row">
-                        <div class="col-md-4 text- border border-white p-2" style="background-color: #e2e2e2;"><strong>อนุมัติ/ไม่อนุมัติ:</strong></div>
-                        <div class="col-md-6 p-2 border">xxx</div>
-                    </div>
-                </div>
-                <div class="col-md-6 ">
-                    <div class="row">
-                        <div class="col-md-4 text- border border-white p-2" style="background-color: #e2e2e2;"><strong>Verify โดย:</strong></div>
-                        <div class="col-md-6 p-2 border">xxx</div>
+                        <div class="col-md-4 text- border border-white p-1" style="background-color: #e2e2e2;"><strong>ตอบสนอง:</strong></div>
+                        <div class="col-md-6 p-1 border">{{itemRef.odn_plan_date}}</div>
                     </div>
                 </div>
             </div>
-            <div class="row ps-4">
+            <div class="row ps-5">
                 <div class="col-md-6 ">
                     <div class="row">
-                        <div class="col-md-4 text- border border-white p-2" style="background-color: #e2e2e2;"><strong>วันที่ Verify:</strong></div>
-                        <div class="col-md-6 p-2 border">xxx</div>
+                        <div class="col-md-4 text- border border-white p-1" style="background-color: #e2e2e2;"><strong>ผู้บันทึก:</strong></div>
+                        <div class="col-md-6 p-1 border">{{itemRef.plan_recorder}}</div>
                     </div>
                 </div>
             </div>
 
-            <h6 class="mt-3 border-bottom"><strong>Approve</strong></h6>
-            <div class="row ps-4">
+            <h6 class="mt-4 border-bottom"><strong><i class="fa-regular fa-file"></i> บันทึกขออนุมัติ ODN</strong></h6>
+            <div class="row ps-5">
                 <div class="col-md-6 ">
                     <div class="row">
-                        <div class="col-md-4 text- border border-white p-2" style="background-color: #e2e2e2;"><strong>อนุมัติ/ไม่อนุมัติ:</strong></div>
-                        <div class="col-md-6 p-2 border">xxx</div>
+                        <div class="col-md-4 text- border border-white p-1" style="background-color: #e2e2e2;"><strong>วันที่บันทึก ODN:</strong></div>
+                        <div class="col-md-6 p-1 border">xxx</div>
                     </div>
                 </div>
                 <div class="col-md-6 ">
                     <div class="row">
-                        <div class="col-md-4 text- border border-white p-2" style="background-color: #e2e2e2;"><strong>Approve โดย:</strong></div>
-                        <div class="col-md-6 p-2 border">xxx</div>
+                        <div class="col-md-4 text- border border-white p-1" style="background-color: #e2e2e2;"><strong>บันทึกโดย:</strong></div>
+                        <div class="col-md-6 p-1 border">xxx</div>
                     </div>
                 </div>
             </div>
-            <div class="row ps-4">
+            <div class="row ps-5">
                 <div class="col-md-6 ">
                     <div class="row">
-                        <div class="col-md-4 text- border border-white p-2" style="background-color: #e2e2e2;"><strong>วันที่ Approve:</strong></div>
-                        <div class="col-md-6 p-2 border">xxx</div>
+                        <div class="col-md-4 text- border border-white p-1" style="background-color: #e2e2e2;"><strong>เลข ODN:</strong></div>
+                        <div class="col-md-6 p-1 border">xxx</div>
+                    </div>
+                </div>
+            </div>
+
+            <h6 class="mt-4 border-bottom"><strong><i class="fa-regular fa-file"></i> Verify</strong></h6>
+            <div class="row ps-5">
+                <div class="col-md-6 ">
+                    <div class="row">
+                        <div class="col-md-4 text- border border-white p-1" style="background-color: #e2e2e2;"><strong>อนุมัติ/ไม่อนุมัติ:</strong></div>
+                        <div class="col-md-6 p-1 border">xxx</div>
                     </div>
                 </div>
                 <div class="col-md-6 ">
                     <div class="row">
-                        <div class="col-md-4 text- border border-white p-2" style="background-color: #e2e2e2;"><strong>วันที่คาดว่าจะเสร็จ:</strong></div>
-                        <div class="col-md-6 p-2 border">xxx</div>
+                        <div class="col-md-4 text- border border-white p-1" style="background-color: #e2e2e2;"><strong>Verify โดย:</strong></div>
+                        <div class="col-md-6 p-1 border">xxx</div>
+                    </div>
+                </div>
+            </div>
+            <div class="row ps-5">
+                <div class="col-md-6 ">
+                    <div class="row">
+                        <div class="col-md-4 text- border border-white p-1" style="background-color: #e2e2e2;"><strong>วันที่ Verify:</strong></div>
+                        <div class="col-md-6 p-1 border">xxx</div>
+                    </div>
+                </div>
+            </div>
+
+            <h6 class="mt-4 border-bottom"><strong><i class="fa-regular fa-file"></i> Approve</strong></h6>
+            <div class="row ps-5">
+                <div class="col-md-6 ">
+                    <div class="row">
+                        <div class="col-md-4 text- border border-white p-1" style="background-color: #e2e2e2;"><strong>อนุมัติ/ไม่อนุมัติ:</strong></div>
+                        <div class="col-md-6 p-1 border">xxx</div>
+                    </div>
+                </div>
+                <div class="col-md-6 ">
+                    <div class="row">
+                        <div class="col-md-4 text- border border-white p-1" style="background-color: #e2e2e2;"><strong>Approve โดย:</strong></div>
+                        <div class="col-md-6 p-1 border">xxx</div>
+                    </div>
+                </div>
+            </div>
+            <div class="row ps-5">
+                <div class="col-md-6 ">
+                    <div class="row">
+                        <div class="col-md-4 text- border border-white p-1" style="background-color: #e2e2e2;"><strong>วันที่ Approve:</strong></div>
+                        <div class="col-md-6 p-1 border">xxx</div>
+                    </div>
+                </div>
+                <div class="col-md-6 ">
+                    <div class="row">
+                        <div class="col-md-4 text- border border-white p-1" style="background-color: #e2e2e2;"><strong>วันที่คาดว่าจะเสร็จ:</strong></div>
+                        <div class="col-md-6 p-1 border">xxx</div>
                     </div>
                 </div>
             </div>
             
-            <h6 class="mt-3 border-bottom"><strong>ดำเนินการสร้าง/สร้างเสร็จ</strong></h6>
-            <div class="row ps-4">
+            <h6 class="mt-4 border-bottom"><strong><i class="fa-regular fa-file"></i> ดำเนินการสร้าง/สร้างเสร็จ</strong></h6>
+            <div class="row ps-5">
                 <div class="col-md-6 ">
                     <div class="row">
-                        <div class="col-md-4 text- border border-white p-2" style="background-color: #e2e2e2;"><strong>วันที่เริ่มสร้าง:</strong></div>
-                        <div class="col-md-6 p-2 border">xxx</div>
+                        <div class="col-md-4 text- border border-white p-1" style="background-color: #e2e2e2;"><strong>วันที่เริ่มสร้าง:</strong></div>
+                        <div class="col-md-6 p-1 border">xxx</div>
                     </div>
                 </div>
                 <div class="col-md-6 ">
                     <div class="row">
-                        <div class="col-md-4 text- border border-white p-2" style="background-color: #e2e2e2;"><strong>วันที่สร้างเสร็จ:</strong></div>
-                        <div class="col-md-6 p-2 border">xxx</div>
+                        <div class="col-md-4 text- border border-white p-1" style="background-color: #e2e2e2;"><strong>วันที่สร้างเสร็จ:</strong></div>
+                        <div class="col-md-6 p-1 border">xxx</div>
                     </div>
                 </div>
             </div>
-            <div class="row ps-4">
+            <div class="row ps-5">
                 <div class="col-md-6 ">
                     <div class="row">
-                        <div class="col-md-4 text- border border-white p-2" style="background-color: #e2e2e2;"><strong>ใช้เวลาดำเนินการ (วัน):</strong></div>
-                        <div class="col-md-6 p-2 border">xxx</div>
+                        <div class="col-md-4 text- border border-white p-1" style="background-color: #e2e2e2;"><strong>ใช้เวลาดำเนินการ (วัน):</strong></div>
+                        <div class="col-md-6 p-1 border">xxx</div>
                     </div>
                 </div>
                 <div class="col-md-6 ">
                     <div class="row">
-                        <div class="col-md-4 text- border border-white p-2" style="background-color: #e2e2e2;"><strong>สร้างเสร็จ/แจ้งขาย:</strong></div>
-                        <div class="col-md-6 p-2 border">xxx</div>
+                        <div class="col-md-4 text- border border-white p-1" style="background-color: #e2e2e2;"><strong>สร้างเสร็จ/แจ้งขาย:</strong></div>
+                        <div class="col-md-6 p-1 border">xxx</div>
                     </div>
                 </div>
             </div>           

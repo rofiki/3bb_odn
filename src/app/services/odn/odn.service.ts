@@ -34,8 +34,18 @@ export class OdnService {
   }
 
   public update(params: {}): Observable<any> {
-    console.log('param = ', params);
+    // console.log('param = ', params);
     return this.http.put(this.apiUrl + '/', params);
+  }
+
+  public updatePlan(params: {}): Observable<any> {
+    // console.log('param = ', params);
+    return this.http.put(this.apiUrl + '/updateplan', params);
+  }
+
+  public updateRequest(params: {}): Observable<any> {
+    // console.log('param = ', params);
+    return this.http.put(this.apiUrl + '/updaterequest', params);
   }
 
   genCode(): Observable<any> {

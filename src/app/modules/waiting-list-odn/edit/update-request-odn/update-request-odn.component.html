@@ -1,1 +1,68 @@
-<p>update-request-odn works!</p>
+<form [formGroup]="aform" (ngSubmit)="onSubmit()" novalidate *ngIf="aform">
+
+    <div *ngIf="((getOdnUsersLoading)) then showData else loading"></div>
+    <ng-template #loading>
+        <div class="loading"><i class="fa-solid fa-circle-notch fa-spin"></i> Loading...</div>
+    </ng-template>
+    <ng-template #showData>
+        <div class="row p-3">
+            <div class="col-md-6">
+                <div class="row mb-3">
+                    <label class="col-sm-4 col-form-label col-form-label-sm text-end">วันที่บันทึก</label>
+                    <div class="col-sm-6">
+                        <input type="text" class="form-control form-control-sm" placeholder="วันที่บันทึก" bsDatepicker
+                            formControlName="odn_request_date"
+                            [class.is-invalid]="(aform.get('odn_request_date')?.invalid && (aform.get('odn_request_date')?.dirty || aform.get('odn_request_date')?.touched))"
+                            [class.is-valid]="(aform.get('odn_request_date')?.valid && (aform.get('odn_request_date')?.dirty || aform.get('odn_request_date')?.touched))"
+                        >
+                        <div *ngIf="aform.get('odn_request_date')?.invalid && (aform.get('odn_request_date')?.dirty || aform.get('odn_request_date')?.touched)">
+                            <small class="message-error m-2" *ngIf="aform.get('odn_request_date')?.hasError('required')">ห้ามว่าง</small>
+                        </div>                         
+                    </div>
+                </div>
+                <div class="row mb-3">
+                    <label for="colFormLabelSm" class="col-sm-4 col-form-label col-form-label-sm text-end">เลขที่ ODN</label>
+                    <div class="col-sm-6">
+                        <input type="text" class="form-control form-control-sm" placeholder="เลขที่ ODN"
+                            formControlName="odn_code_from_3bbodn"
+                            [class.is-invalid]="(aform.get('odn_code_from_3bbodn')?.invalid && (aform.get('odn_code_from_3bbodn')?.dirty || aform.get('odn_code_from_3bbodn')?.touched))"
+                            [class.is-valid]="(aform.get('odn_code_from_3bbodn')?.valid && (aform.get('odn_code_from_3bbodn')?.dirty || aform.get('odn_code_from_3bbodn')?.touched))"
+                            [(ngModel)]="itemRef.odn_code_from_3bbodn"
+                        >
+                        <div *ngIf="aform.get('odn_code_from_3bbodn')?.invalid && (aform.get('odn_code_from_3bbodn')?.dirty || aform.get('odn_code_from_3bbodn')?.touched)">
+                            <small class="message-error m-2" *ngIf="aform.get('odn_code_from_3bbodn')?.hasError('required')">ห้ามว่าง</small>
+                        </div>                         
+                    </div>
+                </div>
+                <div class="row mb-3">
+                    <label for="colFormLabelSm" class="col-sm-4 col-form-label col-form-label-sm text-end">บันทึกโดย</label>
+                    <div class="col-sm-6">
+                        
+                        <select *ngIf="odnUserRef && odnUserRef.data" class="form-control form-control-sm" formControlName="odn_request_users_id"
+                        [class.is-invalid]="(aform.get('odn_request_users_id')?.invalid && (aform.get('odn_request_users_id')?.dirty || aform.get('odn_request_users_id')?.touched))"
+                        [class.is-valid]="(aform.get('odn_request_users_id')?.valid && (aform.get('odn_request_users_id')?.dirty || aform.get('odn_request_users_id')?.touched))"
+                        [(ngModel)]="itemRef.odn_request_users_id"
+                        >
+                            <ng-container *ngFor="let element of odnUserRef.data">
+                                <option value="{{element.users_id}}"> {{ element.users_detail_firstname }} {{ element.users_detail_lastname }}</option>
+                            </ng-container>
+
+                        </select>    
+
+                        <div *ngIf="aform.get('odn_request_users_id')?.invalid && (aform.get('odn_request_users_id')?.dirty || aform.get('odn_request_users_id')?.touched)">
+                            <small class="message-error m-2" *ngIf="aform.get('odn_request_users_id')?.hasError('required')">กรุณาเลือกผู้บันทึก</small>
+                        </div> 
+
+                    </div>
+                </div>
+
+                <div class="row mb-3">
+                    <label class="col-sm-4 col-form-label col-form-label-sm text-end"></label>
+                    <div class="col-sm-6">
+                        <button type="submit" class="btn btn-md btn-primary m-1" [disabled]="aform.invalid">Update บันทึกขออนุมัติ ODN</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </ng-template>
+</form>

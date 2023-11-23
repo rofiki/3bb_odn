@@ -69,7 +69,8 @@ export class EditComponent implements OnInit {
 
     this.isProcess = true;
     this.service.findById(this.id).pipe().subscribe(item => {
-      this.itemRef = item[0];
+      this.itemRef = item.data;
+      // console.log('item',item)
 
       this.aform = this.fb.group({
         org_id: this.fb.control('', [Validators.required]),
@@ -134,11 +135,15 @@ export class EditComponent implements OnInit {
 
     let swalOption = this.swalOption;
     let params = this.aform.value;
-    console.log(params);
+    // console.log('1',params);
 
     params.odn_added_date = this.datePipe.transform(params.odn_added_date, 'yyyy-MM-dd hh:mm:ss');
 
-    let location = params.odn_location;
+    let location = params.odn_location.replace(',',''); //ตัด , ออก
+    location = location.replace(' ',''); // ตัดเคาะออก
+    location = location.replace('.',''); // ตัด . ออก
+    location = location.replace('.',''); // ตัด . ออก
+
     let lat1 = location.substr(0, 1);
     let lat2 = location.substr(1, 6);
     let long1 = location.substr(7, 3);
@@ -146,29 +151,29 @@ export class EditComponent implements OnInit {
     params.lat = lat1 + '.' + lat2;
     params.long = long1 + '.' + long2;
     params.odn_location = params.lat + ', ' + params.long;
-    console.log('2',params);
+    params.id = this.id;
 
     Swal.fire(swalOption.Confirm('')).then((result) => {
       if (result.isConfirmed) {
-        this.router.navigate(['../../detail',this.id], { relativeTo: this.route });
-        // this.service.create(params).pipe(takeUntil(this.componentDestroyed$)).subscribe(r => {
-        //   // console.log('r', r);
-        //   if (r.status) {
-        //     Swal.fire({
-        //       icon: "success",
-        //       title: r.message,
-        //       showConfirmButton: false,
-        //       timer: 1000,
-        //       timerProgressBar: true,
-        //     }).then(result => {
-        //       if (result.isDismissed) {
-        //         // this.router.navigate(['../home'], { relativeTo: this.activatedRoute });
-        //         this.ngOnInit();
-        //       }
-        //     });
+        // this.router.navigate(['../../detail',this.id], { relativeTo: this.route });
+        this.service.update(params).pipe(takeUntil(this.componentDestroyed$)).subscribe(r => {
+          // console.log('r', r);
+          if (r.status) {
+            Swal.fire({
+              icon: "success",
+              title: r.message,
+              showConfirmButton: false,
+              timer: 1000,
+              timerProgressBar: true,
+            }).then(result => {
+              if (result.isDismissed) {
+                this.router.navigate(['../../detail',this.id], { relativeTo: this.route });
+                // this.ngOnInit();
+              }
+            });
 
-        //   }
-        // });
+          }
+        });
 
       }
     }); // end โปรดยืนยันการลงทะเบียนขอใช้งานระบบ
