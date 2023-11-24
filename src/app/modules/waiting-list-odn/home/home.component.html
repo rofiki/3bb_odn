@@ -79,20 +79,14 @@
                                 <tr class="text-center table-text-small tr-edit " *ngFor="let element of itemRef.data" [ngClass]="{'table-success': (element.odn_build_close_job) }">
                                     <td (click)="edit(element.odn_id)">
                                         {{element.odn_code}}
-                                        <br><span class="badge bg-success" >เสร็จสิ้น</span>
-                                        <!-- <br>
-
-                                        <ng-component *ngIf="(element.odn_build_close_job) then statusClose; else statusProcess;"></ng-component>
-                                        <ng-template #statusClose>
-                                            <span class="badge bg-success" >เสร็จ</span>
-                                        </ng-template>
-                                        <ng-template #statusProcess>
-                                            <ng-component *ngIf="(element.odn_build_start_date) then statusBuild; else statusProcess;"></ng-component>
-                                            <ng-template #statusBuild>
-                                                <ng-component *ngIf="(element.odn_build_start_date) then statusBuild; else statusProcess;"></ng-component>
-                                                <span class="badge bg-warning text-dark" >Plan งานขยาย</span>
-                                            </ng-template>
-                                        </ng-template> -->
+                                        <br>
+                                        <span class="badge bg-success" *ngIf="(element.status == 'finish')" >เสร็จสิ้น</span>
+                                        <span class="badge bg-warning text-dark" *ngIf="(element.status == 'build')" >ดำเนินการสร้าง</span>
+                                        <span class="badge bg-warning text-dark" *ngIf="(element.status == 'approve')" >Approved</span>
+                                        <span class="badge bg-warning text-dark" *ngIf="(element.status == 'verify')" >Verified</span>
+                                        <span class="badge bg-warning text-dark" *ngIf="(element.status == 'request_odn')" >ขออนุมัติ ODN</span>
+                                        <span class="badge bg-warning text-dark" *ngIf="(element.status == 'plan')" >Plan งานขยาย</span>
+                                        <span class="badge bg-warning text-dark" *ngIf="(element.status == 'start')" >บันทึกข้อมูล</span>
                                    
                                     </td>
                                     <td (click)="edit(element.odn_id)">{{element.org_text}}</td>

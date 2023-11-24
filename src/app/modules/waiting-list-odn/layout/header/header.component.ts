@@ -4,6 +4,7 @@ import { RouterLink } from '@angular/router';
 import { Bootstrap5Module } from 'src/app/modules/bootstrap5/bootstrap5.module';
 
 import { jwtDecode } from 'jwt-decode';
+import { AppService } from 'src/app/services/base/app.service';
 
 @Component({
   standalone: true,
@@ -14,9 +15,10 @@ import { jwtDecode } from 'jwt-decode';
 })
 export class HeaderComponent implements OnInit {
 
-  constructor(private elementRef: ElementRef,) { }
+  constructor(private elementRef: ElementRef,private appService: AppService,) { }
 
   public loginUser: any = null;
+  public BASE_URL:string = this.appService.BASE_URL;
 
   ngOnInit(): void {
     const token:any = localStorage.getItem('token');
@@ -25,7 +27,7 @@ export class HeaderComponent implements OnInit {
 
   ngAfterViewInit() {
     const bodyStyle = this.elementRef.nativeElement.ownerDocument.body.style;
-    bodyStyle.background = 'url(/assets/wallpaper/wallpaper_or1.jpg)';
+    bodyStyle.background = 'url(' + this.BASE_URL +'assets/wallpaper/wallpaper_or1.jpg)';
   }
 
 }

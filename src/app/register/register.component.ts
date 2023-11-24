@@ -45,6 +45,7 @@ export class RegisterComponent implements OnInit, OnDestroy {
   public registerForm!: FormGroup;
   public numRegex = /^-?\d*[.,]?\d{0,2}$/;
   public swalOption = new SwalOption;
+  public BASE_URL:string = this.appService.BASE_URL;
 
   ngOnInit(): void {
     this.signupGoogle(); // singup by google
@@ -87,7 +88,7 @@ export class RegisterComponent implements OnInit, OnDestroy {
                   Swal.fire(swalOption.Success('ลงทะเบียนเรียบร้อย!', "Email: " + gg.email, 'หน้าล๊อกอิน')).then((result) => {
                     if (result.isConfirmed) {
                       this.isProcess = false;
-                      window.location.href = '/login';
+                      window.location.href = this.BASE_URL + 'login';
                     }
                   })
 
@@ -160,7 +161,7 @@ export class RegisterComponent implements OnInit, OnDestroy {
                 if (res.status) {
                   Swal.fire(swalOption.Success('ลงทะเบียนเรียบร้อย!', "Email: " + res.email, 'หน้าล๊อกอิน')).then((result) => {
                     if (result.isConfirmed) {
-                      window.location.href = '/login';
+                      window.location.href = this.BASE_URL + 'login';
                     }
                   })
                 }
@@ -183,7 +184,7 @@ export class RegisterComponent implements OnInit, OnDestroy {
     const bodyStyle = this.elementRef.nativeElement.ownerDocument.body.style;
     // bodyStyle.background = 'Radial-Gradient(Ellipse At Center,#Fffeea 0%,#Fffeea 35%,#880c48 100%)';
     // bodyStyle.background = 'url(https://hrgproject.com/hrg-dev/contractor/dist/img/bg_login.jpg)';
-    bodyStyle.background = 'url(/assets/wallpaper/wallpaper_or1.jpg)';
+    bodyStyle.background = 'url(' + this.BASE_URL +'assets/wallpaper/wallpaper_or1.jpg)';
     // bodyStyle.backgroundSize = 'cover';
   }
 

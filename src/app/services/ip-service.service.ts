@@ -24,38 +24,38 @@ export class IpServiceService {
   //   return this.ob$;
   // }
 
-  getProducts(): Observable<any> {
-    // let response = this.http.get("http://api.ipify.org/?format=json").subscribe(ip=>{
-    //   return ip;
-    // });
-    return this.http.get("http://api.ipify.org/?format=json").pipe(
-      switchMap(response => {
-        return response.toString();
-      })
-    );
-  }
+  // getProducts(): Observable<any> {
+  //   // let response = this.http.get("http://api.ipify.org/?format=json").subscribe(ip=>{
+  //   //   return ip;
+  //   // });
+  //   return this.http.get("http://api.ipify.org/?format=json").pipe(
+  //     switchMap(response => {
+  //       return response.toString();
+  //     })
+  //   );
+  // }
 
 
 
-  public getIPAddress() {
-    return this.http.get("http://api.ipify.org/?format=json");
-  }
+  // public getIPAddress() {
+  //   return this.http.get("http://api.ipify.org/?format=json");
+  // }
 
-  public getIPAddress2() {
-    const observable$ = new Observable<string>(observer => {
-      this.http.get("http://api.ipify.org/?format=json").subscribe(ip => {
-        observer.next(ip as string);
-        observer.complete();
-        console.log('log 1', ip);
-      });
-    });
-    console.log('log 2', observable$);
-    return observable$;
-  }
+  // public getIPAddress2() {
+  //   const observable$ = new Observable<string>(observer => {
+  //     this.http.get("http://api.ipify.org/?format=json").subscribe(ip => {
+  //       observer.next(ip as string);
+  //       observer.complete();
+  //       console.log('log 1', ip);
+  //     });
+  //   });
+  //   console.log('log 2', observable$);
+  //   return observable$;
+  // }
 
-  public getip3(){
-    return this.http.get("http://api.ipify.org/?format=json").subscribe(ip =>{return ip;})
-  }
+  // public getip3(){
+  //   return this.http.get("http://api.ipify.org/?format=json").subscribe(ip =>{return ip;})
+  // }
 
   // public getIPAddress3()  
   // {  

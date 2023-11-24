@@ -11,8 +11,8 @@ export class FortestComponent implements OnInit {
   constructor(private ip: IpServiceService,){}
 
   ngOnInit(): void {
-    this.ip.getIPAddress2();
-    console.log('getip3',this.ip.getip3());
+    // this.ip.getIPAddress2();
+    // console.log('getip3',this.ip.getip3());
     // console.log('gettest',this.ip.gettest());
   }
 

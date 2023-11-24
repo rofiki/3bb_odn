@@ -8,6 +8,8 @@ export class AppService {
 
   constructor() { }
 
+  public BASE_URL:string = '/';
+
   public getQueryString(conditions: any) {
     
     let paramsUrl: string = "";

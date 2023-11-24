@@ -29,17 +29,7 @@ export class HomeComponent implements OnInit, OnDestroy {
   public isProcess: boolean = false;
   public showTable: boolean = false;
 
-  //status
-  public finishJobStatus: boolean = false;
-  public buildStatus: boolean = false;
-  public approveStatus: boolean = false;
-  public verifyStatus: boolean = false;
-  public requestStatus: boolean = false;
-  public planStatus: boolean = false;
-  public startStatus: boolean = false;
-
   public odnStatus: any;
-
   public itemRef: any;
 
   public start: number = 0;
@@ -64,29 +54,41 @@ export class HomeComponent implements OnInit, OnDestroy {
     // this.itemRef = await lastValueFrom(this.service.findAll({ search: this.search, start: this.start, limit: this.limit }));
     this.service.findAll({ search: this.search, start: this.start, limit: this.limit }).pipe(takeUntil(this.componentDestroyed$)).subscribe(res => {
       this.itemRef = res;
+      let data = res.data;
+
       this.isProcess = false;
       this.showTable = true;
 
-      this.itemRef.data.forEach((element: any) => {
-        console.log(element);
-        this.finishJobStatus = (element.odn_build_close_job) ? true : false;
-        this.buildStatus = (element.odn_build_start_date) ? true : false;
-        this.approveStatus = (element.odn_approve_date) ? true : false;
-        this.verifyStatus = (element.odn_verify_date) ? true : false;
-        this.requestStatus = (element.odn_code_from_3bbodn) ? true : false;
-        this.planStatus = (element.odn_plan_date) ? true : false;
-        this.startStatus = (element.odn_added_date) ? true : false;
+      Object.keys(data).forEach((key: any) => {
+
+        let finishJobStatus = (data[key].odn_build_close_job) ? true : false;
+        let buildStatus = (data[key].odn_build_start_date) ? true : false;
+        let approveStatus = (data[key].odn_approve_date) ? true : false;
+        let verifyStatus = (data[key].odn_verify_date) ? true : false;
+        let requestStatus = (data[key].odn_code_from_3bbodn) ? true : false;
+        let planStatus = (data[key].odn_plan_date) ? true : false;
+        let startStatus = (data[key].odn_added_date) ? true : false;
+
+        if (finishJobStatus) {
+          data[key].status = 'finish';
+        } else if (buildStatus) {
+          data[key].status = 'build';
+        } else if (approveStatus) {
+          data[key].status = 'approve';
+        } else if (verifyStatus) {
+          data[key].status = 'verify';
+        } else if (requestStatus) {
+          data[key].status = 'request_odn';
+        } else if (planStatus) {
+          data[key].status = 'plan';
+        } else if (startStatus) {
+          data[key].status = 'start';
+        } else {
+          data[key].status = 'start';
+        }
+        this.itemRef.data[key] = data[key];
       });
-
-      // array.forEach(element => {
-
-      // });
-
-
     });
-
-    // console.log(this.itemRef);
-
   }
 
   public pageEventChange(start: number = 0, limit: number = 25, search: string = '') {

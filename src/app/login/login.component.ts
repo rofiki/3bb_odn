@@ -13,7 +13,7 @@ import { AppService } from '../services/base/app.service';
 import { AuthService } from '../services/auth.service';
 // import { UsersDetailService } from '../services/users-detail.service';
 import { LoginService } from '../services/login.service';
-import { IpServiceService } from '../services/ip-service.service';
+// import { IpServiceService } from '../services/ip-service.service';
 
 // sweetalert2
 import Swal from 'sweetalert2'
@@ -38,7 +38,7 @@ export class LoginComponent implements OnInit {
     private appService: AppService,
     private google: GoogleService,
     private loginService: LoginService,
-    private ip: IpServiceService,
+    // private ip: IpServiceService,
     private _ngZone: NgZone,
     private router: Router,
     private fb: FormBuilder,
@@ -52,6 +52,7 @@ export class LoginComponent implements OnInit {
   public loginUser: any = null;
   public isLogin: boolean = (localStorage.getItem('islogin') == '1') ? true : false;
   public loading:boolean = false;
+  public BASE_URL:string = this.appService.BASE_URL;
 
   public loginForm!: FormGroup;
 
@@ -105,8 +106,9 @@ export class LoginComponent implements OnInit {
           localStorage.setItem('islogin', '1');
           localStorage.setItem('log', md5_timestamp);
 
-          this.ip.getIPAddress().subscribe(async ip => {
-            this.ipAddress = ip
+          // this.ip.getIPAddress().subscribe(async ip => {
+            // this.ipAddress = ip
+            this.ipAddress.ip = '000,000,000,000';
 
             // บันทึกประวัติ login
             let params = {
@@ -120,7 +122,7 @@ export class LoginComponent implements OnInit {
               isLogin: 1,
             }
 
-            await this.loginService.create(params).subscribe(e => {
+            this.loginService.create(params).subscribe(e => {
               const Toast = Swal.mixin({
                 toast: true,
                 position: 'top-end',
@@ -134,13 +136,13 @@ export class LoginComponent implements OnInit {
               })
               Toast.fire({ icon: 'success', title: resByEmail.data.email + ' ล๊อกอิน สำเร็จ' });
               this._ngZone.run(() => {
-                window.location.href = resByEmail.data.email + '/odn';
+                window.location.href = this.BASE_URL + resByEmail.data.email + '/odn';
                 // this.router.navigate(['/callback']);
                 console.log('login สำเร็จ');
               })
             });
 
-          });
+          // });
 
 
         });
@@ -159,7 +161,7 @@ export class LoginComponent implements OnInit {
 
   }
 
-  public async onSubmit() {
+  public onSubmit() {
 
     this.loading = true;
       // Swal.fire({
@@ -175,14 +177,15 @@ export class LoginComponent implements OnInit {
     const date = new Date();
     const md5_timestamp = cryptoJS.MD5(Date.now().toString()).toString();
 
-    this.ip.getIPAddress().subscribe(ip => {
+    // this.ip.getIPAddress().subscribe(ip => {
+      // this.ipAddress = ip;
+      let ip = '000,000,000,000';
 
-      this.ipAddress = ip;
-      params.tokenLog = this.ipAddress.ip;
+      params.tokenLog = ip; // this.ipAddress = ip;
       params.login_datetime = md5_timestamp;
       params.logout_datetime = '';
       params.login_pcname = '';
-      params.login_ip = this.ipAddress.ip;
+      params.login_ip = ip; // this.ipAddress = ip;
       params.isLogin = 1;
 
       this.authService.loginWithForm(params).subscribe(res => {
@@ -219,7 +222,7 @@ export class LoginComponent implements OnInit {
           })
           Toast.fire({ icon: 'success', title: ' ล๊อกอิน สำเร็จ' });
           this._ngZone.run(() => {
-            window.location.href = res.email + '/odn';
+            window.location.href = this.BASE_URL + res.email + '/odn';
             // this.router.navigate(['/callback']);
             console.log('login สำเร็จ');
           })          
@@ -227,7 +230,7 @@ export class LoginComponent implements OnInit {
         }
       });
 
-    });
+    // });
 
   }
 
@@ -248,7 +251,7 @@ export class LoginComponent implements OnInit {
 
   ngAfterViewInit() {
     const bodyStyle = this.elementRef.nativeElement.ownerDocument.body.style;
-    bodyStyle.background = 'url(/assets/wallpaper/wallpaper_or1.jpg)';
+    bodyStyle.background = 'url(' + this.BASE_URL +'assets/wallpaper/wallpaper_or1.jpg)';
   }
 
 }
