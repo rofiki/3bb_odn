@@ -67,4 +67,5 @@ export class OdnService {
     return this.http.get<any>(this.dbService.getServiceURL() + '/genodncode' );
   }
 
+
 }

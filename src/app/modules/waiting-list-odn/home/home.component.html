@@ -15,15 +15,15 @@
                     <table class="table table-bordered table-hover table-sm table-striped">
                         <thead class="table-secondary">
                             <tr class="text-center">
-                                <th colspan="9">Request งานขยาย โดย MKT</th>
+                                <th colspan="8">Request งานขยาย โดย MKT</th>
                                 <th colspan="2">Plan งานขยาย</th>
-                                <th colspan="9">Progress</th>
+                                <th colspan="13">Progress</th>
                             </tr>                                                      
                             <tr class="text-center">
                               <th scope="col" rowspan="2">เลขที่บันทึก</th>
                               <th scope="col" rowspan="2">AIS/3BB</th>
 
-                              <th scope="col" rowspan="2">วันที่บันทึก</th>
+                              <!-- <th scope="col" rowspan="2">วันที่บันทึก</th> -->
                               <th scope="col" rowspan="2">ผู้บันทึก</th>
                               <th scope="col" rowspan="2">สถานที่</th>
                               <th scope="col" rowspan="2">จังหวัด</th>
@@ -36,9 +36,9 @@
 
                               <th scope="col" colspan="2">บันทึกขออนุมัติ ODN</th>
 
-                              <th scope="col" rowspan="2">Verify</th>
+                              <th scope="col" colspan="2">Verify</th>
 
-                              <th scope="col" colspan="2">Approve</th>
+                              <th scope="col" colspan="3">Approve</th>
                               <th scope="col" colspan="3">ดำเนินการสร้าง</th>
 
                               <th scope="col" rowspan="2">สร้างเสร็จ<br>แจ้งขาย</th>
@@ -46,18 +46,26 @@
                             <tr class="text-center">
                                 <th scope="col">บันทึก ODN</th>
                                 <th scope="col">เลขที่ ODN</th>
+                                
+                                 <!-- verify -->
+                                <th scope="col">อนุมัติ/ไม่อนุมัติ</th>
+                                <th scope="col">Verify โดย</th>
+                                <!-- <th scope="col">วันที่</th> -->
 
-                                <th scope="col">Approve</th>
+                                <!-- Approve -->
+                                <th scope="col">อนุมัติ/ไม่อนุมัติ</th>
+                                <th scope="col">Approve โดย</th>
+                                <!-- <th scope="col">วันที่บันทึก</th> -->
                                 <th scope="col">วันที่คาดว่าจะเสร็จ</th>
-
-                                <th scope="col">วันที่เสร็จ</th>
-                                <th scope="col">ใช้เวลาดำเนินการ (วัน)</th>
   
-                                <th scope="col">สร้างเสร็จ แจ้งขาย</th>                                
+                                <!-- ดำเนินการ -->
+                                <th scope="col">วันที่เริ่ม</th>     
+                                <th scope="col">วันที่เสร็จ</th>   
+                                <th scope="col">ใช้เวลา (วัน)</th>      
+
                               </tr>                               
-                    
+                              <!--  -->
                           </thead>
-                          <!-- <div *ngIf="(isProcess == true) then showData"></div> -->
                           <div *ngIf="showTable; then showData else loading"></div>
                             <ng-template #loading>
                                 <tbody>
@@ -68,27 +76,63 @@
                             </ng-template>
                             <ng-template #showData>
                             <tbody  *ngIf="itemRef && itemRef.data">
-                                <tr class="text-center table-text-small tr-edit" *ngFor="let element of itemRef.data">
-                                    <td (click)="edit(element.odn_id)">{{element.odn_code}}</td>
+                                <tr class="text-center table-text-small tr-edit " *ngFor="let element of itemRef.data" [ngClass]="{'table-success': (element.odn_build_close_job) }">
+                                    <td (click)="edit(element.odn_id)">
+                                        {{element.odn_code}}
+                                        <br><span class="badge bg-success" >เสร็จสิ้น</span>
+                                        <!-- <br>
+
+                                        <ng-component *ngIf="(element.odn_build_close_job) then statusClose; else statusProcess;"></ng-component>
+                                        <ng-template #statusClose>
+                                            <span class="badge bg-success" >เสร็จ</span>
+                                        </ng-template>
+                                        <ng-template #statusProcess>
+                                            <ng-component *ngIf="(element.odn_build_start_date) then statusBuild; else statusProcess;"></ng-component>
+                                            <ng-template #statusBuild>
+                                                <ng-component *ngIf="(element.odn_build_start_date) then statusBuild; else statusProcess;"></ng-component>
+                                                <span class="badge bg-warning text-dark" >Plan งานขยาย</span>
+                                            </ng-template>
+                                        </ng-template> -->
+                                   
+                                    </td>
                                     <td (click)="edit(element.odn_id)">{{element.org_text}}</td>
-                                    <td (click)="edit(element.odn_id)">{{element.odn_added_date | date:"dd/MM/yyyy"}}</td>
-                                    <td (click)="edit(element.odn_id)">{{element.odn_request_user_id}}</td>
+                                    <!-- <td (click)="edit(element.odn_id)"></td> -->
+                                    <td (click)="edit(element.odn_id)">
+                                        {{element.odn_request_user_id}}<br>
+                                        {{element.odn_added_date | date:"dd/MM/yyyy"}}
+                                    </td>
                                     <td (click)="edit(element.odn_id)">{{element.odn_place}}</td>
                                     <td (click)="edit(element.odn_id)">{{element.province_name}}</td>
                                     <td (click)="edit(element.odn_id)">{{element.odn_location}}</td>
                                     <td (click)="edit(element.odn_id)">{{element.odn_sale_num}}</td>
                                     <td (click)="edit(element.odn_id)">{{element.odn_sale_chance}}</td>
+                                    <td (click)="edit(element.odn_id)">{{element.odn_plan_ofc_length}}</td>
+                                    <td (click)="edit(element.odn_id)">{{element.odn_plan_payback_period}}</td>
                                     <td (click)="edit(element.odn_id)"></td>
-                                    <td (click)="edit(element.odn_id)"></td>
-                                    <td (click)="edit(element.odn_id)"></td>
-                                    <td (click)="edit(element.odn_id)"></td>
-                                    <td (click)="edit(element.odn_id)"></td>
-                                    <td (click)="edit(element.odn_id)"></td>
-                                    <td (click)="edit(element.odn_id)"></td>
-                                    <td (click)="edit(element.odn_id)"></td>
-                                    <td (click)="edit(element.odn_id)"></td>
-                                    <td (click)="edit(element.odn_id)"></td>
-                                    <td (click)="edit(element.odn_id)"></td>
+                                    <td (click)="edit(element.odn_id)">
+                                        {{element.odn_code_from_3bbodn}}<br>
+                                        {{element.odn_plan_date | date:"dd/MM/yyyy"}}
+                                    </td>
+
+                                    <td (click)="edit(element.odn_id)">{{element.odn_verify_approve}}</td>
+                                    <td (click)="edit(element.odn_id)">
+                                        {{element.odn_verify_users_id}}<br>
+                                        {{element.odn_verify_date | date:"dd/MM/yyyy"}}
+                                    </td>
+                                    <!-- <td (click)="edit(element.odn_id)"></td> -->
+
+                                    <td (click)="edit(element.odn_id)">{{element.odn_approve_approve}}</td>
+                                    <td (click)="edit(element.odn_id)">
+                                        {{element.odn_approve_users_id}}<br>
+                                        {{element.odn_approve_date | date:"dd/MM/yyyy"}}
+                                    </td>
+                                    <!-- <td (click)="edit(element.odn_id)"></td> -->
+                                    <td (click)="edit(element.odn_id)">{{element.odn_approve_predict_date | date:"dd/MM/yyyy"}}</td>
+
+                                    <td (click)="edit(element.odn_id)">{{element.odn_build_start_date}}</td>
+                                    <td (click)="edit(element.odn_id)">{{element.odn_build_finish_date}}</td>
+                                    <td (click)="edit(element.odn_id)">xxx</td>
+                                    <td (click)="edit(element.odn_id)">{{element.odn_build_close_job | date:"dd/MM/yyyy"}}</td>
                                 </tr>
                           </tbody>
                         </ng-template>
@@ -123,5 +167,14 @@
         <!-- end // -->
     </div>
 </main>
+
+
+
+
+<!-- <ng-container *ngIf="foo === 1;else second"></ng-container>
+<ng-template #second>
+    <ng-container *ngIf="foo === 2;else third"></ng-container>
+</ng-template>
+<ng-template #third></ng-template> -->
 
 <app-footer></app-footer>

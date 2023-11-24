@@ -156,7 +156,7 @@ export class AddOdnComponent implements OnInit {
           if (r.status) {
             Swal.fire({
               icon: "success",
-              title: r.message,
+              title: 'บันทึกข้อมูลสำเร็จ',
               showConfirmButton: false,
               timer: 1000,
               timerProgressBar: true,
@@ -175,6 +175,7 @@ export class AddOdnComponent implements OnInit {
 
   public genCode() {
     this.service.genCode().pipe(takeUntil(this.componentDestroyed$)).subscribe(g => {
+      console.log('g',g);
       this.aform.patchValue({
         odn_code: g.new_odncode,
       });

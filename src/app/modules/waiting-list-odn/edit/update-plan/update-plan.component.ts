@@ -64,7 +64,7 @@ export class UpdatePlanComponent implements OnInit, OnDestroy {
 
       this.aform = this.fb.group({
         odn_plan_ofc_length: this.fb.control('', [Validators.required,Validators.pattern("^[0-9]*$")]),
-        odn_plan_payback_period : this.fb.control('', [Validators.required,Validators.pattern("^[0-9]*$")]),
+        odn_plan_payback_period : this.fb.control('', [Validators.required]),
         odn_plan_date: this.fb.control(null, [Validators.required]),
         odn_plan_users_id: this.fb.control(null, [Validators.required]),
       });
