@@ -44,7 +44,7 @@
                               <th scope="col" rowspan="2">สร้างเสร็จ<br>แจ้งขาย</th>
                             </tr>   
                             <tr class="text-center">
-                                <th scope="col">บันทึก ODN</th>
+                                <th scope="col">ผู้บันทึก ODN</th>
                                 <th scope="col">เลขที่ ODN</th>
                                 
                                  <!-- verify -->
@@ -92,7 +92,7 @@
                                     <td (click)="edit(element.odn_id)">{{element.org_text}}</td>
                                     <!-- <td (click)="edit(element.odn_id)"></td> -->
                                     <td (click)="edit(element.odn_id)">
-                                        {{element.odn_request_user_id}}<br>
+                                        {{element.request_recorder}}<br>
                                         {{element.odn_added_date | date:"dd/MM/yyyy"}}
                                     </td>
                                     <td (click)="edit(element.odn_id)">{{element.odn_place}}</td>
@@ -102,29 +102,32 @@
                                     <td (click)="edit(element.odn_id)">{{element.odn_sale_chance}}</td>
                                     <td (click)="edit(element.odn_id)">{{element.odn_plan_ofc_length}}</td>
                                     <td (click)="edit(element.odn_id)">{{element.odn_plan_payback_period}}</td>
-                                    <td (click)="edit(element.odn_id)"></td>
-                                    <td (click)="edit(element.odn_id)">
-                                        {{element.odn_code_from_3bbodn}}<br>
-                                        {{element.odn_plan_date | date:"dd/MM/yyyy"}}
-                                    </td>
+                                    <td (click)="edit(element.odn_id)">{{element.request_odn_recorder}}<br>{{element.odn_plan_date | date:"dd/MM/yyyy"}}</td>
+                                    <td (click)="edit(element.odn_id)">{{element.odn_code_from_3bbodn}}</td>
 
-                                    <td (click)="edit(element.odn_id)">{{element.odn_verify_approve}}</td>
                                     <td (click)="edit(element.odn_id)">
-                                        {{element.odn_verify_users_id}}<br>
+                                        <span *ngIf="element.odn_verify_approve == 0"><strong class="text-danger">ไม่อนุมัติ</strong></span>
+                                        <span *ngIf="element.odn_verify_approve == 1"><strong class="text-success">อนุมัติ</strong></span>                                        
+                                    </td>
+                                    <td (click)="edit(element.odn_id)">
+                                        {{element.verify_recorder}}<br>
                                         {{element.odn_verify_date | date:"dd/MM/yyyy"}}
                                     </td>
                                     <!-- <td (click)="edit(element.odn_id)"></td> -->
 
-                                    <td (click)="edit(element.odn_id)">{{element.odn_approve_approve}}</td>
                                     <td (click)="edit(element.odn_id)">
-                                        {{element.odn_approve_users_id}}<br>
+                                        <span *ngIf="element.odn_approve_approve == 0"><strong class="text-danger">ไม่อนุมัติ</strong></span>
+                                        <span *ngIf="element.odn_approve_approve == 1"><strong class="text-success">อนุมัติ</strong></span>
+                                    </td>
+                                    <td (click)="edit(element.odn_id)">
+                                        {{element.approve_recorder}}<br>
                                         {{element.odn_approve_date | date:"dd/MM/yyyy"}}
                                     </td>
                                     <!-- <td (click)="edit(element.odn_id)"></td> -->
                                     <td (click)="edit(element.odn_id)">{{element.odn_approve_predict_date | date:"dd/MM/yyyy"}}</td>
 
-                                    <td (click)="edit(element.odn_id)">{{element.odn_build_start_date}}</td>
-                                    <td (click)="edit(element.odn_id)">{{element.odn_build_finish_date}}</td>
+                                    <td (click)="edit(element.odn_id)">{{element.odn_build_start_date | date:"dd/MM/yyyy"}}</td>
+                                    <td (click)="edit(element.odn_id)">{{element.odn_build_finish_date | date:"dd/MM/yyyy"}}</td>
                                     <td (click)="edit(element.odn_id)">xxx</td>
                                     <td (click)="edit(element.odn_id)">{{element.odn_build_close_job | date:"dd/MM/yyyy"}}</td>
                                 </tr>

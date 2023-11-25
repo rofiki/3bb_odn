@@ -88,6 +88,8 @@ export class HomeComponent implements OnInit, OnDestroy {
         }
         this.itemRef.data[key] = data[key];
       });
+
+      console.log(this.itemRef);
     });
   }
 
