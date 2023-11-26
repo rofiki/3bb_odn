@@ -1,4 +1,63 @@
-<!-- <app-header></app-header> -->
-<p>profile works!</p>
-<!-- <app-footer></app-footer> -->
+<app-islogin-header [appName]="appName"></app-islogin-header>
 
+<div class="nav-scroller" style="text-align: right;">
+  <div class="text text-small"><a [routerLink]="[BASE_URL + loginUser.email + '/profile']" class="text-secondary"><small><i class="fa-regular fa-user"></i> {{loginUser.email}} <i class="fa-regular fa-circle-check"></i> {{loginUser.role}}</small></a></div>
+</div>
+
+<main class="container-fluid">
+  <div class="p-3 bg-body-tertiary border">
+      <!-- // --> 
+
+      <div class="container"><!-- container-fluid -->
+        <div class="">
+            <!-- // -->
+            <h5 class=""><strong>แก้ไขข้อมูลส่วนตัว</strong></h5>
+            <div class="row">
+                <div class="col-md-12">
+    
+    
+                  <div class="row p-3">
+                    <div class="col-md-12 border-bottom">
+                      <h6>ข้อมูลส่วนตัว</h6>
+                    </div>
+                    <div class="col-md-12">
+                      <div class="ps-4 pe-4">
+                        <app-profile-edit></app-profile-edit>
+                      </div>
+                    </div>                
+                  </div>
+    
+                  <div class="row p-3">
+                    <div class="col-md-12 border-bottom">
+                      <h6>ข้อมูลสำหรับเข้าใช้งานระบบ</h6>
+                    </div>
+                    <div class="col-md-12">
+                      <div class="ps-4 pe-4">
+                        <app-profile-edit-password></app-profile-edit-password>
+                      </div>
+                    </div>  
+                  </div>            
+                  
+                  <div class="row p-3">
+                    <div class="col-md-12 border-bottom">
+                      <h6>ประวัติการเข้าสู่ระบบ</h6>
+                    </div>
+                    <div class="col-md-12">
+                      <div class="ps-4 pe-4">
+                        <app-logined-manage></app-logined-manage>
+                      </div>
+                    </div>  
+                  </div>                  
+    
+                </div>
+            </div>
+            <!-- end // -->
+        </div>
+    </div>
+    </div>
+  </main>
+
+
+
+
+<app-islogin-footer></app-islogin-footer>

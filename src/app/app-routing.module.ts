@@ -31,7 +31,7 @@ const routes: Routes = [
   { path: 'register', component: RegisterComponent },
   { path: 'forgot-password', component: ForgotPasswordComponent },
   { path: 'callback', component: CallbackComponent }, // ไม่ได้ใช้งาน
-  { path: users_email+'/dashboard', loadChildren: () => import('./modules/is-login/is-login.module').then((m) => m.IsLoginModule) },
+  { path: users_email, loadChildren: () => import('./modules/is-login/is-login.module').then((m) => m.IsLoginModule) },
   { path: users_email+'/odn', loadChildren: () => import('./modules/waiting-list-odn/waiting-list-odn.module').then((m) => m.WaitingListOdnModule) },
   { path: '**', component: NotFoundComponent },
 

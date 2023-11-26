@@ -174,22 +174,19 @@ export class LoginComponent implements OnInit {
     let swalOption = this.swalOption;
     let params = this.loginForm.value;
 
-    const date = new Date();
-    const md5_timestamp = cryptoJS.MD5(Date.now().toString()).toString();
-
     // this.ip.getIPAddress().subscribe(ip => {
       // this.ipAddress = ip;
       let ip = '000,000,000,000';
 
       params.tokenLog = ip; // this.ipAddress = ip;
-      params.login_datetime = md5_timestamp;
+      params.login_datetime = '';
       params.logout_datetime = '';
       params.login_pcname = '';
       params.login_ip = ip; // this.ipAddress = ip;
       params.isLogin = 1;
 
       this.authService.loginWithForm(params).subscribe(res => {
-        console.log('res', res);
+        // console.log('res', res);
 
         if(res.loading == false){
           //ปิด loding
@@ -207,7 +204,7 @@ export class LoginComponent implements OnInit {
 
           localStorage.setItem('token', res.token);
           localStorage.setItem('islogin', '1');
-          localStorage.setItem('log', md5_timestamp);
+          // localStorage.setItem('log', md5_timestamp);
 
           const Toast = Swal.mixin({
             toast: true,

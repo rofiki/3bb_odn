@@ -62,4 +62,12 @@ export class AuthService {
     return this.http.post(this.apiUrl + '/login', params);
   }
 
+  public changePassword(params: {}): Observable<any> {
+    return this.http.put(this.apiUrl + '/change/password', params);
+  }
+
+  public logout(params: {}): Observable<any> {
+    return this.http.put(this.apiUrl + '/login/logout', params);
+  }
+
 }

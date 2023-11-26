@@ -7,6 +7,7 @@ import { OdnService } from 'src/app/services/odn/odn.service';
 import { Subject, takeUntil } from 'rxjs';
 import { firstValueFrom, lastValueFrom, Observable, Subscription } from 'rxjs';
 import { DatePipe } from '@angular/common';
+import { AppService } from 'src/app/services/base/app.service';
 
 @Component({
   selector: 'app-home',
@@ -21,7 +22,8 @@ export class HomeComponent implements OnInit, OnDestroy {
     private service: OdnService,
     private router: Router,
     private route: ActivatedRoute,
-    private datePipe: DatePipe
+    private datePipe: DatePipe,
+    private appService: AppService,
   ) { }
 
   public componentDestroyed$: Subject<boolean> = new Subject()
@@ -35,6 +37,8 @@ export class HomeComponent implements OnInit, OnDestroy {
   public start: number = 0;
   public limit: number = 25;
   public search: string = '';
+
+  public BASE_URL:string = this.appService.BASE_URL;
 
   ngOnInit(): void {
     const token: any = localStorage.getItem('token');
@@ -55,7 +59,6 @@ export class HomeComponent implements OnInit, OnDestroy {
     this.service.findAll({ search: this.search, start: this.start, limit: this.limit }).pipe(takeUntil(this.componentDestroyed$)).subscribe(res => {
       this.itemRef = res;
       let data = res.data;
-
       this.isProcess = false;
       this.showTable = true;
 
@@ -89,7 +92,7 @@ export class HomeComponent implements OnInit, OnDestroy {
         this.itemRef.data[key] = data[key];
       });
 
-      console.log(this.itemRef);
+      // console.log(this.itemRef);
     });
   }
 

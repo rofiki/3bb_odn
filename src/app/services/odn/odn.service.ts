@@ -20,7 +20,7 @@ export class OdnService {
   private apiUrl: string = this.dbService.getServiceURL() + '/odn/odn';
 
   findAll(params : { search? : string, start : number, limit : number }): Observable<any> {
-    return this.http.get<any>(this.apiUrl + '/' + this.appService.getQueryString(params));
+    return this.http.get<any>(this.apiUrl + '' + this.appService.getQueryString(params));
   }
 
   findById(id:number): Observable<any> {

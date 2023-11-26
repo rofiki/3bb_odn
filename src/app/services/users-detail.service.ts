@@ -27,4 +27,9 @@ export class UsersDetailService {
   findById(id: number): Observable<any> {
     return this.http.get<any>(this.apiUrl + '/' + id);
   }
+
+  public update(params: {}): Observable<any> {
+    // console.log('param = ', params);
+    return this.http.put(this.apiUrl + '/', params);
+  }
 }

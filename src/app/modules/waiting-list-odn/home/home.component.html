@@ -1,7 +1,7 @@
 <app-header></app-header>
 
 <div class="nav-scroller" style="text-align: right;">
-    <div class="text text-secondary text-small"><small><i class="fa-regular fa-user"></i> {{loginUser.email}} <i class="fa-regular fa-circle-check"></i> {{loginUser.role}}</small></div>
+    <div class="text text-small"><a [routerLink]="[BASE_URL + loginUser.email + '/profile']" class="text-secondary"><small><i class="fa-regular fa-user"></i> {{loginUser.email}} <i class="fa-regular fa-circle-check"></i> {{loginUser.role}}</small></a></div>
 </div>
 
 <main class="container-fluid">
