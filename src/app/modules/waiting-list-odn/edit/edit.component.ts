@@ -30,6 +30,7 @@ export class EditComponent implements OnInit {
 
   public loginUser: any = null;
   public id: any = this.route.snapshot.paramMap.get('id');
+  public BASE_URL: string = this.appService.BASE_URL;
 
   constructor(
     private authService: AuthService,

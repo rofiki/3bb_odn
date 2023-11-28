@@ -28,6 +28,7 @@ import { OdnService } from 'src/app/services/odn/odn.service';
 export class AddOdnComponent implements OnInit {
 
   public loginUser: any = null;
+  public BASE_URL: string = this.appService.BASE_URL;
 
   constructor(
     private authService: AuthService,

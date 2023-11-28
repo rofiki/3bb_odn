@@ -5,6 +5,7 @@ import { jwtDecode } from 'jwt-decode';
 import { OdnService } from 'src/app/services/odn/odn.service';
 
 import { firstValueFrom, lastValueFrom, Observable, Subscription } from 'rxjs';
+import { AppService } from 'src/app/services/base/app.service';
 
 @Component({
   selector: 'app-detail-odn',
@@ -18,6 +19,7 @@ export class DetailOdnComponent implements OnInit {
   public itemRef: any = null;
   public verifyApproveRef:any = null;
   public approveApproveRef:any = null;
+  public BASE_URL: string = this.appService.BASE_URL;
 
   // add css
   public planCss: boolean = false;
@@ -31,12 +33,14 @@ export class DetailOdnComponent implements OnInit {
   constructor(
     private service: OdnService,
     private router: Router,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private appService: AppService,
   ) { }
 
   ngOnInit(): void {
     const token: any = localStorage.getItem('token');
     this.loginUser = jwtDecode(token);
+    // console.log(this.loginUser);
 
     this.getData();
   }

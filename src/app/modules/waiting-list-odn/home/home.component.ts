@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit, ElementRef, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 
 import { jwtDecode } from 'jwt-decode';
@@ -8,6 +8,8 @@ import { Subject, takeUntil } from 'rxjs';
 import { firstValueFrom, lastValueFrom, Observable, Subscription } from 'rxjs';
 import { DatePipe } from '@angular/common';
 import { AppService } from 'src/app/services/base/app.service';
+import { DropdownService } from 'src/app/services/odn/dropdown.service';
+import { FormBuilder, FormGroup } from '@angular/forms';
 
 @Component({
   selector: 'app-home',
@@ -17,6 +19,7 @@ import { AppService } from 'src/app/services/base/app.service';
 export class HomeComponent implements OnInit, OnDestroy {
 
   public loginUser: any = null;
+  public BASE_URL: string = this.appService.BASE_URL;
 
   constructor(
     private service: OdnService,
@@ -24,6 +27,9 @@ export class HomeComponent implements OnInit, OnDestroy {
     private route: ActivatedRoute,
     private datePipe: DatePipe,
     private appService: AppService,
+    private dropdown: DropdownService,
+
+    private fb: FormBuilder,
   ) { }
 
   public componentDestroyed$: Subject<boolean> = new Subject()
@@ -35,16 +41,19 @@ export class HomeComponent implements OnInit, OnDestroy {
   public itemRef: any;
 
   public start: number = 0;
-  public limit: number = 25;
-  public search: string = '';
+  public limit: number = 50;
+  public search: any = {};
 
-  public BASE_URL: string = this.appService.BASE_URL;
+  public dropdownList: any;
 
-  ngOnInit(): void {
+  async ngOnInit() {
     const token: any = localStorage.getItem('token');
     this.loginUser = jwtDecode(token);
 
     this.getData();
+    this.dropdownList = await this.dropdown.get();
+
+
   }
 
   edit(id: number) {
@@ -56,11 +65,17 @@ export class HomeComponent implements OnInit, OnDestroy {
     this.showTable = false;
     this.isProcess = true;
     // this.itemRef = await lastValueFrom(this.service.findAll({ search: this.search, start: this.start, limit: this.limit }));
-    this.service.findAll({ search: this.search, start: this.start, limit: this.limit }).pipe(takeUntil(this.componentDestroyed$)).subscribe(res => {
+    this.service.findAll({ 
+      searchText: this.searchText, searchProvince: this.searchProvince, searchUsers: this.searchUsers, searchStatus: this.searchStatus, 
+      start: this.start, 
+      limit: this.limit 
+    }).pipe(takeUntil(this.componentDestroyed$)).subscribe(res => {
+
       this.itemRef = res;
       let data = res.data;
       this.isProcess = false;
       this.showTable = true;
+
 
       Object.keys(data).forEach((key: any) => {
 
@@ -72,8 +87,7 @@ export class HomeComponent implements OnInit, OnDestroy {
         let planStatus = (data[key].odn_plan_date) ? true : false;
         let startStatus = (data[key].odn_added_date) ? true : false;
 
-        if ((data[key].odn_build_start_date) && (data[key].odn_build_finish_date)) 
-        {
+        if ((data[key].odn_build_start_date) && (data[key].odn_build_finish_date)) {
           let start: any = new Date(data[key].odn_build_start_date);
           let end: any = new Date(data[key].odn_build_finish_date);
           let dayBuildCount = Math.ceil((end.getTime() - start.getTime()) / (1000 * 3600 * 24));
@@ -81,12 +95,6 @@ export class HomeComponent implements OnInit, OnDestroy {
         } else {
           data[key].dayBuildCount = 0;
         }
-
-
-        // var timeDiff = Math.abs(date1.getTime() - date2.getTime());
-
-        // dayBuildCount = data[key].odn_build_start_date - data[key].odn_build_finish_date;
-
 
         if (finishJobStatus) {
           data[key].status = 'finish';
@@ -108,17 +116,20 @@ export class HomeComponent implements OnInit, OnDestroy {
         this.itemRef.data[key] = data[key];
       });
 
-      // console.log(this.itemRef);
+      console.log(this.itemRef);
     });
   }
 
-  public pageEventChange(start: number = 0, limit: number = 25, search: string = '') {
+  public pageEventChange(start: number = 0, limit: number = 50, searchText: string = '', searchProvince: string = '', searchUsers: string = '', searchStatus: string = '') {
 
     this.isProcess = true;
     this.showTable = false;
 
     // TODO : get all,
-    this.service.findAll({ search: search, start: start, limit: limit }).pipe(takeUntil(this.componentDestroyed$)).subscribe({
+    this.service.findAll({
+      searchText: searchText, searchProvince: searchProvince, searchUsers: searchUsers, searchStatus: searchStatus, 
+      start: start, limit: limit
+    }).pipe(takeUntil(this.componentDestroyed$)).subscribe({
 
       next: result => {
         this.itemRef = result;
@@ -135,6 +146,26 @@ export class HomeComponent implements OnInit, OnDestroy {
     })
 
   }
+
+
+  @ViewChild('province', { static: false }) province?: ElementRef;
+  @ViewChild('users', { static: false }) users?: ElementRef;
+  @ViewChild('status', { static: false }) status?: ElementRef;
+  @ViewChild('text', { static: false }) text?: ElementRef;
+  public searchText: any;
+  public searchProvince: any;
+  public searchUsers: any;
+  public searchStatus: any;
+
+  searchItems() {
+    this.searchText = this.text?.nativeElement.value;
+    this.searchProvince = this.province?.nativeElement.value;
+    this.searchUsers = this.users?.nativeElement.value;
+    this.searchStatus = this.status?.nativeElement.value;
+
+    this.getData();
+  }
+
 
   ngOnDestroy(): void {
     this.componentDestroyed$.next(true)

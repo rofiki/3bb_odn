@@ -69,7 +69,7 @@
                         </div>
                         <div class="row p-2">
                             <div class="col-md-4 ">ชื่อ-นามสกุล</div>
-                            <div class="col-md-8 "><strong>{{loginUser.name}}</strong></div>
+                            <div class="col-md-8 "><strong>{{loginUser.firstname}} {{loginUser.lastname}}</strong></div>
                         </div>
                         <div class="row p-2">
                             <div class="col-md-4 ">อีเมล์</div>
@@ -82,7 +82,7 @@
                         <div class="row p-2">
                             <div class="col-md-4 ">ล๊อกอินเมื่อ</div>
                             <div class="col-md-8 "><strong>
-                                <!-- {{isLoginDate | date: 'd/M/yy, h:mm a'}} -->
+                                {{loginUser.loginDate | date: 'dd/MM/yyyy, h:mm a'}}
                             </strong></div>
                         </div>      
                         <!-- <div class="row p-2">

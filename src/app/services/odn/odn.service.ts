@@ -19,7 +19,7 @@ export class OdnService {
 
   private apiUrl: string = this.dbService.getServiceURL() + '/odn/odn';
 
-  findAll(params : { search? : string, start : number, limit : number }): Observable<any> {
+  findAll(params : { searchText? : string, searchProvince? : string, searchUsers? : string, searchStatus? : string, start : number, limit : number }): Observable<any> {
     return this.http.get<any>(this.apiUrl + '' + this.appService.getQueryString(params));
   }
 

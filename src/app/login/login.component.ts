@@ -60,6 +60,7 @@ export class LoginComponent implements OnInit {
     const token: any = localStorage.getItem('token');
     if (token) {
       this.loginUser = jwtDecode(token);
+      // console.log(this.loginUser);
     }
 
     if (!this.isLogin) {

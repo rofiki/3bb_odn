@@ -1,7 +1,7 @@
 <app-header></app-header>
 
 <div class="nav-scroller" style="text-align: right;">
-    <div class="text text-secondary text-small"><small><i class="fa-regular fa-user"></i> {{loginUser.email}} <i class="fa-regular fa-circle-check"></i> {{loginUser.role}}</small></div>
+    <div class="text text-small"><a [routerLink]="[BASE_URL + loginUser.email + '/profile']" class="text-secondary"><small><i class="fa-regular fa-user"></i> {{loginUser.email}} <i class="fa-regular fa-circle-check"></i> {{loginUser.role}}</small></a></div>
 </div>
 
 <main class="container-fluid"  *ngIf="itemRef">
@@ -15,8 +15,10 @@
             </div>
             <div class="col-md-6 text-end">
                 <a class="btn btn-secondary btn-sm" [routerLink]="['/' + loginUser.email + '/odn/home']"><i class="fa-solid fa-arrow-left"></i> Back</a>
-                <a class="btn btn-warning btn-sm m-1" [routerLink]="['/' + loginUser.email + '/odn/edit',itemRef.odn_id]">Update ข้อมูล</a>
-                <a class="btn btn-danger btn-sm">ลบ</a>
+                <span *ngIf="(loginUser.role == 'admin')">
+                    <a class="btn btn-warning btn-sm m-1" [routerLink]="['/' + loginUser.email + '/odn/edit',itemRef.odn_id]">Update ข้อมูล</a>
+                    <a class="btn btn-danger btn-sm">ลบ</a>
+            </span>
             </div>
         </div>
         
