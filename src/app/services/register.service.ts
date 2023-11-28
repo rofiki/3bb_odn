@@ -31,7 +31,7 @@ export class RegisterService {
     }
 
     public create(params: {}): Observable<any> {
-      return this.http.post(this.apiUrl + '/', params);
+      return this.http.post(this.apiUrl + '', params);
     }
     
 

@@ -46,6 +46,16 @@ export class DetailOdnComponent implements OnInit {
     this.service.findById(this.id).subscribe(r => {
       this.itemRef = r.data;
 
+      if ((this.itemRef.odn_build_start_date) && (this.itemRef.odn_build_finish_date)) 
+      {
+        let start: any = new Date(this.itemRef.odn_build_start_date);
+        let end: any = new Date(this.itemRef.odn_build_finish_date);
+        let dayBuildCount = Math.ceil((end.getTime() - start.getTime()) / (1000 * 3600 * 24));
+        this.itemRef.dayBuildCount = (dayBuildCount + 1);
+      } else {
+        this.itemRef.dayBuildCount = 0;
+      }
+
       const arr = [];
       arr[0] = 'ไม่อนุมัติ';
       arr[1] = 'อนุมัติ';

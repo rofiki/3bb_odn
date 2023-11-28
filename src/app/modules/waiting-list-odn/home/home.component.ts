@@ -38,7 +38,7 @@ export class HomeComponent implements OnInit, OnDestroy {
   public limit: number = 25;
   public search: string = '';
 
-  public BASE_URL:string = this.appService.BASE_URL;
+  public BASE_URL: string = this.appService.BASE_URL;
 
   ngOnInit(): void {
     const token: any = localStorage.getItem('token');
@@ -71,6 +71,22 @@ export class HomeComponent implements OnInit, OnDestroy {
         let requestStatus = (data[key].odn_code_from_3bbodn) ? true : false;
         let planStatus = (data[key].odn_plan_date) ? true : false;
         let startStatus = (data[key].odn_added_date) ? true : false;
+
+        if ((data[key].odn_build_start_date) && (data[key].odn_build_finish_date)) 
+        {
+          let start: any = new Date(data[key].odn_build_start_date);
+          let end: any = new Date(data[key].odn_build_finish_date);
+          let dayBuildCount = Math.ceil((end.getTime() - start.getTime()) / (1000 * 3600 * 24));
+          data[key].dayBuildCount = (dayBuildCount + 1);
+        } else {
+          data[key].dayBuildCount = 0;
+        }
+
+
+        // var timeDiff = Math.abs(date1.getTime() - date2.getTime());
+
+        // dayBuildCount = data[key].odn_build_start_date - data[key].odn_build_finish_date;
+
 
         if (finishJobStatus) {
           data[key].status = 'finish';

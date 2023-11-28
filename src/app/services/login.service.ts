@@ -14,7 +14,7 @@ export class LoginService {
   private apiUrl: string = this.dbService.getServiceURL() + '/login';
 
   public create(params: {}): Observable<any> {
-    return this.http.post(this.apiUrl + '/', params);
+    return this.http.post(this.apiUrl + '', params);
   }
 
 }

@@ -142,29 +142,30 @@ export class RegisterComponent implements OnInit, OnDestroy {
         // ตรวจสอบ email มีในระบบรึยัง
         this.service.findByEmail(params.users_usersname).pipe(takeUntil(this.componentDestroyed$))
           .subscribe(resByEmail => {
+            console.log(resByEmail);
 
             if (resByEmail.data) {
 
-              Swal.fire(swalOption.Warning("Email: " + params.users_usersname, "อีเมล์นี้ มีอยู่ในระบบแล้ว!")).then((result) => {
-                if (result.isConfirmed) {
-                  this.isProcess = false;
-                }
-              })
+            //   Swal.fire(swalOption.Warning("Email: " + params.users_usersname, "อีเมล์นี้ มีอยู่ในระบบแล้ว!")).then((result) => {
+            //     if (result.isConfirmed) {
+            //       this.isProcess = false;
+            //     }
+            //   })
 
             } else {
 
               this.service.create(params)
               .pipe(takeUntil(this.componentDestroyed$))
               .subscribe(res => {
-
+                console.log(res);
                 // บันทึกสำเร็จ
-                if (res.status) {
-                  Swal.fire(swalOption.Success('ลงทะเบียนเรียบร้อย!', "Email: " + res.email, 'หน้าล๊อกอิน')).then((result) => {
-                    if (result.isConfirmed) {
-                      window.location.href = this.BASE_URL + 'login';
-                    }
-                  })
-                }
+                // if (res.status) {
+                //   Swal.fire(swalOption.Success('ลงทะเบียนเรียบร้อย!', "Email: " + res.email, 'หน้าล๊อกอิน')).then((result) => {
+                //     if (result.isConfirmed) {
+                //       window.location.href = this.BASE_URL + 'login';
+                //     }
+                //   })
+                // }
               });
 
             }
