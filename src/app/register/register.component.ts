@@ -159,13 +159,13 @@ export class RegisterComponent implements OnInit, OnDestroy {
               .subscribe(res => {
                 console.log(res);
                 // บันทึกสำเร็จ
-                // if (res.status) {
-                //   Swal.fire(swalOption.Success('ลงทะเบียนเรียบร้อย!', "Email: " + res.email, 'หน้าล๊อกอิน')).then((result) => {
-                //     if (result.isConfirmed) {
-                //       window.location.href = this.BASE_URL + 'login';
-                //     }
-                //   })
-                // }
+                if (res.status) {
+                  Swal.fire(swalOption.Success('ลงทะเบียนเรียบร้อย!', "Email: " + res.email, 'หน้าล๊อกอิน')).then((result) => {
+                    if (result.isConfirmed) {
+                      window.location.href = this.BASE_URL + 'login';
+                    }
+                  })
+                }
               });
 
             }
@@ -180,17 +180,9 @@ export class RegisterComponent implements OnInit, OnDestroy {
     this.componentDestroyed$.complete()
   }
 
-  // css style
-  bodyStyle() {
-    const bodyStyle = this.elementRef.nativeElement.ownerDocument.body.style;
-    // bodyStyle.background = 'Radial-Gradient(Ellipse At Center,#Fffeea 0%,#Fffeea 35%,#880c48 100%)';
-    // bodyStyle.background = 'url(https://hrgproject.com/hrg-dev/contractor/dist/img/bg_login.jpg)';
-    bodyStyle.background = 'url(' + this.BASE_URL +'assets/wallpaper/wallpaper_or1.jpg)';
-    // bodyStyle.backgroundSize = 'cover';
-  }
-
   ngAfterViewInit() {
-    this.bodyStyle(); // body css style
+    const bodyStyle = this.elementRef.nativeElement.ownerDocument.body.style;
+    bodyStyle.background = 'url(' + this.BASE_URL +'assets/wallpaper/wallpaper_or1.jpg)';
   }
 
 }
