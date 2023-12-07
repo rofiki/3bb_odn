@@ -63,6 +63,10 @@ export class OdnService {
     return this.http.put(this.apiUrl + '/updatebuild', params);
   }
 
+  public delete(id: any): Observable<any> {
+    return this.http.delete<any>(this.apiUrl + '/' + id);
+  }
+
   genCode(): Observable<any> {
     return this.http.get<any>(this.dbService.getServiceURL() + '/genodncode' );
   }

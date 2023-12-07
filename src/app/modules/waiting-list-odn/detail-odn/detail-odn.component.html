@@ -17,7 +17,7 @@
                 <a class="btn btn-secondary btn-sm" [routerLink]="['/' + loginUser.email + '/odn/home']"><i class="fa-solid fa-arrow-left"></i> Back</a>
                 <span *ngIf="(loginUser.role == 'admin')">
                     <a class="btn btn-warning btn-sm m-1" [routerLink]="['/' + loginUser.email + '/odn/edit',itemRef.odn_id]">Update ข้อมูล</a>
-                    <a class="btn btn-danger btn-sm">ลบ</a>
+                    <a class="btn btn-danger btn-sm" (click)="delOdn(itemRef.odn_id)">ลบ</a>
             </span>
             </div>
         </div>

@@ -7,6 +7,9 @@ import { OdnService } from 'src/app/services/odn/odn.service';
 import { firstValueFrom, lastValueFrom, Observable, Subscription } from 'rxjs';
 import { AppService } from 'src/app/services/base/app.service';
 
+import Swal from 'sweetalert2';
+import { SwalOption } from 'src/app/shared/sweetalert2.option.directive';
+
 @Component({
   selector: 'app-detail-odn',
   templateUrl: './detail-odn.component.html',
@@ -29,6 +32,9 @@ export class DetailOdnComponent implements OnInit {
   public buildStartCss: boolean = false;
   public buildFinishCss: boolean = false;
   public buildCloseCss: boolean = false;
+
+  // sweetalert2
+  public swalOption = new SwalOption;
 
   constructor(
     private service: OdnService,
@@ -75,6 +81,51 @@ export class DetailOdnComponent implements OnInit {
       this.buildFinishCss = (this.itemRef.odn_build_finish_date ) ? true : false;
       this.buildCloseCss = (this.itemRef.odn_build_close_job ) ? true : false;
     });
+  }
+
+  delOdn(value:any)
+  {
+
+    Swal.fire({
+      title: "โปรดยืนยันการลบข้อมูล",
+      // text: "You won't be able to revert this!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "ยืนบัน",
+      cancelButtonText: "ยกเลิก",
+
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this.service.delete(value).subscribe(res => {
+          if(res.status)
+          {
+            const Toast = Swal.mixin({
+              toast: true,
+              position: 'top-end',
+              showConfirmButton: false,
+              timer: 3000,
+              timerProgressBar: true,
+              didOpen: (toast) => {
+                toast.addEventListener('mouseenter', Swal.stopTimer);
+                toast.addEventListener('mouseleave', Swal.resumeTimer);
+              }
+            })
+            Toast.fire({ icon: 'success', title: 'ลบข้อมูลสำเร็จ' });
+            this.router.navigate([this.BASE_URL + this.loginUser.email + '/odn']);
+          }
+        });
+      }
+    });
+
+
+
+    // Swal.fire(this.swalOption.Warning('', 'กรุณาล๊อกอิน !!', 'ล๊อกอิน')).then((result) => {
+    //   if (result.isConfirmed) {
+    //     // this.router.navigate(['/login']);
+    //   }
+    // })
   }
 
 }
